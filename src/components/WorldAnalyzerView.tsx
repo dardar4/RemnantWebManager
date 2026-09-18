@@ -69,11 +69,11 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
         }}
       />
 
-      <div style={{ padding: '1.75rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.75rem', maxWidth: '1280px', margin: '0 auto', width: '100%' }}>
+      <div style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
         {/* Top Header Bar */}
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
           <div>
-            <h2 style={{ fontFamily: 'var(--font-headline)', fontSize: '24px', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--terra-900)' }}>
+            <h2 style={{ fontFamily: 'var(--font-headline)', fontSize: '20px', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--terra-900)' }}>
               World Analyzer Telemetry
             </h2>
           </div>
@@ -229,11 +229,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>
                     save_&#123;character number&#125;.sav
                   </code>{' '}
-                  to inspect what events you rolled for this specific character. Additionally you can upload your{' '}
-                  <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>
-                    profile.sav
-                  </code>{' '}
-                  to detect which items you are missing and if your rolled events can reward them. You can drop multiple save files; tables update automatically.
+                  to inspect what events you rolled for this specific character.
                 </p>
 
                 {/* Path Helper Strip */}
@@ -317,18 +313,17 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
         >
           <div style={{ maxWidth: '28rem', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div className="wa-dropzone-icon">
-              <span className="material-symbols-outlined" style={{ fontSize: '32px' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
                 cloud_upload
               </span>
             </div>
-            <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '16px', fontWeight: 700, color: 'var(--terra-900)', marginBottom: '0.25rem' }}>
-              Choose or drop profile or save files
+            <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '15px', fontWeight: 700, color: 'var(--terra-900)', marginBottom: '0.25rem' }}>
+              Choose or drop save files
             </h3>
-            <p style={{ fontSize: '12px', color: 'var(--terra-500)', marginBottom: '1.25rem', fontWeight: 500 }}>
+            <p style={{ fontSize: '12px', color: 'var(--terra-500)', marginBottom: '0.875rem', fontWeight: 500 }}>
               Supports <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_0.sav</code>,{' '}
-              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_1.sav</code>,{' '}
-              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_2.sav</code>, and{' '}
-              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>profile.sav</code>
+              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_1.sav</code>, or{' '}
+              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_2.sav</code>
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <button
@@ -337,10 +332,10 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  padding: '0.625rem 1.5rem',
-                  fontSize: '13px',
+                  padding: '0.5rem 1.25rem',
+                  fontSize: '12px',
                   fontWeight: 600,
-                  borderRadius: '0.75rem',
+                  borderRadius: '0.625rem',
                   color: '#ffffff',
                   backgroundColor: 'var(--moss-600)',
                   border: '1px solid var(--moss-700)',
@@ -348,7 +343,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   cursor: 'pointer',
                 }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
                   upload_file
                 </span>
                 <span>Upload File</span>
@@ -502,16 +497,16 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               <tbody style={{ fontSize: '12px', color: 'var(--terra-800)' }}>
                 {/* EMPTY TABLE as requested: "for now only do the UI part. the tabel should be empty" */}
                 <tr>
-                  <td colSpan={4} style={{ textAlign: 'center', padding: '4.5rem 1.5rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.625rem' }}>
-                      <span className="material-symbols-outlined" style={{ fontSize: '36px', color: 'var(--terra-400)' }}>
+                  <td colSpan={4} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                      <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--terra-400)' }}>
                         table_rows
                       </span>
-                      <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--terra-800)' }}>
+                      <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--terra-800)' }}>
                         No world data loaded yet
                       </span>
                       <span style={{ fontSize: '12px', color: 'var(--terra-500)', maxWidth: '28rem', lineHeight: 1.5 }}>
-                        Upload your <code style={{ backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', padding: '1px 4px', borderRadius: '3px' }}>save_0.sav</code> or <code style={{ backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', padding: '1px 4px', borderRadius: '3px' }}>profile.sav</code> using the dropzone above to populate this telemetry matrix.
+                        Upload your <code style={{ backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', padding: '1px 4px', borderRadius: '3px' }}>save_0.sav</code> using the dropzone above to populate this telemetry matrix.
                       </span>
                     </div>
                   </td>
