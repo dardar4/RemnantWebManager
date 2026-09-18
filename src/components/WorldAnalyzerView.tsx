@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import type { FC } from 'react';
-import type { RemnantCharacter } from '../types/remnant';
+import type { RemnantCharacter, RemnantItem } from '../types/remnant';
+import { gameData } from '../utils/saveParser';
 
 interface WorldAnalyzerViewProps {
   character: RemnantCharacter;
@@ -41,6 +42,13 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
     setTimeout(() => setIsCopied(false), 2000);
   };
 
+  const getItemType = (item: RemnantItem): string | null => {
+    if (item.type && item.type !== 'Uncategorized') return item.type;
+    const found = gameData.allItems.find((i) => i.key === item.key || i.name === item.name);
+    if (found && found.type && found.type !== 'Uncategorized') return found.type;
+    return null;
+  };
+
   const currentEvents = mode === 'campaign' ? (character.campaignEvents || []) : (character.adventureEvents || []);
 
   const filteredEvents = currentEvents.filter((evt) => {
@@ -50,8 +58,14 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
       evt.name.toLowerCase().includes(q) ||
       evt.location.toLowerCase().includes(q) ||
       evt.type.toLowerCase().includes(q) ||
-      evt.missingItems.some((item) => item.name.toLowerCase().includes(q)) ||
-      evt.possibleItems.some((item) => item.name.toLowerCase().includes(q))
+      evt.missingItems.some((item) => {
+        const t = getItemType(item);
+        return item.name.toLowerCase().includes(q) || (t && t.toLowerCase().includes(q));
+      }) ||
+      evt.possibleItems.some((item) => {
+        const t = getItemType(item);
+        return item.name.toLowerCase().includes(q) || (t && t.toLowerCase().includes(q));
+      })
     );
   });
 
@@ -677,26 +691,31 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                         {/* Missing Items */}
                         <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
                           {evt.missingItems && evt.missingItems.length > 0 ? (
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-                              {evt.missingItems.map((item, itemIdx) => (
-                                <span
-                                  key={itemIdx}
-                                  style={{
-                                    display: 'inline-flex',
-                                    alignItems: 'center',
-                                    padding: '0.15rem 0.5rem',
-                                    borderRadius: '0.375rem',
-                                    fontSize: '11px',
-                                    fontWeight: 600,
-                                    fontFamily: 'var(--font-label)',
-                                    backgroundColor: 'var(--terra-100)',
-                                    color: 'var(--terra-800)',
-                                    border: '1px solid var(--terra-200)',
-                                  }}
-                                >
-                                  {item.name}
-                                </span>
-                              ))}
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                              {evt.missingItems.map((item, itemIdx) => {
+                                const itemType = getItemType(item);
+                                return (
+                                  <div
+                                    key={itemIdx}
+                                    style={{
+                                      display: 'flex',
+                                      alignItems: 'baseline',
+                                      gap: '0.35rem',
+                                      fontSize: '12px',
+                                      lineHeight: 1.4,
+                                    }}
+                                  >
+                                    <span style={{ fontWeight: 600, color: 'var(--terra-900)' }}>
+                                      {item.name}
+                                    </span>
+                                    {itemType && (
+                                      <span style={{ color: 'var(--terra-500)', fontSize: '11px', fontWeight: 500 }}>
+                                        ({itemType})
+                                      </span>
+                                    )}
+                                  </div>
+                                );
+                              })}
                             </div>
                           ) : character.inventory && character.inventory.length > 0 && evt.possibleItems && evt.possibleItems.length > 0 ? (
                             <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', color: 'var(--moss-700)', fontSize: '11px', fontWeight: 600 }}>
