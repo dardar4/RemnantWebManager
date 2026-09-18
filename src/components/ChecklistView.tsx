@@ -19,6 +19,7 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
   const currentCat = selectedCategory || 'all';
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [onlyMissing, setOnlyMissing] = useState<boolean>(false);
+  const [dlcFilter, setDlcFilter] = useState<string>('all');
 
   const inventorySet = useMemo(() => new Set(character.inventory), [character.inventory]);
 
@@ -41,13 +42,18 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
     return CHECKLIST_GROUPS.filter((g) => g.id === currentCat);
   }, [currentCat]);
 
-  // Compute grouped items matching current search and missing filter
+  // Compute grouped items matching current search, DLC filter, and missing filter
   const groupedSections = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
 
     return activeGroups.map((group) => {
-      // 1. All items belonging to this category
-      const groupAllItems = gameData.allItems.filter(group.filter);
+      // 1. All items belonging to this category (filtered by DLC if specified)
+      const groupAllItems = gameData.allItems.filter(group.filter).filter((item: RemnantItem) => {
+        if (dlcFilter === 'all') return true;
+        if (dlcFilter === 'base') return !item.dlc || item.dlc.trim() === '';
+        return item.dlc === dlcFilter;
+      });
+
       const groupTotal = groupAllItems.length;
       const groupOwned = groupAllItems.filter((i) => inventorySet.has(i.key)).length;
       const groupPercent = groupTotal > 0 ? Math.round((groupOwned / groupTotal) * 100) : 0;
@@ -74,56 +80,140 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
         items: displayItems,
       };
     });
-  }, [activeGroups, inventorySet, onlyMissing, searchQuery]);
+  }, [activeGroups, inventorySet, onlyMissing, searchQuery, dlcFilter]);
 
   const totalMatches = groupedSections.reduce((sum, g) => sum + g.items.length, 0);
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
       <div className="view-container">
-        {/* Filter Controls */}
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', gap: '0.5rem', flex: 1, minWidth: '220px' }}>
-            <input
-              type="text"
-              placeholder="Search gear by name, drop location, event or requirements..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="tactical-input"
-            />
+        {/* Filter Controls Container */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1rem' }}>
+          {/* Top Row: Search Input & Category Filter Buttons */}
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', flex: 1, minWidth: '240px' }}>
+              <input
+                type="text"
+                placeholder="Search gear by name, drop location, event or requirements..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="tactical-input"
+              />
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap' }}>
+              {categories.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => handleCategoryClick(c.id)}
+                  style={{
+                    fontFamily: 'var(--font-label)',
+                    fontSize: '11px',
+                    padding: '5px 11px',
+                    background: currentCat === c.id ? 'var(--primary)' : 'var(--surface-container-low)',
+                    color: currentCat === c.id ? '#ffffff' : 'var(--on-surface)',
+                    border: '1px solid var(--outline-variant)',
+                    borderRadius: '3px',
+                    cursor: 'pointer',
+                    fontWeight: currentCat === c.id ? 700 : 500,
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {c.label}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap' }}>
-            {categories.map((c) => (
-              <button
-                key={c.id}
-                onClick={() => handleCategoryClick(c.id)}
+          {/* Sub Row (under buttons): Missing Gear Checkbox & DLC Filter Dropdown */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '0.75rem',
+              padding: '0.5rem 0.75rem',
+              backgroundColor: 'var(--surface-container-low)',
+              border: '1px solid var(--outline-variant)',
+              borderRadius: '3px',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
+              {/* Only Missing Gear Checkbox */}
+              <label
                 style={{
-                  fontFamily: 'var(--font-label)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
                   fontSize: '11px',
-                  padding: '4px 10px',
-                  background: currentCat === c.id ? 'var(--primary)' : 'var(--surface-container-low)',
-                  color: currentCat === c.id ? '#ffffff' : 'var(--on-surface)',
-                  border: '1px solid var(--outline-variant)',
-                  borderRadius: '3px',
+                  fontFamily: 'var(--font-label)',
+                  fontWeight: 700,
                   cursor: 'pointer',
-                  fontWeight: currentCat === c.id ? 700 : 500,
-                  transition: 'all 0.15s ease',
+                  userSelect: 'none',
+                  color: onlyMissing ? 'var(--primary)' : 'var(--on-surface)',
+                  letterSpacing: '0.04em',
                 }}
               >
-                {c.label}
-              </button>
-            ))}
-          </div>
+                <input
+                  type="checkbox"
+                  checked={onlyMissing}
+                  onChange={(e) => setOnlyMissing(e.target.checked)}
+                  style={{ cursor: 'pointer', accentColor: 'var(--primary)' }}
+                />
+                <span>ONLY MISSING GEAR</span>
+              </label>
 
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '12px', fontFamily: 'var(--font-label)', cursor: 'pointer' }}>
-            <input
-              type="checkbox"
-              checked={onlyMissing}
-              onChange={(e) => setOnlyMissing(e.target.checked)}
-            />
-            <span>ONLY MISSING GEAR</span>
-          </label>
+              {/* DLC / Expansion Filter Dropdown */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <span
+                  style={{
+                    fontFamily: 'var(--font-label)',
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    color: 'var(--outline)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  Expansion / DLC:
+                </span>
+                <select
+                  value={dlcFilter}
+                  onChange={(e) => setDlcFilter(e.target.value)}
+                  style={{
+                    fontFamily: 'var(--font-label)',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    padding: '0.25rem 0.625rem',
+                    backgroundColor: '#ffffff',
+                    border: '1px solid var(--outline-variant)',
+                    borderRadius: '3px',
+                    color: 'var(--on-surface)',
+                    cursor: 'pointer',
+                    outline: 'none',
+                  }}
+                >
+                  <option value="all">All Content</option>
+                  <option value="base">Base Game</option>
+                  <option value="Subject 2923">Subject 2923</option>
+                  <option value="Swamps of Corsus">Swamps of Corsus</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Total Matches Badge */}
+            <div
+              style={{
+                fontFamily: 'var(--font-label)',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: 'var(--outline)',
+              }}
+            >
+              Showing {totalMatches} item{totalMatches === 1 ? '' : 's'}
+            </div>
+          </div>
         </div>
 
         {/* Table */}
