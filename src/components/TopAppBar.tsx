@@ -38,12 +38,11 @@ export const TopAppBar: FC<TopAppBarProps> = ({ onOpenSettings }) => {
         }}
       >
         <div className="brand-icon-box">
-          <span
-            className="material-symbols-outlined"
-            style={{ color: "var(--primary)", fontSize: "20px" }}
-          >
-            terminal
-          </span>
+          <img
+            src="/remnant-icon.png"
+            alt="Remnant"
+            style={{ width: "16px", height: "16px", objectFit: "contain" }}
+          />
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <div className="brand-title-row" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
