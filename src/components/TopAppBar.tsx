@@ -3,11 +3,17 @@ import type { FC } from "react";
 interface TopAppBarProps {
   isLiveSave?: boolean;
   saveName?: string;
+  isAnalyzing?: boolean;
+  onRefresh?: () => void;
   onOpenSaveFile?: () => void;
   onOpenSettings?: () => void;
 }
 
-export const TopAppBar: FC<TopAppBarProps> = ({ onOpenSettings }) => {
+export const TopAppBar: FC<TopAppBarProps> = ({
+  isAnalyzing,
+  onRefresh,
+  onOpenSettings,
+}) => {
   return (
     <header
       className="top-bar"
@@ -55,8 +61,39 @@ export const TopAppBar: FC<TopAppBarProps> = ({ onOpenSettings }) => {
         </div>
       </div>
 
-      {/* Right Side Utilities: Settings Gear Only */}
-      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+      {/* Right Side Utilities: Refresh & Settings */}
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "0.375rem" }}>
+        {onRefresh && (
+          <button
+            className={`icon-btn ${isAnalyzing ? "spinning" : ""}`}
+            title="Refresh Saves (re-read saves from disk)"
+            onClick={onRefresh}
+            disabled={isAnalyzing}
+            style={{
+              cursor: isAnalyzing ? "wait" : "pointer",
+              background: "transparent",
+              border: "1px solid transparent",
+              borderRadius: "0.375rem",
+              padding: "0.375rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--on-surface-variant)",
+            }}
+          >
+            <span
+              className="material-symbols-outlined"
+              style={{
+                fontSize: "20px",
+                transform: isAnalyzing ? "rotate(180deg)" : "none",
+                transition: "transform 0.4s ease",
+              }}
+            >
+              refresh
+            </span>
+          </button>
+        )}
+
         <button
           className="icon-btn"
           title="Settings"

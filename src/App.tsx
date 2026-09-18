@@ -375,6 +375,8 @@ export function App() {
       <TopAppBar
         isLiveSave={isLiveSave}
         saveName={saveName}
+        isAnalyzing={isAnalyzing}
+        onRefresh={() => handleAnalyzeSaves(false)}
         onOpenSaveFile={() => setIsSettingsOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
       />
