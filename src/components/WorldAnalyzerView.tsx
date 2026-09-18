@@ -21,17 +21,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
 }) => {
   const [mode, setMode] = useState<'campaign' | 'adventure'>('adventure');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isCopied, setIsCopied] = useState<boolean>(false);
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
-
-  const savePathString = '%LOCALAPPDATA%\\Remnant\\Saved\\SaveGames';
-  const displayPathString = 'C:/Users/YOUR_USER_NAME/AppData/Local/Remnant/Saved/SaveGames';
-
-  const handleCopyPath = () => {
-    navigator.clipboard.writeText(savePathString);
-    setIsCopied(true);
-    setTimeout(() => setIsCopied(false), 2000);
-  };
 
   const getItemType = (item: RemnantItem): string | null => {
     if (item.type && item.type !== 'Uncategorized') return item.type;
@@ -173,7 +163,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                     marginTop: '0.125rem',
                   }}
                 >
-                  Save file paths, setup guide, auto-refresh telemetry, and reroll instructions
+                  Setup guide, auto-refresh telemetry, and reroll instructions
                 </p>
               </div>
             </div>
@@ -244,7 +234,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   )}
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6, marginBottom: '0.875rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6 }}>
                   <p>
                     <strong>1. Configure Save Location:</strong> Click the <strong>Open Settings</strong> button above (or the gear icon in the top header) to configure your save directory or manually select your save files (<code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code> and <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>).
                   </p>
@@ -256,68 +246,8 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   </p>
                 </div>
 
-                {/* Path Helper Strip */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', backgroundColor: 'rgba(250, 248, 245, 0.7)', padding: '0.625rem', borderRadius: '0.75rem', border: '1px solid rgba(226, 218, 207, 0.5)' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden', color: 'var(--terra-600)' }}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '16px', color: 'var(--terra-500)', flexShrink: 0 }}>
-                      folder
-                    </span>
-                    <span style={{ fontFamily: 'var(--font-label)', fontSize: '11px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--terra-800)', fontWeight: 500 }}>
-                      {displayPathString}
-                    </span>
-                  </div>
-                  <button
-                    onClick={handleCopyPath}
-                    style={{
-                      flexShrink: 0,
-                      padding: '0.25rem 0.625rem',
-                      fontSize: '11px',
-                      fontWeight: 500,
-                      fontFamily: 'var(--font-label)',
-                      color: 'var(--moss-700)',
-                      backgroundColor: '#ffffff',
-                      border: '1px solid var(--terra-300)',
-                      borderRadius: '0.5rem',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.25rem',
-                    }}
-                  >
-                    <span className="material-symbols-outlined" style={{ fontSize: '12px' }}>
-                      content_copy
-                    </span>
-                    <span>{isCopied ? 'Copied!' : 'Copy Path'}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Sub-section 2: Known Issues */}
-              <div style={{ borderTop: '1px solid var(--terra-100)', paddingTop: '1.25rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.625rem' }}>
-                  <span style={{ width: '1.25rem', height: '1.25rem', borderRadius: '0.375rem', backgroundColor: 'var(--amber-stone-100)', color: 'var(--amber-stone-700)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '11px' }}>
-                    !
-                  </span>
-                  <h4 style={{ fontFamily: 'var(--font-headline)', fontSize: '12px', fontWeight: 700, color: 'var(--terra-900)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Known Issues:
-                  </h4>
-                </div>
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '12px', color: 'var(--terra-700)' }}>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
-                    <span style={{ width: '6px', height: '6px', borderRadius: '9999px', backgroundColor: '#d97706', marginTop: '6px', flexShrink: 0 }} />
-                    <span>
-                      <strong>Ad blockers</strong> or strict web filters can interfere with client-side file reading hooks.
-                    </span>
-                  </li>
-                  <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
-                    <span style={{ width: '6px', height: '6px', borderRadius: '9999px', backgroundColor: 'var(--rust-stone-700)', marginTop: '6px', flexShrink: 0 }} />
-                    <span>
-                      <strong>Red Crystal Requirement:</strong> You must interact with the red World Stone in-game to trigger save flush before telemetry can parse new rolls.
-                    </span>
-                  </li>
-                </ul>
-
-                <div style={{ marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid var(--terra-100)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '11px', color: 'var(--terra-500)', fontWeight: 500 }}>
+                {/* Local file parsing disclaimer */}
+                <div style={{ marginTop: '0.875rem', paddingTop: '0.875rem', borderTop: '1px solid var(--terra-100)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '11px', color: 'var(--terra-500)', fontWeight: 500 }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--moss-600)' }}>
                     check_circle
                   </span>
