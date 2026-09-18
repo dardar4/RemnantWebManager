@@ -235,7 +235,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                     Click <strong>Open Settings</strong> (or the ⚙️ gear icon) and copy your save directory path: <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>%LOCALAPPDATA%\Remnant\Saved\SaveGames</code>.
                   </li>
                   <li>
-                    In Settings, click <strong>Link Save Folder</strong> (or <strong>Save Path</strong> if running locally) — this connects your save folder and is required for the <strong>Refresh (🔄)</strong> button to work!
+                    In Settings, click <strong>Link Save Files</strong> (or <strong>Save Path</strong> if running locally) — this connects your save files and enables the <strong>Refresh (🔄)</strong> button to work silently!
                   </li>
                   <li>
                     Alternatively, click <strong>Upload Save Files</strong> (or drag &amp; drop files directly onto this page) and select all your <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>.sav</code> files (<code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>, <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code>, etc.).

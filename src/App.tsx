@@ -6,9 +6,16 @@ import {
   getStoredDirectoryHandle,
   saveDirectoryHandle,
   clearStoredDirectoryHandle,
+  getStoredFileHandles,
+  saveFileHandles,
+  clearStoredFileHandles,
   verifyHandlePermission,
+  verifyFileHandlePermission,
   readSavFilesFromHandle,
+  readSavFilesFromFileHandles,
   isDirectoryPickerSupported,
+  isFilePickerSupported,
+  pickSaveFilesWithHandle,
   fetchLocalSaves,
   isLocalServerAvailable,
 } from './utils/saveFolderStorage';
@@ -76,15 +83,21 @@ export function App() {
     setSaveName('No save loaded');
   }, []);
 
-  // Check local server endpoint with configured path or stored directory handle
+  // Check local server endpoint with configured path or stored file / directory handles
   useEffect(() => {
     fetchLocalSaves(saveDirectoryPath).then((localData) => {
       if (localData && localData.files.length > 0) {
         setLinkedFolderName('SaveGames (Auto-detected)');
       } else {
-        getStoredDirectoryHandle().then((handle) => {
-          if (handle) {
-            setLinkedFolderName(handle.name);
+        getStoredFileHandles().then((fileHandles) => {
+          if (fileHandles && fileHandles.length > 0) {
+            setLinkedFolderName(fileHandles.map((h) => h.name).join(', '));
+          } else {
+            getStoredDirectoryHandle().then((handle) => {
+              if (handle) {
+                setLinkedFolderName(handle.name);
+              }
+            });
           }
         });
       }
@@ -105,6 +118,15 @@ export function App() {
         if (localData && localData.files.length > 0) {
           await processFiles(localData.files, true);
           return;
+        }
+
+        const fileHandles = await getStoredFileHandles();
+        if (fileHandles && fileHandles.length > 0) {
+          const files = await readSavFilesFromFileHandles(fileHandles);
+          if (files.length > 0) {
+            await processFiles(files, true);
+            return;
+          }
         }
 
         const dirHandle = await getStoredDirectoryHandle();
@@ -164,7 +186,7 @@ export function App() {
       }
     } else {
       setToastMessage(
-        "Path saved! Click 'Link Save Folder' below to grant browser access to your save folder."
+        "Path saved! Click 'Link Save Files' below to grant browser access to your save files."
       );
       return true;
     }
@@ -177,6 +199,7 @@ export function App() {
     localStorage.removeItem(LOCAL_STORAGE_PATH_KEY);
 
     await clearStoredDirectoryHandle();
+    await clearStoredFileHandles();
 
     setCharacters([]);
     setActiveCharIndex(0);
@@ -299,11 +322,70 @@ export function App() {
     }
   };
 
-  const handleAnalyzeSaves = async (forcePickNewFolder = false) => {
+  const handleLinkSaveFiles = async () => {
     setIsAnalyzing(true);
     try {
-      // 1. Try local server endpoint first if not forcing a manual folder picker
-      if (!forcePickNewFolder) {
+      if (isFilePickerSupported()) {
+        const result = await pickSaveFilesWithHandle();
+        if (result && result.files.length > 0) {
+          await saveFileHandles(result.handles);
+          const label = result.handles.map((h) => h.name).join(', ');
+          setLinkedFolderName(label);
+          await processFiles(result.files);
+          setToastMessage(`Linked ${result.files.length} save file(s)! Auto-refresh is now active.`);
+          return;
+        }
+      } else {
+        fileInputRef.current?.click();
+      }
+    } catch (err: unknown) {
+      if ((err as Error).name !== 'AbortError') {
+        console.error('Error linking save files:', err);
+      }
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handlePickFolder = async () => {
+    setIsAnalyzing(true);
+    try {
+      if (isDirectoryPickerSupported()) {
+        // @ts-expect-error - showDirectoryPicker
+        const dirHandle = await window.showDirectoryPicker();
+        if (dirHandle) {
+          await saveDirectoryHandle(dirHandle);
+          setLinkedFolderName(dirHandle.name);
+          const files = await readSavFilesFromHandle(dirHandle);
+          if (files.length > 0) {
+            await processFiles(files);
+            setToastMessage(`Linked folder "${dirHandle.name}". Auto-refresh is now active.`);
+          } else {
+            alert(`No Remnant save files found in "${dirHandle.name}".`);
+          }
+        }
+      } else {
+        fileInputRef.current?.click();
+      }
+    } catch (err: unknown) {
+      if ((err as Error).name !== 'AbortError') {
+        console.error('Error picking folder:', err);
+      }
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const handleAnalyzeSaves = async (forcePickNew = false) => {
+    if (forcePickNew) {
+      await handleLinkSaveFiles();
+      return;
+    }
+
+    setIsAnalyzing(true);
+    try {
+      // 1. Try local server endpoint first if running on localhost
+      if (isLocalServerAvailable()) {
         let localData = await fetchLocalSaves(saveDirectoryPath);
         if (
           (!localData || localData.files.length === 0) &&
@@ -312,67 +394,55 @@ export function App() {
           localData = await fetchLocalSaves(DEFAULT_SAVE_PATH);
         }
         if (localData && localData.files.length > 0) {
-          setLinkedFolderName("SaveGames (Auto-detected)");
+          setLinkedFolderName('SaveGames (Auto-detected)');
           await processFiles(localData.files);
           return;
         }
       }
 
-      // 2. Fallback to File System Access API if supported
-      if (isDirectoryPickerSupported()) {
-        let dirHandle: FileSystemDirectoryHandle | null = null;
-
-        if (!forcePickNewFolder) {
-          dirHandle = await getStoredDirectoryHandle();
-          if (dirHandle) {
-            const hasPermission = await verifyHandlePermission(dirHandle);
-            if (!hasPermission) {
-              dirHandle = null;
+      // 2. Check stored file handles (works on Web / GitHub Pages without AppData restrictions!)
+      if (isFilePickerSupported()) {
+        const storedHandles = await getStoredFileHandles();
+        if (storedHandles && storedHandles.length > 0) {
+          const validHandles: FileSystemFileHandle[] = [];
+          for (const h of storedHandles) {
+            const hasPerm = await verifyFileHandlePermission(h, true);
+            if (hasPerm) validHandles.push(h);
+          }
+          if (validHandles.length > 0) {
+            const files = await readSavFilesFromFileHandles(validHandles);
+            if (files.length > 0) {
+              setLinkedFolderName(validHandles.map((h) => h.name).join(', '));
+              await processFiles(files);
+              return;
             }
           }
         }
+      }
 
-        // Only open dialog if user explicitly requested to browse a folder
-        if (!dirHandle && forcePickNewFolder) {
-          // @ts-expect-error - showDirectoryPicker
-          dirHandle = await window.showDirectoryPicker();
-          if (dirHandle) {
-            await saveDirectoryHandle(dirHandle);
-            setLinkedFolderName(dirHandle.name);
-          }
-        }
-
+      // 3. Fallback to stored directory handle (if any)
+      if (isDirectoryPickerSupported()) {
+        let dirHandle = await getStoredDirectoryHandle();
         if (dirHandle) {
-          setLinkedFolderName(dirHandle.name);
-          const files = await readSavFilesFromHandle(dirHandle);
-          if (files.length > 0) {
-            await processFiles(files);
-            return;
-          } else if (forcePickNewFolder) {
-            alert(
-              `No Remnant save files (profile.sav or save_*.sav) found in "${dirHandle.name}".`
-            );
+          const hasPermission = await verifyHandlePermission(dirHandle);
+          if (hasPermission) {
+            const files = await readSavFilesFromHandle(dirHandle);
+            if (files.length > 0) {
+              setLinkedFolderName(dirHandle.name);
+              await processFiles(files);
+              return;
+            }
           }
-        } else if (!forcePickNewFolder) {
-          setToastMessage(
-            "Could not refresh automatically. Open Settings to configure your save directory."
-          );
-        }
-      } else {
-        if (forcePickNewFolder) {
-          fileInputRef.current?.click();
-        } else {
-          setToastMessage(
-            "Could not refresh automatically. Open Settings to configure your save files."
-          );
         }
       }
+
+      // 4. If neither worked, prompt user
+      setToastMessage(
+        "Could not refresh automatically. Open Settings and click 'Link Save Files' to connect your saves."
+      );
     } catch (err: unknown) {
-      if ((err as Error).name !== "AbortError") {
-        console.error("Error analyzing saves from folder:", err);
-        if (forcePickNewFolder) {
-          fileInputRef.current?.click();
-        }
+      if ((err as Error).name !== 'AbortError') {
+        console.error('Error analyzing saves:', err);
       }
     } finally {
       setIsAnalyzing(false);
@@ -483,7 +553,8 @@ export function App() {
         saveDirectoryPath={saveDirectoryPath}
         linkedFolderName={linkedFolderName}
         onSaveDirectoryChange={handleSaveDirectoryChange}
-        onPickFolder={() => handleAnalyzeSaves(true)}
+        onLinkFiles={handleLinkSaveFiles}
+        onPickFolder={handlePickFolder}
         onPickFiles={() => fileInputRef.current?.click()}
         onResetAllData={handleResetAllData}
       />

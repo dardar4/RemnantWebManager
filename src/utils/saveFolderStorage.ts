@@ -1,8 +1,9 @@
-// Utilities for persistent save folder access via the File System Access API and IndexedDB
+// Utilities for persistent save folder & file access via the File System Access API and IndexedDB
 
 const DB_NAME = 'RemnantWebManagerDB';
 const STORE_NAME = 'saveFolderStore';
-const KEY = 'directoryHandle';
+const KEY_DIR = 'directoryHandle';
+const KEY_FILES = 'fileHandles';
 
 function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
@@ -31,7 +32,7 @@ export async function getStoredDirectoryHandle(): Promise<FileSystemDirectoryHan
     return new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, 'readonly');
       const store = tx.objectStore(STORE_NAME);
-      const req = store.get(KEY);
+      const req = store.get(KEY_DIR);
       req.onsuccess = () => resolve(req.result || null);
       req.onerror = () => reject(req.error);
     });
@@ -50,7 +51,7 @@ export async function saveDirectoryHandle(handle: FileSystemDirectoryHandle): Pr
     return new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, 'readwrite');
       const store = tx.objectStore(STORE_NAME);
-      const req = store.put(handle, KEY);
+      const req = store.put(handle, KEY_DIR);
       req.onsuccess = () => resolve();
       req.onerror = () => reject(req.error);
     });
@@ -68,12 +69,67 @@ export async function clearStoredDirectoryHandle(): Promise<void> {
     return new Promise((resolve, reject) => {
       const tx = db.transaction(STORE_NAME, 'readwrite');
       const store = tx.objectStore(STORE_NAME);
-      const req = store.delete(KEY);
+      const req = store.delete(KEY_DIR);
       req.onsuccess = () => resolve();
       req.onerror = () => reject(req.error);
     });
   } catch (err) {
     console.warn('Failed to clear stored directory handle:', err);
+  }
+}
+
+/**
+ * Retrieve the saved FileSystemFileHandle[] from IndexedDB
+ */
+export async function getStoredFileHandles(): Promise<FileSystemFileHandle[] | null> {
+  try {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, 'readonly');
+      const store = tx.objectStore(STORE_NAME);
+      const req = store.get(KEY_FILES);
+      req.onsuccess = () => resolve(req.result || null);
+      req.onerror = () => reject(req.error);
+    });
+  } catch (err) {
+    console.warn('Failed to retrieve stored file handles from IndexedDB:', err);
+    return null;
+  }
+}
+
+/**
+ * Store FileSystemFileHandle[] in IndexedDB for persistent access across reloads/refreshes
+ */
+export async function saveFileHandles(handles: FileSystemFileHandle[]): Promise<void> {
+  try {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const req = store.put(handles, KEY_FILES);
+      req.onsuccess = () => resolve();
+      req.onerror = () => reject(req.error);
+    });
+  } catch (err) {
+    console.warn('Failed to save file handles to IndexedDB:', err);
+  }
+}
+
+/**
+ * Clear the stored file handles from IndexedDB
+ */
+export async function clearStoredFileHandles(): Promise<void> {
+  try {
+    const db = await openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE_NAME, 'readwrite');
+      const store = tx.objectStore(STORE_NAME);
+      const req = store.delete(KEY_FILES);
+      req.onsuccess = () => resolve();
+      req.onerror = () => reject(req.error);
+    });
+  } catch (err) {
+    console.warn('Failed to clear stored file handles:', err);
   }
 }
 
@@ -109,6 +165,39 @@ export async function verifyHandlePermission(handle: FileSystemDirectoryHandle):
 }
 
 /**
+ * Query or request read permission for a stored file handle.
+ * allowPrompt: if true, requests permission if prompt is needed (must be called during user interaction)
+ */
+export async function verifyFileHandlePermission(
+  handle: FileSystemFileHandle,
+  allowPrompt = false
+): Promise<boolean> {
+  try {
+    // @ts-expect-error - File System Access API
+    if (typeof handle.queryPermission === 'function') {
+      // @ts-expect-error - File System Access API
+      const status = await handle.queryPermission({ mode: 'read' });
+      if (status === 'granted') {
+        return true;
+      }
+      if (status === 'prompt' && allowPrompt) {
+        // @ts-expect-error - File System Access API
+        if (typeof handle.requestPermission === 'function') {
+          // @ts-expect-error - File System Access API
+          const reqStatus = await handle.requestPermission({ mode: 'read' });
+          return reqStatus === 'granted';
+        }
+      }
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn('File handle permission verification failed:', err);
+    return false;
+  }
+}
+
+/**
  * Read all .sav files (profile.sav and save_*.sav) from a directory handle
  */
 export async function readSavFilesFromHandle(handle: FileSystemDirectoryHandle): Promise<File[]> {
@@ -126,10 +215,69 @@ export async function readSavFilesFromHandle(handle: FileSystemDirectoryHandle):
 }
 
 /**
+ * Read files from an array of FileSystemFileHandle
+ */
+export async function readSavFilesFromFileHandles(handles: FileSystemFileHandle[]): Promise<File[]> {
+  const files: File[] = [];
+  for (const handle of handles) {
+    try {
+      const name = handle.name.toLowerCase();
+      if (name === 'profile.sav' || (name.startsWith('save_') && name.endsWith('.sav'))) {
+        const file = await handle.getFile();
+        files.push(file);
+      }
+    } catch (err) {
+      console.warn(`Failed to read file from handle "${handle.name}":`, err);
+    }
+  }
+  return files;
+}
+
+/**
  * Check if the browser supports the File System Access directory picker
  */
 export function isDirectoryPickerSupported(): boolean {
   return typeof window !== 'undefined' && 'showDirectoryPicker' in window;
+}
+
+/**
+ * Check if the browser supports the File System Access open file picker
+ */
+export function isFilePickerSupported(): boolean {
+  return typeof window !== 'undefined' && 'showOpenFilePicker' in window;
+}
+
+/**
+ * Open file picker to let user select save files with persistent handles.
+ * Bypasses Chrome's AppData whole-directory restriction ("contains system files").
+ */
+export async function pickSaveFilesWithHandle(): Promise<{ files: File[]; handles: FileSystemFileHandle[] } | null> {
+  if (!isFilePickerSupported()) return null;
+  try {
+    // @ts-expect-error - showOpenFilePicker
+    const handles: FileSystemFileHandle[] = await window.showOpenFilePicker({
+      multiple: true,
+      types: [
+        {
+          description: 'Remnant Save Files (*.sav)',
+          accept: {
+            'application/octet-stream': ['.sav'],
+          },
+        },
+      ],
+      excludeAcceptAllOption: false,
+    });
+
+    if (!handles || handles.length === 0) return null;
+
+    const files = await readSavFilesFromFileHandles(handles);
+    return { files, handles };
+  } catch (err: unknown) {
+    if ((err as Error).name !== 'AbortError') {
+      console.error('Error picking save files with handle:', err);
+    }
+    return null;
+  }
 }
 
 /**

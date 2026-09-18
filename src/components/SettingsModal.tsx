@@ -3,6 +3,7 @@ import type { FC } from "react";
 import {
   isLocalServerAvailable,
   isDirectoryPickerSupported,
+  isFilePickerSupported,
 } from "../utils/saveFolderStorage";
 
 interface SettingsModalProps {
@@ -11,6 +12,7 @@ interface SettingsModalProps {
   saveDirectoryPath?: string;
   linkedFolderName?: string | null;
   onSaveDirectoryChange?: (newPath: string) => Promise<boolean>;
+  onLinkFiles?: () => Promise<void>;
   onPickFolder?: () => Promise<void>;
   onPickFiles?: () => void;
   onResetAllData: () => Promise<void>;
@@ -22,6 +24,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   saveDirectoryPath,
   linkedFolderName,
   onSaveDirectoryChange,
+  onLinkFiles,
   onPickFolder,
   onPickFiles,
   onResetAllData,
@@ -242,7 +245,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   title={
                     isLocal
                       ? "Save path to LocalStorage and reload saves"
-                      : "Save path to LocalStorage (use 'Link Save Folder' below to enable browser access on web)"
+                      : "Save path to LocalStorage (use 'Link Save Files' below to enable browser access on web)"
                   }
                   style={{
                     display: "inline-flex",
@@ -322,13 +325,13 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               </div>
             )}
 
-            {/* Action buttons row: Link Save Folder & Upload Save Files */}
+            {/* Action buttons row: Link Save Files & Upload Save Files */}
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-              {onPickFolder && isDirectoryPickerSupported() && (
+              {onLinkFiles && isFilePickerSupported() && (
                 <button
                   type="button"
                   onClick={() => {
-                    onPickFolder();
+                    onLinkFiles();
                     onClose();
                   }}
                   style={{
@@ -353,9 +356,44 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                     className="material-symbols-outlined"
                     style={{ fontSize: "17px" }}
                   >
+                    link
+                  </span>
+                  <span>Link Save Files (Auto-Refresh)</span>
+                </button>
+              )}
+
+              {onPickFolder && isDirectoryPickerSupported() && !isFilePickerSupported() && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onPickFolder();
+                    onClose();
+                  }}
+                  style={{
+                    flex: "1 1 180px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
+                    padding: "0.625rem 1rem",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#ffffff",
+                    backgroundColor: "var(--moss-600)",
+                    border: "1px solid var(--moss-700)",
+                    borderRadius: "0.5rem",
+                    cursor: "pointer",
+                    transition: "background-color 0.15s ease",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
+                  }}
+                >
+                  <span
+                    className="material-symbols-outlined"
+                    style={{ fontSize: "17px" }}
+                  >
                     folder_open
                   </span>
-                  <span>Link Save Folder (For Web Auto-Refresh)</span>
+                  <span>Link Save Folder</span>
                 </button>
               )}
 
@@ -394,7 +432,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               )}
             </div>
 
-            {/* Active Linked Folder Indicator */}
+            {/* Active Linked Files/Folder Indicator */}
             {linkedFolderName && (
               <div
                 style={{
@@ -447,19 +485,21 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                 1. Click <strong>Copy</strong> next to the directory path above.
               </div>
               <div>
-                2. Click <strong>Link Save Folder</strong>, paste the path into Windows Explorer, and select your <code>SaveGames</code> folder.
+                2. Click <strong>Link Save Files (Auto-Refresh)</strong>, paste the path into Windows Explorer, and select your <code>profile.sav</code> and <code>save_0.sav</code> files (or press <kbd>Ctrl+A</kbd>).
               </div>
               <div>
-                3. Once linked, the global <strong>Refresh (🔄)</strong> button and Alt-Tab live sync work silently directly in your browser without any server!
+                3. Once linked, the global <strong>Refresh (🔄)</strong> button and Alt-Tab live sync read your updated files silently directly in your browser without any server!
               </div>
               <div
                 style={{
-                  marginTop: "0.35rem",
-                  color: "var(--terra-500)",
-                  fontStyle: "italic",
+                  marginTop: "0.4rem",
+                  color: "var(--terra-600)",
+                  fontSize: "10.5px",
+                  borderTop: "1px solid var(--terra-200)",
+                  paddingTop: "0.35rem",
                 }}
               >
-                Tip: You can also click <strong>Upload Save Files</strong> or drag &amp; drop save files directly onto this page anytime.
+                💡 <em>Why Link Files?</em> Google Chrome &amp; Edge security prevents websites from selecting the entire <code>%LOCALAPPDATA%</code> folder (&quot;contains system files&quot;). Linking the individual save files bypasses this restriction and grants persistent auto-refresh access.
               </div>
             </div>
           </div>
