@@ -137,23 +137,6 @@ export function App() {
 
   const activeCharacter = characters[activeCharIndex] || characters[0] || getBlankCharacter();
 
-  const handleSaveDirectoryChange = async (newPath: string): Promise<boolean> => {
-    const trimmed = newPath.trim() || DEFAULT_SAVE_PATH;
-    localStorage.setItem(LOCAL_STORAGE_PATH_KEY, trimmed);
-    setSaveDirectoryPath(trimmed);
-
-    const localData = await fetchLocalSaves(trimmed);
-    if (localData && localData.files.length > 0) {
-      setLinkedFolderName('SaveGames (Configured)');
-      await processFiles(localData.files);
-      setToastMessage('Save directory updated and save files reloaded!');
-      return true;
-    } else {
-      setToastMessage('Directory path saved. (Note: No .sav files found in this folder)');
-      return false;
-    }
-  };
-
   const handleResetAllData = async () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     localStorage.removeItem(LOCAL_STORAGE_ACTIVE_KEY);
@@ -438,10 +421,7 @@ export function App() {
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
-        saveDirectoryPath={saveDirectoryPath}
         linkedFolderName={linkedFolderName}
-        onSaveDirectoryChange={handleSaveDirectoryChange}
-        onPickFolder={() => handleAnalyzeSaves(true)}
         onPickFiles={() => fileInputRef.current?.click()}
         onResetAllData={handleResetAllData}
       />

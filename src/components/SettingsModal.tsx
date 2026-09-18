@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { FC } from 'react';
 
 interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  saveDirectoryPath: string;
+  saveDirectoryPath?: string;
   linkedFolderName?: string | null;
-  onSaveDirectoryChange: (newPath: string) => Promise<boolean>;
-  onPickFolder: () => Promise<void>;
+  onSaveDirectoryChange?: (newPath: string) => Promise<boolean>;
+  onPickFolder?: () => Promise<void>;
   onPickFiles?: () => void;
   onResetAllData: () => Promise<void>;
 }
@@ -15,47 +15,33 @@ interface SettingsModalProps {
 export const SettingsModal: FC<SettingsModalProps> = ({
   isOpen,
   onClose,
-  saveDirectoryPath,
   linkedFolderName,
-  onSaveDirectoryChange,
-  onPickFolder,
   onPickFiles,
   onResetAllData,
 }) => {
-  const [inputPath, setInputPath] = useState<string>(saveDirectoryPath);
-  const [isSaving, setIsSaving] = useState<boolean>(false);
-  const [saveStatus, setSaveStatus] = useState<string | null>(null);
+  const [copied, setCopied] = useState<boolean>(false);
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [isResetting, setIsResetting] = useState<boolean>(false);
 
   const defaultPath = '%LOCALAPPDATA%\\Remnant\\Saved\\SaveGames';
 
-  useEffect(() => {
-    setInputPath(saveDirectoryPath);
-  }, [saveDirectoryPath]);
-
   if (!isOpen) return null;
 
-  const handleApplyPath = async () => {
-    setIsSaving(true);
-    setSaveStatus(null);
+  const handleCopyPath = async () => {
     try {
-      const success = await onSaveDirectoryChange(inputPath);
-      if (success) {
-        setSaveStatus('Path validated and save files loaded successfully!');
-      } else {
-        setSaveStatus('Path saved. (Note: verify save files exist in this folder)');
-      }
-      setTimeout(() => setSaveStatus(null), 4000);
+      await navigator.clipboard.writeText(defaultPath);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     } catch {
-      setSaveStatus('Error applying save path.');
-    } finally {
-      setIsSaving(false);
+      const textArea = document.createElement('textarea');
+      textArea.value = defaultPath;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
-  };
-
-  const handleSetDefault = () => {
-    setInputPath(defaultPath);
   };
 
   const handleConfirmReset = async () => {
@@ -136,123 +122,109 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               >
                 Save Directory Path:
               </label>
-              <button
-                type="button"
-                onClick={handleSetDefault}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  fontSize: '11px',
-                  color: 'var(--moss-700)',
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  padding: 0,
-                  fontWeight: 500,
-                }}
-              >
-                Reset to default path
-              </button>
+              {copied && (
+                <span
+                  style={{
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    color: 'var(--moss-700)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.25rem',
+                  }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>
+                    check
+                  </span>
+                  Copied to clipboard!
+                </span>
+              )}
             </div>
 
-            {/* Path Input Box */}
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <input
-                type="text"
-                value={inputPath}
-                onChange={(e) => setInputPath(e.target.value)}
-                placeholder="%LOCALAPPDATA%\Remnant\Saved\SaveGames"
+            {/* Path Box with integrated copy button */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0.5rem 0.75rem',
+                backgroundColor: 'var(--terra-50)',
+                border: '1px solid var(--terra-300)',
+                borderRadius: '0.5rem',
+                gap: '0.5rem',
+              }}
+            >
+              <code
                 style={{
                   flex: 1,
-                  padding: '0.5rem 0.75rem',
                   fontFamily: 'var(--font-label)',
                   fontSize: '12px',
                   color: 'var(--terra-900)',
-                  backgroundColor: 'var(--terra-50)',
-                  border: '1px solid var(--terra-300)',
-                  borderRadius: '0.5rem',
-                  outline: 'none',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  userSelect: 'all',
                 }}
-              />
+                title={defaultPath}
+              >
+                {defaultPath}
+              </code>
               <button
                 type="button"
-                onClick={handleApplyPath}
-                disabled={isSaving}
+                onClick={handleCopyPath}
+                title="Copy save directory path"
                 style={{
-                  padding: '0.5rem 0.875rem',
-                  fontSize: '12px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem',
+                  padding: '0.35rem 0.6rem',
+                  fontSize: '11px',
                   fontWeight: 600,
-                  color: '#ffffff',
-                  backgroundColor: 'var(--moss-600)',
-                  border: '1px solid var(--moss-700)',
-                  borderRadius: '0.5rem',
-                  cursor: isSaving ? 'wait' : 'pointer',
-                  whiteSpace: 'nowrap',
+                  color: copied ? '#15803d' : 'var(--terra-700)',
+                  backgroundColor: copied ? '#eef8f1' : '#ffffff',
+                  border: `1px solid ${copied ? '#c8e6d0' : 'var(--terra-300)'}`,
+                  borderRadius: '0.375rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  flexShrink: 0,
                 }}
               >
-                {isSaving ? 'Saving...' : 'Apply Path'}
+                <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                  {copied ? 'check' : 'content_copy'}
+                </span>
+                <span>{copied ? 'Copied' : 'Copy'}</span>
               </button>
             </div>
 
-            {/* Action buttons row */}
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            {/* Action button row: Upload Save Files */}
+            {onPickFiles && (
               <button
                 type="button"
-                onClick={() => {
-                  onPickFolder();
-                }}
+                onClick={onPickFiles}
                 style={{
-                  flex: '1 1 180px',
+                  width: '100%',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '0.5rem',
-                  padding: '0.55rem 0.75rem',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  color: 'var(--terra-800)',
-                  backgroundColor: 'var(--terra-100)',
-                  border: '1px solid var(--terra-300)',
+                  padding: '0.625rem 1rem',
+                  fontSize: '12px',
+                  fontWeight: 700,
+                  color: '#ffffff',
+                  backgroundColor: 'var(--moss-600)',
+                  border: '1px solid var(--moss-700)',
                   borderRadius: '0.5rem',
                   cursor: 'pointer',
                   transition: 'background-color 0.15s ease',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
                 }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '15px', color: 'var(--moss-700)' }}>
-                  folder_open
+                <span className="material-symbols-outlined" style={{ fontSize: '17px' }}>
+                  upload_file
                 </span>
-                <span>Browse Save Directory</span>
+                <span>Upload Save Files</span>
               </button>
-
-              {onPickFiles && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    onPickFiles();
-                  }}
-                  style={{
-                    flex: '1 1 180px',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.5rem',
-                    padding: '0.55rem 0.75rem',
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    color: 'var(--terra-800)',
-                    backgroundColor: 'var(--terra-100)',
-                    border: '1px solid var(--terra-300)',
-                    borderRadius: '0.5rem',
-                    cursor: 'pointer',
-                    transition: 'background-color 0.15s ease',
-                  }}
-                >
-                  <span className="material-symbols-outlined" style={{ fontSize: '15px', color: 'var(--rust-stone-700)' }}>
-                    upload_file
-                  </span>
-                  <span>Upload Save Files</span>
-                </button>
-              )}
-            </div>
+            )}
 
             {/* Active Linked Folder Indicator */}
             {linkedFolderName && (
@@ -279,44 +251,32 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               </div>
             )}
 
-            {/* Status Feedback Notice */}
-            {saveStatus && (
-              <div
-                style={{
-                  fontSize: '11px',
-                  fontWeight: 500,
-                  padding: '0.375rem 0.625rem',
-                  borderRadius: '0.375rem',
-                  backgroundColor: '#eef8f1',
-                  color: '#15803d',
-                  border: '1px solid #c8e6d0',
-                }}
-              >
-                {saveStatus}
-              </div>
-            )}
-
             {/* Helper text */}
             <div
               style={{
                 fontSize: '11px',
-                color: 'var(--terra-500)',
-                backgroundColor: 'rgba(250, 248, 245, 0.7)',
-                padding: '0.625rem',
+                color: 'var(--terra-600)',
+                backgroundColor: 'rgba(250, 248, 245, 0.9)',
+                padding: '0.75rem',
                 borderRadius: '0.5rem',
-                border: '1px dashed var(--terra-200)',
-                lineHeight: 1.5,
+                border: '1px dashed var(--terra-300)',
+                lineHeight: 1.6,
               }}
             >
-              <div>
-                <strong>Default save directory:</strong>{' '}
-                <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)' }}>
-                  %LOCALAPPDATA%\Remnant\Saved\SaveGames
-                </code>
+              <div style={{ fontWeight: 600, color: 'var(--terra-900)', marginBottom: '0.25rem' }}>
+                How to select your files:
               </div>
-              <div style={{ marginTop: '0.25rem' }}>
-                All <code style={{ fontFamily: 'var(--font-label)' }}>save_*.sav</code> and{' '}
-                <code style={{ fontFamily: 'var(--font-label)' }}>profile.sav</code> files found in this folder will be analyzed automatically.
+              <div>
+                1. Click <strong>Copy</strong> next to the directory path above.
+              </div>
+              <div>
+                2. Click <strong>Upload Save Files</strong> and paste the path into Windows Explorer.
+              </div>
+              <div>
+                3. Select both <code style={{ fontFamily: 'var(--font-label)', color: 'var(--moss-700)', fontWeight: 600 }}>profile.sav</code> and <code style={{ fontFamily: 'var(--font-label)', color: 'var(--moss-700)', fontWeight: 600 }}>save_0.sav</code>.
+              </div>
+              <div style={{ marginTop: '0.35rem', color: 'var(--terra-500)', fontStyle: 'italic' }}>
+                Tip: You can also drag and drop your save files directly onto the web page anytime!
               </div>
             </div>
           </div>

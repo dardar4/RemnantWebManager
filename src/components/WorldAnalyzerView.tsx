@@ -140,7 +140,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                       letterSpacing: '0.05em',
                     }}
                   >
-                    How to use &amp; Known Issues
+                    How to use &amp; Reroll Guide
                   </span>
                   <span
                     style={{
@@ -163,7 +163,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                     marginTop: '0.125rem',
                   }}
                 >
-                  Setup guide, auto-refresh telemetry, and reroll instructions
+                  Quick setup instructions, rerolling at the World Stone, and analyzing rolls
                 </p>
               </div>
             </div>
@@ -234,15 +234,15 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   )}
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6 }}>
                   <p>
-                    <strong>1. Configure Save Location:</strong> Click the <strong>Open Settings</strong> button above (or the gear icon in the top header) to configure your save directory or manually select your save files (<code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code> and <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>).
+                    <strong>1. Load Your Save Files:</strong> Click the <strong>Open Settings</strong> button above (or the ⚙️ gear icon in the header) and click <strong>Copy</strong> next to the save directory path. Then click <strong>Upload Save Files</strong>, paste the path into Windows Explorer, and select both <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code> and <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code>. <em>(Tip: You can also drag and drop both files directly anywhere onto this page!)</em>
                   </p>
                   <p>
-                    <strong>2. In-Game Re-rolls &amp; Automatic Refresh:</strong> Whenever you re-roll your Campaign or Adventure in Remnant at the World Stone, touch the red stone to save. When you switch back or Alt-Tab to this browser tab, it will <strong>automatically refresh</strong> your world rolls telemetry.
+                    <strong>2. Reroll In-Game at the World Stone:</strong> In Remnant: From the Ashes, whenever you re-roll your Campaign or Adventure mode at Ward 13, interact with the red World Stone to save your new world roll to disk.
                   </p>
                   <p>
-                    <strong>3. Manual Refresh:</strong> If the automatic refresh doesn't trigger, simply click the global <strong>Refresh button (🔄)</strong> in the top header (next to the Settings icon) to re-read the latest save files immediately.
+                    <strong>3. Refresh &amp; Analyze World:</strong> Re-upload your save files or click the global <strong>Refresh button (🔄)</strong> in the top header to instantly parse and view all newly spawned world bosses, dungeons, random events, and missing items.
                   </p>
                 </div>
 
