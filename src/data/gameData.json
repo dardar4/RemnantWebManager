@@ -1,0 +1,5901 @@
+{
+  "version": "40",
+  "archetypes": {
+    "Undefined": "Undefined",
+    "Scrapper": "Scrapper",
+    "Cultist": "Cultist",
+    "Hunter": "Hunter"
+  },
+  "zones": {
+    "Earth": "Earth",
+    "Rhom": "Rhom",
+    "Corsus": "Corsus",
+    "Yaesha": "Yaesha",
+    "Reisum": "Reisum"
+  },
+  "subLocations": {
+    "ArmorVault": "VaultOfTheHeralds",
+    "BarbTerror": "NeedleLair",
+    "BlinkFiend": "Widow'sPass",
+    "BlinkThief": "ForgottenUndercroft",
+    "BlizzardMage": "WutheringKeep",
+    "Brabus": "CutthroatChannel",
+    "BrainBug": "StrangePass",
+    "CreepersPeeper": "Watcher'sHollow",
+    "DoeShrine": "Widow'sVestry",
+    "Fatty": "TheFetidGlade",
+    "FlickeringHorror": "HallOfWhispers",
+    "FrozenLords": "Judgment'sSpear",
+    "Guardian": "TheGuardian'sSanctum",
+    "HoundMaster": "TheBurrows",
+    "HuntersHideout": "HiddenGrotto",
+    "ImmolatorAndZephyr": "WitheringVillage",
+    "IceSkimmer": "TheFrieranSea",
+    "KinCaller": "TheHallOfJudgement",
+    "LastWill": "Sorrow'sField",
+    "LizAndLiz": "TheWarren",
+    "MadMerchant": "Junktown",
+    "RatRider": "TheCrimsonHold",
+    "RootBrute": "SunkenPassage",
+    "RootCultist": "MarrowPass",
+    "RootDragon": "TheAshYard",
+    "RootEnt": "TheChokingHollow",
+    "RootMother": "ChurchOfTheHarbinger",
+    "RootShrine": "TheGallows",
+    "RootTumbleweed": "TheTangledPass",
+    "RootWraith": "TheHiddenSanctum",
+    "Sentinel": "ShackledCanyon",
+    "ShamanFlames": "GraveOfTheElders",
+    "ShieldWarden": "Exile'sTrench",
+    "SlimeHulk": "TheDrownedTrench",
+    "Splitter": "ResearchStationAlpha",
+    "StormCaller": "Heretic'sNest",
+    "StuckMerchant": "MerchantDungeon",
+    "SwampGuardian": "TheGrotto",
+    "SwarmMaster": "TheIronRift",
+    "TheCleanRoom": "ThePurgeHall",
+    "TheHarrow": "TheBunker",
+    "TheJackal": "TheWildReach",
+    "TheLostGantry": "ConcourseOfTheSun",
+    "TheRisen": "Ahanae'sLament",
+    "TotemFather": "TheTempestCourt",
+    "Tyrant": "TheCapillary",
+    "UndyingKing": "UndyingThrone",
+    "UrikkiBlademasters": "ValenhaagMines",
+    "Vyr": "TheArdentTemple",
+    "WarningTotems": "Magir'sDirge",
+    "WastelandGuardian": "LoomOfTheBlackSun",
+    "Wisp": "CircletHatchery",
+    "Wolf": "TheRavager'sHaunt",
+    "WolfShrine": "TempleOfTheRavager"
+  },
+  "mainLocations": {
+    "City Overworld Zone1": "Fairview",
+    "City Overworld Zone2": "Westcourt",
+    "Wasteland Overworld Zone1": "TheEasternWind",
+    "Wasteland Overworld Zone2": "TheScouringWaste",
+    "Swamp Overworld Zone1": "TheFetidGlade",
+    "Swamp Overworld Zone2": "TheMistFen",
+    "Jungle Overworld Zone1": "TheVerdantStrand",
+    "Jungle Overworld Zone2": "TheScaldingGlade",
+    "Rural Overworld 01": "Rural",
+    "Rural Overworld 02": "Rural",
+    "Snow Overworld Zone1": "DrolniirWoods",
+    "Snow Overworld Zone2": "DeepfrostExpanse"
+  },
+  "events": {
+    "AbandonedThrone": "AbandonedThrone",
+    "AbrasiveAmulet": "AbrasiveAmulet",
+    "AcesCoin": "AcesCoin",
+    "Afterbirth": "ChillwindHovel",
+    "AggressorsBane": "AggressorsBane",
+    "AlchemistsJewel": "Alchemist'sJewel",
+    "ArmorVault": "ArmorVault",
+    "BackbreakerRing": "BackbreakerRing",
+    "BandOfCastor": "BandOfCastor",
+    "BandOfPollux": "BandOfPollux",
+    "BandOfStrength": "BandOfStrength",
+    "BarbTerror": "BarbedTerror",
+    "BarnSiege": "BarnSiege",
+    "BlinkFiend": "Onslaught",
+    "BlinkThief": "BlinkThief",
+    "BlizzardMage": "IkroTheIceConjurer",
+    "BloodFont": "BloodFont",
+    "Brabus": "Brabus",
+    "BrainBug": "Mar'gosh",
+    "BrutalMark": "BrutalMark",
+    "BurdenOfTheReckless": "BurdenOfTheReckless",
+    "BurdenOfTheGambler": "BurdenOfTheGambler",
+    "BurdenOfTheDevoted": "BurdenOfTheDevoted",
+    "BurdenOfTheFollower": "BurdenOfTheFollower",
+    "BurdenOfTheWarlord": "BurdenOfTheWarlord",
+    "ButchersFetish": "ButchersFetish",
+    "CharcoalNecklace": "CharcoalNecklace",
+    "CleansingJewel": "CleansingJewel",
+    "CompulsionLoop": "CompulsionLoop",
+    "CreepersPeeper": "CreepersPeeper",
+    "Cryptolith": "Cryptolith",
+    "DeceiversBand": "DeceiversBand",
+    "DevouringLoop": "DevouringLoop",
+    "DoeShrine": "DoeShrine",
+    "DrifterMask": "DrifterMask",
+    "Driftstone": "Driftstone",
+    "EzlansBand": "EzlansBand",
+    "Fatty": "TheUncleanOne",
+    "FetidPool": "FetidPool",
+    "FiveFingeredRing": "FiveFingeredRing",
+    "Flautist": "Flautist",
+    "FlickeringHorror": "DreamEater",
+    "FoundersHideout": "FoundersHideout",
+    "FrozenLords": "FrozenLords",
+    "GalenicCharm": "GalenicCharm",
+    "GraveyardElf": "GraveyardElf",
+    "GravityStone": "GravityStone",
+    "Guardian": "Guardian",
+    "GunslingersCharm": "GunslingersCharm",
+    "GunslignersRing": "Gunslinger'sRing",
+    "HeartSeeker": "HeartSeeker",
+    "Homestead": "Homestead",
+    "HoundMaster": "HoundMaster",
+    "HuntersBand": "HuntersBand",
+    "HuntersHalo": "HuntersHalo",
+    "HuntersHideout": "HuntersHideout",
+    "IceSkimmer": "IceSkimmer",
+    "ImmolatorAndZephyr": "ScaldAndSear",
+    "IskalQueen": "IskalQueen",
+    "JanitorsWatch": "JanitorsWatch",
+    "KeepersRing": "KeepersRing",
+    "KinCaller": "Warden",
+    "KrallBaby": "KrallBaby",
+    "LastWill": "SupplyRun",
+    "LeechEmber": "LeechEmber",
+    "LizAndLiz": "TaleOfTwoLiz's",
+    "MadMerchant": "MadMerchant",
+    "Monolith": "Monolith",
+    "MothersRing": "MothersRing",
+    "MudTooth": "MudTooth",
+    "Nexus": "RootNexus",
+    "OldManAndConstruct": "WudAndAncientConstruct",
+    "PearlOfLuminescence": "PearlOfLuminescence",
+    "Penitent": "Leto'sAmulet",
+    "PillarOfStone": "PillarOfStone",
+    "PolishedWhetstone": "PolishedWhetstone",
+    "QueensTemple": "QueensTemple",
+    "RadioactiveEmber": "RadioactiveEmber",
+    "RatRider": "RargrAndBrudvaak",
+    "RazorStone": "RazorStone",
+    "RazorwireNecklace": "RazorwireNecklace",
+    "ReggiesRing": "ReggiesRing",
+    "RestrictionCord": "RestrictionCord",
+    "RingOfElusion": "RingOfElusion",
+    "RingOfEvasion": "RingOfEvasion",
+    "RockOfAnguish": "RockOfAnguish",
+    "RingOfShadows": "RingOfShadows",
+    "RootBrute": "Gorefist",
+    "RootCultist": "RootCultist",
+    "RootDragon": "Singe",
+    "RootMother": "RootMother",
+    "RootTumbleweed": "TheMangler",
+    "RootWraith": "Shroud",
+    "RootEnt": "TheEnt",
+    "RootShrine": "RootShrine",
+    "Ruins": "Ruins",
+    "SageStone": "SageStone",
+    "Sentinel": "Raze",
+    "SerpentsFang": "SerpentsFang",
+    "Settlement": "Settlement",
+    "ShamanFlames": "ShamanFlames",
+    "ShieldWarden": "ObrykTheShieldWarden",
+    "Sketterling": "Sketterling",
+    "SlaveRevolt": "SlaveRevolt",
+    "SlimeHulk": "Canker",
+    "SnowRuins": "TheSilentSnow",
+    "SoulLink": "SoulLink",
+    "SpiritStone": "SpiritStone",
+    "Splitter": "Riphide",
+    "StalkersBrand": "StalkersBrand",
+    "StockpileCirclet": "StockpileCirclet",
+    "StoneOfBalance": "StoneOfBalance",
+    "StormAmulet": "StormAmulet",
+    "StormCaller": "Stormcaller",
+    "StuckMerchant": "StuckMerchant",
+    "SwampGuardian": "Ixillis",
+    "SwarmMaster": "Scourge",
+    "TalismanOfAnimosity": "TalismanOfAnimosity",
+    "TalismanOfPerseverance": "TalismanOfPerseverance",
+    "TerrorMargin": "TerrorMargin",
+    "TheCleanRoom": "TheCleanRoom",
+    "TheHarrow": "TheHarrow",
+    "TheJackal": "ErforTheJackal",
+    "TheLostGantry": "TheLostGantry",
+    "TheRisen": "TheRisen",
+    "TotemFather": "TotemFather",
+    "Tyrant": "TheThrall",
+    "UndyingKing": "UndyingKing",
+    "UrikkiBlademasters": "TianTheAssassin",
+    "VargylBones": "VargylBones",
+    "VengeanceIdol": "VengeanceIdol",
+    "Uncategorized": "Uncategorized",
+    "VolatileGem": "VolatileGem",
+    "Vyr": "ShadeAndShatter",
+    "WailingWood": "WailingWood",
+    "Ward13": "Ward13",
+    "Ward17": "Ward17",
+    "Ward17Root": "Ward17Root",
+    "WardPrime": "WardPrime",
+    "WarningTotems": "WarningTotems",
+    "Wisp": "CircletHatchery",
+    "WastelandGuardian": "Claviger",
+    "Wolf": "TheRavager",
+    "WolfShrine": "WolfShrine"
+  },
+  "eventItems": {
+    "AbandonedThrone": [
+      {
+        "key": "/Items/Traits/Trait_Luminescent",
+        "name": "Luminescent",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "AbandonedThrone"
+      }
+    ],
+    "AbrasiveAmulet": [
+      {
+        "key": "/Items/Trinkets/Trinket_AbrasiveAmulet",
+        "name": "Abrasive Amulet",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Corsus",
+        "dlc": "",
+        "eventName": "AbrasiveAmulet"
+      }
+    ],
+    "AcesCoin": [
+      {
+        "key": "/Items/Weapons/Basic/HandGuns/Revolver/Weapon_Revolver",
+        "name": "Revolver",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "AcesCoin"
+      }
+    ],
+    "Afterbirth": [
+      {
+        "key": "/Items/Trinkets/ScavengersRing",
+        "name": "Scavengers Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "Afterbirth"
+      },
+      {
+        "key": "/Items/Trinkets/BlessedNecklace",
+        "name": "Blessed Necklace",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Free Krall Baby then speak to mother at Chillwind Hovel",
+        "dlc": "Subject 2923",
+        "eventName": "Afterbirth"
+      }
+    ],
+    "AggressorsBane": [
+      {
+        "key": "/Items/Trinkets/AggressorsBane",
+        "name": "Aggressors Bane",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "AggressorsBane"
+      }
+    ],
+    "AlchemistsJewel": [
+      {
+        "key": "/Items/Trinkets/Trinket_AlchemistsJewel",
+        "name": "Alchemists Jewel",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "AlchemistsJewel"
+      }
+    ],
+    "ArmorVault": [
+      {
+        "key": "/Items/Armor/Akari/Armor_Head_Akari",
+        "name": "Akari (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "ArmorVault"
+      },
+      {
+        "key": "/Items/Armor/Akari/Armor_Body_Akari",
+        "name": "Akari (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "ArmorVault"
+      },
+      {
+        "key": "/Items/Armor/Akari/Armor_Legs_Akari",
+        "name": "Akari (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "ArmorVault"
+      }
+    ],
+    "BackbreakerRing": [
+      {
+        "key": "/Items/Trinkets/BackbreakerRing",
+        "name": "Backbreaker Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Rural Earth",
+        "dlc": "Subject 2923",
+        "eventName": "BackbreakerRing"
+      }
+    ],
+    "BandOfCastor": [
+      {
+        "key": "/Items/Trinkets/BandsOfCastorAndPollux/Trinket_BandOfCastor",
+        "name": "Band Of Castor",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BandOfCastor"
+      }
+    ],
+    "BandOfPollux": [
+      {
+        "key": "/Items/Trinkets/BandsOfCastorAndPollux/Trinket_BandOfPollux",
+        "name": "Band Of Pollux",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BandOfPollux"
+      }
+    ],
+    "BandOfStrength": [
+      {
+        "key": "/Items/Trinkets/BandOfStrength",
+        "name": "Band Of Strength",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BandOfStrength"
+      }
+    ],
+    "BarbTerror": [
+      {
+        "key": "/Items/Mods/UnstableQuills",
+        "name": "Unstable Quills",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BarbTerror"
+      }
+    ],
+    "BarnSiege": [
+      {
+        "key": "/Items/Trinkets/HangmansMemento",
+        "name": "Hangmans Memento",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "BarnSiege"
+      }
+    ],
+    "BlinkFiend": [
+      {
+        "key": "/Items/Mods/BlinkToken",
+        "name": "Blink Token",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BlinkFiend"
+      }
+    ],
+    "BlinkThief": [
+      {
+        "key": "/Items/Weapons/Basic/RicochetRifle/Weapon_Pan_RicochetRifle",
+        "name": "Ricochet Rifle",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BlinkThief"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_CelerityStone",
+        "name": "Celerity Stone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BlinkThief"
+      }
+    ],
+    "BlizzardMage": [
+      {
+        "key": "/Items/Mods/Blizzard",
+        "name": "Blizzard",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "BlizzardMage"
+      }
+    ],
+    "BloodFont": [
+      {
+        "key": "/Items/Trinkets/Trinket_BloodFont",
+        "name": "Blood Font",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BloodFont"
+      }
+    ],
+    "Brabus": [
+      {
+        "key": "/Items/Mods/ExplosiveShot",
+        "name": "Explosive Shot",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Brabus"
+      },
+      {
+        "key": "/Items/Armor/Bandit/Armor_Head_Bandit",
+        "name": "Bandit (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Brabus"
+      },
+      {
+        "key": "/Items/Armor/Bandit/Armor_Body_Bandit",
+        "name": "Bandit (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Brabus"
+      },
+      {
+        "key": "/Items/Armor/Bandit/Armor_Legs_Bandit",
+        "name": "Bandit (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Brabus"
+      },
+      {
+        "key": "/Items/Traits/Trait_ColdAsIce",
+        "name": "Cold As Ice",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Brabus"
+      }
+    ],
+    "BrainBug": [
+      {
+        "key": "/Items/Trinkets/GIftOfTheIskal",
+        "name": "Gift of the Iskal",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "BrainBug"
+      },
+      {
+        "key": "/Items/Armor/Carapace/Armor_Head_Carapace",
+        "name": "Carapace (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "BrainBug"
+      },
+      {
+        "key": "/Items/Armor/Carapace/Armor_Body_Carapace",
+        "name": "Carapace (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "BrainBug"
+      },
+      {
+        "key": "/Items/Armor/Carapace/Armor_Legs_Carapace",
+        "name": "Carapace (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "BrainBug"
+      },
+      {
+        "key": "/Items/Traits/Trait_Luminescent",
+        "name": "Luminescent",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "BrainBug"
+      }
+    ],
+    "BrutalMark": [
+      {
+        "key": "/Items/Trinkets/BrutalMark",
+        "name": "Brutal Mark",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "BrutalMark"
+      }
+    ],
+    "BurdenOfTheReckless": [
+      {
+        "key": "/Items/Trinkets/BurdenOfTheReckless",
+        "name": "Burden Of The Reckless",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Rhom",
+        "dlc": "",
+        "eventName": "BurdenOfTheReckless"
+      }
+    ],
+    "BurdenOfTheGambler": [
+      {
+        "key": "/Items/Trinkets/BurdenOfTheGambler",
+        "name": "Burden Of The Gambler",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Earth",
+        "dlc": "",
+        "eventName": "BurdenOfTheGambler"
+      }
+    ],
+    "BurdenOfTheDevoted": [
+      {
+        "key": "/Items/Trinkets/BurdenOfTheDevoted",
+        "name": "Burden Of The Devoted",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Corsus",
+        "dlc": "",
+        "eventName": "BurdenOfTheDevoted"
+      }
+    ],
+    "BurdenOfTheFollower": [
+      {
+        "key": "/Items/Trinkets/Trinket_BurdenOfTheFollower",
+        "name": "Burden Of The Follower",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Yaesha",
+        "dlc": "",
+        "eventName": "BurdenOfTheFollower"
+      }
+    ],
+    "BurdenOfTheWarlord": [
+      {
+        "key": "/Items/Trinkets/Trinket_BurdenOfTheWarlord",
+        "name": "Burden Of The Warlord",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Reisum",
+        "dlc": "Subject 2923",
+        "eventName": "BurdenOfTheWarlord"
+      }
+    ],
+    "ButchersFetish": [
+      {
+        "key": "/Items/Trinkets/ButchersFetish",
+        "name": "Butchers Fetish",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "ButchersFetish"
+      }
+    ],
+    "CharcoalNecklace": [
+      {
+        "key": "/Items/Trinkets/CharcoalNecklace",
+        "name": "Charcoal Necklace",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Reisum",
+        "dlc": "Subject 2923",
+        "eventName": "CharcoalNecklace"
+      }
+    ],
+    "CleansingJewel": [
+      {
+        "key": "/Items/Trinkets/CleansingJewel",
+        "name": "Cleansing Jewel",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "CleansingJewel"
+      }
+    ],
+    "CompulsionLoop": [
+      {
+        "key": "/Items/Trinkets/CompulsionLoop",
+        "name": "Compulsion Loop",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "CompulsionLoop"
+      }
+    ],
+    "CreepersPeeper": [
+      {
+        "key": "/Items/Trinkets/SwashbucklersSignet",
+        "name": "Swashbucklers Signet",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "CreepersPeeper"
+      },
+      {
+        "key": "/Items/Weapons/Basic/MiniCrossbow/Weapon_MiniCrossbow",
+        "name": "Twin Shot",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "CreepersPeeper"
+      }
+    ],
+    "Cryptolith": [
+      {
+        "key": "/Items/Traits/Trait_Concentration",
+        "name": "Concentration",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Cryptolith"
+      },
+      {
+        "key": "/Items/Traits/Trait_BloodBond",
+        "name": "Blood Bond",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Cryptolith"
+      },
+      {
+        "key": "/Items/Armor/Armor_Head_Labyrinth",
+        "name": "Labyrinth (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Cryptolith"
+      },
+      {
+        "key": "/Items/Armor/Armor_Body_Labyrinth",
+        "name": "Labyrinth (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Cryptolith"
+      },
+      {
+        "key": "/Items/Armor/Armor_Legs_Labyrinth",
+        "name": "Labyrinth (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Cryptolith"
+      }
+    ],
+    "DeceiversBand": [
+      {
+        "key": "/Items/Trinkets/DeceiversBand",
+        "name": "Deceivers Band",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "DeceiversBand"
+      }
+    ],
+    "DevouringLoop": [
+      {
+        "key": "/Items/Trinkets/DevouringLoop",
+        "name": "Devouring Loop",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "DevouringLoop"
+      }
+    ],
+    "DoeShrine": [
+      {
+        "key": "/Items/Trinkets/Trinket_ScavengersBauble",
+        "name": "Scavengers Bauble",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "DoeShrine"
+      },
+      {
+        "key": "/Items/Traits/Trait_Swiftness",
+        "name": "Swiftness",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "DoeShrine"
+      }
+    ],
+    "DrifterMask": [
+      {
+        "key": "/Items/Armor/Drifter/Armor_Head_Drifter",
+        "name": "Drifter (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "DrifterMask"
+      }
+    ],
+    "Driftstone": [
+      {
+        "key": "/Items/Trinkets/DriftStone",
+        "name": "Drift Stone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Reisum",
+        "dlc": "Subject 2923",
+        "eventName": "Driftstone"
+      }
+    ],
+    "EzlansBand": [
+      {
+        "key": "/Items/Trinkets/Trinket_EzlansBand",
+        "name": "Ezlans Band",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "EzlansBand"
+      }
+    ],
+    "Fatty": [
+      {
+        "key": "/Items/Weapons/Boss/Devastator/Weapon_Swamp_Devastator",
+        "name": "Devastator",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Fatty"
+      },
+      {
+        "key": "/Items/Weapons/Boss/ButchersFlail/Weapon_Swamp_ButchersFlail",
+        "name": "Butchers Flail",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "Fatty"
+      },
+      {
+        "key": "/Items/Traits/Trait_Glutton",
+        "name": "Glutton",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Fatty"
+      },
+      {
+        "key": "/Player/Emotes/Emote_Exhausted",
+        "name": "Exhausted",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Fatty"
+      }
+    ],
+    "FetidPool": [
+      {
+        "key": "/Items/Trinkets/Trinket_RustedAmulet",
+        "name": "Rusted Amulet",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "FetidPool"
+      },
+      {
+        "key": "/Items/Trinkets/HeartOfDarkness",
+        "name": "Heart Of Darkness",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "FetidPool"
+      },
+      {
+        "key": "/Items/Trinkets/HerosRing",
+        "name": "Heros Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "FetidPool"
+      },
+      {
+        "key": "/Items/Traits/Trait_Fortification",
+        "name": "Fortification",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "FetidPool"
+      }
+    ],
+    "FiveFingeredRing": [
+      {
+        "key": "/Items/Trinkets/FiveFingeredRing",
+        "name": "Five Fingered Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on rural Earth",
+        "dlc": "Subject 2923",
+        "eventName": "FiveFingeredRing"
+      }
+    ],
+    "Flautist": [
+      {
+        "key": "/Items/Trinkets/Trinket_HeartOfTheWolf",
+        "name": "Heart Of The Wolf",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Flautist"
+      },
+      {
+        "key": "/Items/Traits/Trait_Swiftness",
+        "name": "Swiftness",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Flautist"
+      }
+    ],
+    "FlickeringHorror": [
+      {
+        "key": "/Items/Mods/RiftWalker",
+        "name": "Rift Walker",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "FlickeringHorror"
+      }
+    ],
+    "FoundersHideout": [
+      {
+        "key": "/Items/Armor/Drifter/Armor_Body_Drifter",
+        "name": "Drifter (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "FoundersHideout"
+      },
+      {
+        "key": "/Items/Armor/Drifter/Armor_Legs_Drifter",
+        "name": "Drifter (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "FoundersHideout"
+      }
+    ],
+    "FrozenLords": [
+      {
+        "key": "/Items/Armor/Scavenger/Armor_Head_Scavenger",
+        "name": "Scavenger (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "FrozenLords"
+      },
+      {
+        "key": "/Items/Armor/Scavenger/Armor_Body_Scavenger",
+        "name": "Scavenger (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "FrozenLords"
+      },
+      {
+        "key": "/Items/Armor/Scavenger/Armor_Legs_Scavenger",
+        "name": "Scavenger (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "FrozenLords"
+      }
+    ],
+    "GalenicCharm": [
+      {
+        "key": "/Items/Trinkets/Trinket_GalenicCharm",
+        "name": "Galenic Charm",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "GalenicCharm"
+      }
+    ],
+    "GraveyardElf": [
+      {
+        "key": "/Items/Trinkets/GrimCoil",
+        "name": "Grim Coil",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "GraveyardElf"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_RingOfTheUnclean",
+        "name": "Ring Of The Unclean",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "GraveyardElf"
+      },
+      {
+        "key": "/Items/Traits/Trait_Potency",
+        "name": "Potency",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "GraveyardElf"
+      }
+    ],
+    "GravityStone": [
+      {
+        "key": "/Items/Trinkets/GravityStone",
+        "name": "Gravity Stone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "GravityStone"
+      }
+    ],
+    "Guardian": [],
+    "GunslingersCharm": [
+      {
+        "key": "/Items/Trinkets/Trinket_GunslingersCharm",
+        "name": "Gunslingers Charm",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "GunslingersCharm"
+      }
+    ],
+    "GunslignersRing": [
+      {
+        "key": "/Items/Trinkets/Trinket_GunslingersRing",
+        "name": "Gunslingers Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "GunslignersRing"
+      }
+    ],
+    "HeartSeeker": [
+      {
+        "key": "/Items/Trinkets/HeartSeeker",
+        "name": "Heart Seeker",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "HeartSeeker"
+      }
+    ],
+    "Homestead": [
+      {
+        "key": "/Items/Trinkets/VanguardRing",
+        "name": "Vanguard Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "Homestead"
+      }
+    ],
+    "HoundMaster": [
+      {
+        "key": "/Items/Mods/HowlersImmunity",
+        "name": "Howlers Immunity",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "HoundMaster"
+      }
+    ],
+    "HuntersBand": [
+      {
+        "key": "/Items/Trinkets/HuntersBand",
+        "name": "Hunters Band",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "HuntersBand"
+      }
+    ],
+    "HuntersHalo": [
+      {
+        "key": "/Items/Trinkets/Trinket_HuntersHalo",
+        "name": "Hunters Halo",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "HuntersHalo"
+      }
+    ],
+    "HuntersHideout": [
+      {
+        "key": "/Items/Weapons/Basic/HandGuns/HuntingPistol/Weapon_HuntingPistol",
+        "name": "Hunting Pistol",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "HuntersHideout"
+      },
+      {
+        "key": "/Items/Traits/Trait_ShadowWalker",
+        "name": "Shadow Walker",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "HuntersHideout"
+      }
+    ],
+    "IceSkimmer": [
+      {
+        "key": "/Items/Trinkets/BandOfDiscord",
+        "name": "Band Of Discord",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "IceSkimmer"
+      },
+      {
+        "key": "/Items/Trinkets/RingOfSynergy",
+        "name": "Ring Of Synergy",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "IceSkimmer"
+      },
+      {
+        "key": "/Items/Weapons/Basic/SawedOffShotgun/Weapon_SawedOffShotgun",
+        "name": "Sawed Off Shotgun",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "IceSkimmer"
+      },
+      {
+        "key": "/Items/Armor/Warlord/Armor_Head_Warlord",
+        "name": "Warlord (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "IceSkimmer"
+      },
+      {
+        "key": "/Items/Armor/Warlord/Armor_Body_Warlord",
+        "name": "Warlord (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "IceSkimmer"
+      },
+      {
+        "key": "/Items/Armor/Warlord/Armor_Legs_Warlord",
+        "name": "Warlord (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "IceSkimmer"
+      }
+    ],
+    "ImmolatorAndZephyr": [
+      {
+        "key": "/Items/Mods/WildfireShot",
+        "name": "Wildfire Shot",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "ImmolatorAndZephyr"
+      }
+    ],
+    "IskalQueen": [
+      {
+        "key": "/Items/Weapons/Basic/Melee/Weapon_Swamp_Scythe",
+        "name": "Scythe",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "IskalQueen"
+      },
+      {
+        "key": "/Items/Weapons/Basic/LongGuns/Crossbow/Weapon_Swamp_Crossbow",
+        "name": "Crossbow",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "IskalQueen"
+      },
+      {
+        "key": "/Items/Armor/Slayer/Armor_Head_Slayer",
+        "name": "Slayer (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "IskalQueen"
+      },
+      {
+        "key": "/Items/Armor/Slayer/Armor_Body_Slayer",
+        "name": "Slayer (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "IskalQueen"
+      },
+      {
+        "key": "/Items/Armor/Slayer/Armor_Legs_Slayer",
+        "name": "Slayer (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "IskalQueen"
+      }
+    ],
+    "JanitorsWatch": [
+      {
+        "key": "/Items/Trinkets/AmberMoonstone",
+        "name": "Amber Moonstone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Give Janitor's Watch to Clementine",
+        "dlc": "Subject 2923",
+        "eventName": "JanitorsWatch"
+      }
+    ],
+    "KeepersRing": [
+      {
+        "key": "/Items/Trinkets/Trinket_KeepersRing",
+        "name": "Keepers Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "KeepersRing"
+      }
+    ],
+    "KinCaller": [
+      {
+        "key": "/Items/Mods/SongOfSwords",
+        "name": "Song Of Swords",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "KinCaller"
+      }
+    ],
+    "KrallBaby": [
+      {
+        "key": "/Items/Traits/Trait_Siphoner",
+        "name": "Siphoner",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "KrallBaby"
+      },
+      {
+        "key": "/Items/Trinkets/BlessedNecklace",
+        "name": "Blessed Necklace",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Free Krall Baby then speak to mother at Chillwind Hovel",
+        "dlc": "Subject 2923",
+        "eventName": "KrallBaby"
+      }
+    ],
+    "LastWill": [
+      {
+        "key": "/Items/Weapons/Basic/LongGuns/AssaultRifle/Weapon_AssaultRifle",
+        "name": "Assault Rifle",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "LastWill"
+      },
+      {
+        "key": "/Items/Traits/Trait_Spirit",
+        "name": "Spirit",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "LastWill"
+      }
+    ],
+    "LeechEmber": [
+      {
+        "key": "/Items/Trinkets/Trinket_LeechEmber",
+        "name": "Leech Ember",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "LeechEmber"
+      }
+    ],
+    "LizAndLiz": [
+      {
+        "key": "/Items/Weapons/Basic/LongGuns/MachineGun/Weapon_Machinegun",
+        "name": "Chicago Typewriter",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "LizAndLiz"
+      },
+      {
+        "key": "/Items/Traits/Trait_Warrior",
+        "name": "Warrior",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "LizAndLiz"
+      }
+    ],
+    "MadMerchant": [
+      {
+        "key": "/Items/QuestItems/TwistedMask/Quest_TwistedMask",
+        "name": "Twisted Mask (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "MadMerchant"
+      }
+    ],
+    "Monolith": [
+      {
+        "key": "/Items/Armor/Void/Armor_Head_Void",
+        "name": "Void (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "Monolith"
+      },
+      {
+        "key": "/Items/Armor/Void/Armor_Body_Void",
+        "name": "Void (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "Monolith"
+      },
+      {
+        "key": "/Items/Armor/Void/Armor_Legs_Void",
+        "name": "Void (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "Monolith"
+      }
+    ],
+    "MothersRing": [
+      {
+        "key": "/Items/Trinkets/Trinket_MothersRing",
+        "name": "Mothers Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "MothersRing"
+      }
+    ],
+    "MudTooth": [
+      {
+        "key": "/Quests/Quest_OverworldPOI_MudTooth/Quest_BrabusPocketWatch",
+        "name": "Brabus Pocket Watch",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "MudTooth"
+      }
+    ],
+    "Nexus": [],
+    "OldManAndConstruct": [
+      {
+        "key": "/Items/Trinkets/JewelOfTheBlackSun",
+        "name": "Jewel Of The Black Sun",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "OldManAndConstruct"
+      },
+      {
+        "key": "/Items/Trinkets/MendersCharm",
+        "name": "Menders Charm",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "OldManAndConstruct"
+      },
+      {
+        "key": "/Items/Armor/Osseous/Armor_Head_Osseous",
+        "name": "Osseous (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "OldManAndConstruct"
+      },
+      {
+        "key": "/Items/Armor/Osseous/Armor_Body_Osseous",
+        "name": "Osseous (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "OldManAndConstruct"
+      },
+      {
+        "key": "/Items/Armor/Osseous/Armor_Legs_Osseous",
+        "name": "Osseous (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "OldManAndConstruct"
+      },
+      {
+        "key": "/Items/Mods/IronSentinel",
+        "name": "Iron Sentinel",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "OldManAndConstruct"
+      },
+      {
+        "key": "/Items/Mods/VeryGoodBoy",
+        "name": "Very Good Boy",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "Pet Wud's dog on Rhom",
+        "dlc": "",
+        "eventName": "OldManAndConstruct"
+      }
+    ],
+    "PearlOfLuminescence": [
+      {
+        "key": "/Items/Trinkets/Trinket_PearlOfLuminescence",
+        "name": "Pearl Of Luminescence",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "PearlOfLuminescence"
+      }
+    ],
+    "Penitent": [
+      {
+        "key": "/Items/Trinkets/Trinket_LetosAmulet",
+        "name": "Letos Amulet",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Penitent"
+      }
+    ],
+    "PillarOfStone": [
+      {
+        "key": "/Items/Trinkets/Trinket_PillarOfStone",
+        "name": "Pillar Of Stone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "PillarOfStone"
+      }
+    ],
+    "PolishedWhetstone": [
+      {
+        "key": "/Items/Trinkets/PolishedWhetstone",
+        "name": "Polished Whetstone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Reisum",
+        "dlc": "Subject 2923",
+        "eventName": "PolishedWhetstone"
+      }
+    ],
+    "QueensTemple": [
+      {
+        "key": "/Items/Weapons/Boss/PrideOfTheIskal/Weapon_Swamp_PrideOfTheIskal",
+        "name": "Pride Of The Iskal",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Swamps of Corsus",
+        "eventName": "QueensTemple"
+      },
+      {
+        "key": "/Items/Traits/Trait_Footwork",
+        "name": "Footwork",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "QueensTemple"
+      },
+      {
+        "key": "/Items/Mods/Seeker",
+        "name": "Seeker",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "QueensTemple"
+      }
+    ],
+    "RadioactiveEmber": [
+      {
+        "key": "/Items/Trinkets/RadioactiveEmber",
+        "name": "Radioactive Ember",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Rhom",
+        "dlc": "",
+        "eventName": "RadioactiveEmber"
+      }
+    ],
+    "RatRider": [
+      {
+        "key": "/Items/Traits/Trait_HardCharger",
+        "name": "Hard Charger",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "RatRider"
+      },
+      {
+        "key": "/Items/Weapons/Boss/Alternator/Weapon_Snow_Alternator",
+        "name": "Alternator",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "RatRider"
+      },
+      {
+        "key": "/Items/Weapons/Boss/ChainBlade/Weapon_Snow_ChainBlade",
+        "name": "Chain Blade",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "RatRider"
+      }
+    ],
+    "RazorStone": [
+      {
+        "key": "/Items/Trinkets/Razorstone",
+        "name": "Razorstone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RazorStone"
+      }
+    ],
+    "RazorwireNecklace": [
+      {
+        "key": "/Items/Trinkets/RazorwireNecklace",
+        "name": "Razorwire Necklace",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Reisum",
+        "dlc": "Subject 2923",
+        "eventName": "RazorwireNecklace"
+      }
+    ],
+    "ReggiesRing": [
+      {
+        "key": "/Items/Traits/Trait_Scavenger",
+        "name": "Scavenger",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "ReggiesRing"
+      }
+    ],
+    "RestrictionCord": [
+      {
+        "key": "/Items/Trinkets/RestrictionCord",
+        "name": "Restriction Cord",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Yaesha",
+        "dlc": "",
+        "eventName": "RestrictionCord"
+      }
+    ],
+    "RingOfElusion": [
+      {
+        "key": "/Items/Trinkets/RingOfElusion",
+        "name": "Ring Of Elusion",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RingOfElusion"
+      }
+    ],
+    "RingOfEvasion": [
+      {
+        "key": "/Items/Trinkets/Trinket_RingOfEvasion",
+        "name": "Ring Of Evasion",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RingOfEvasion"
+      }
+    ],
+    "RockOfAnguish": [
+      {
+        "key": "/Items/Trinkets/RockOfAnguish",
+        "name": "Rock Of Anguish",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RockOfAnguish"
+      }
+    ],
+    "RingOfShadows": [
+      {
+        "key": "/Items/Trinkets/Trinket_RingOfShadows",
+        "name": "Ring Of Shadows",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RingOfShadows"
+      }
+    ],
+    "RootBrute": [
+      {
+        "key": "/Items/Mods/MantleOfThorns",
+        "name": "Mantle Of Thorns",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootBrute"
+      }
+    ],
+    "RootCultist": [
+      {
+        "key": "/Items/Trinkets/BraidedThorns",
+        "name": "Braided Thorns",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootCultist"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_RootCirclet",
+        "name": "Root Circlet",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootCultist"
+      }
+    ],
+    "RootDragon": [
+      {
+        "key": "/Items/Weapons/Boss/Root_Spitfire/Weapon_Root_Spitfire",
+        "name": "Spitfire",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootDragon"
+      },
+      {
+        "key": "/Items/Weapons/Boss/Root_Smolder/Weapon_Root_Smolder",
+        "name": "Smolder",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootDragon"
+      },
+      {
+        "key": "/Player/Emotes/Emote_Beckon",
+        "name": "Beckon",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootDragon"
+      }
+    ],
+    "RootMother": [
+      {
+        "key": "/Items/Traits/Trait_MothersBlessing",
+        "name": "Mothers Blessing",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootMother"
+      },
+      {
+        "key": "/Items/Weapons/Basic/LongGuns/SniperRifle/Weapon_SniperRifle",
+        "name": "Sniper Rifle",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootMother"
+      }
+    ],
+    "RootTumbleweed": [
+      {
+        "key": "/Items/Mods/SeedCaller",
+        "name": "Seed Caller",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootTumbleweed"
+      }
+    ],
+    "RootWraith": [
+      {
+        "key": "/Items/Mods/Rattleweed",
+        "name": "Rattleweed",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootWraith"
+      }
+    ],
+    "RootEnt": [
+      {
+        "key": "/Items/Weapons/Boss/Root_SporeLauncher/Weapon_Root_SporeLauncher",
+        "name": "Spore Launcher",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootEnt"
+      },
+      {
+        "key": "/Items/Weapons/Boss/Root_PetrifiedMaul/Weapon_Root_PetrifiedMaul",
+        "name": "Petrified Maul",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootEnt"
+      },
+      {
+        "key": "/Items/Traits/Trait_QuickHands",
+        "name": "Quick Hands",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootEnt"
+      },
+      {
+        "key": "/Player/Emotes/Emote_Cheer",
+        "name": "Cheer",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootEnt"
+      }
+    ],
+    "RootShrine": [
+      {
+        "key": "/Items/Armor/Twisted/Armor_Head_Twisted",
+        "name": "Twisted (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootShrine"
+      },
+      {
+        "key": "/Items/Armor/Twisted/Armor_Body_Twisted",
+        "name": "Twisted (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootShrine"
+      },
+      {
+        "key": "/Items/Armor/Twisted/Armor_Legs_Twisted",
+        "name": "Twisted (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "RootShrine"
+      }
+    ],
+    "Ruins": [],
+    "SageStone": [
+      {
+        "key": "/Items/Trinkets/Trinket_Sagestone",
+        "name": "Sagestone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SageStone"
+      }
+    ],
+    "Sentinel": [
+      {
+        "key": "/Items/Mods/Beckon",
+        "name": "Beckon",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Sentinel"
+      }
+    ],
+    "SerpentsFang": [
+      {
+        "key": "/Items/Trinkets/SerpentsFang",
+        "name": "Serpents Fang",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Reisum",
+        "dlc": "Subject 2923",
+        "eventName": "SerpentsFang"
+      }
+    ],
+    "Settlement": [],
+    "ShamanFlames": [
+      {
+        "key": "/Items/Trinkets/Trinket_PrismaticDiamondRing",
+        "name": "Prismatic Diamond Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "ShamanFlames"
+      }
+    ],
+    "ShieldWarden": [
+      {
+        "key": "/Items/Mods/FrozenMist",
+        "name": "Frozen Mist",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "ShieldWarden"
+      }
+    ],
+    "Sketterling": [
+      {
+        "key": "/Items/Armor/Carapace/Armor_Head_Carapace",
+        "name": "Carapace (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Sketterling"
+      },
+      {
+        "key": "/Items/Armor/Carapace/Armor_Body_Carapace",
+        "name": "Carapace (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Sketterling"
+      },
+      {
+        "key": "/Items/Armor/Carapace/Armor_Legs_Carapace",
+        "name": "Carapace (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Sketterling"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_IskalHunterBand",
+        "name": "Iskal Hunter Band",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Sketterling"
+      },
+      {
+        "key": "/Items/Trinkets/AmuletOfEpicaricacy",
+        "name": "Amulet Of Epicaricacy",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Sketterling"
+      },
+      {
+        "key": "/Items/Trinkets/RingOfTheMantis",
+        "name": "Ring Of The Mantis",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Sketterling"
+      }
+    ],
+    "SlaveRevolt": [
+      {
+        "key": "/Items/Traits/Trait_Triage",
+        "name": "Triage",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SlaveRevolt"
+      }
+    ],
+    "SlimeHulk": [
+      {
+        "key": "/Items/Mods/CorrosiveAura",
+        "name": "Corrosive Aura",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SlimeHulk"
+      },
+      {
+        "key": "/Items/Traits/Trait_Catalyst",
+        "name": "Catalyst",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SlimeHulk"
+      }
+    ],
+    "SnowRuins": [],
+    "SoulLink": [
+      {
+        "key": "/Items/Trinkets/SoulLink",
+        "name": "Soul Link",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SoulLink"
+      }
+    ],
+    "SpiritStone": [
+      {
+        "key": "/Items/Trinkets/Trinket_SpiritStone",
+        "name": "Spirit Stone",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Yaesha",
+        "dlc": "",
+        "eventName": "SpiritStone"
+      }
+    ],
+    "Splitter": [
+      {
+        "key": "/Items/Armor/Leto/Armor_Head_Leto",
+        "name": "Leto (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Splitter"
+      },
+      {
+        "key": "/Items/Armor/Leto/Armor_Body_Leto",
+        "name": "Leto (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Splitter"
+      },
+      {
+        "key": "/Items/Armor/Leto/Armor_Legs_Leto",
+        "name": "Leto (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Splitter"
+      },
+      {
+        "key": "/Items/Mods/FlickerCloak",
+        "name": "Flicker Cloak",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Splitter"
+      }
+    ],
+    "StalkersBrand": [
+      {
+        "key": "/Items/Trinkets/Trinket_StalkersBrand",
+        "name": "Stalkers Brand",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Yaesha",
+        "dlc": "",
+        "eventName": "StalkersBrand"
+      }
+    ],
+    "StockpileCirclet": [
+      {
+        "key": "/Items/Trinkets/Trinket_StockpileCirclet",
+        "name": "Stockpile Circlet",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StockpileCirclet"
+      }
+    ],
+    "StoneOfBalance": [
+      {
+        "key": "/Items/Trinkets/Trinket_StoneOfBalance",
+        "name": "Stone Of Balance",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StoneOfBalance"
+      }
+    ],
+    "StormAmulet": [
+      {
+        "key": "/Items/Trinkets/Trinket_StormAmulet",
+        "name": "Storm Amulet",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StormAmulet"
+      }
+    ],
+    "StormCaller": [
+      {
+        "key": "/Items/Mods/StormCaller",
+        "name": "Storm Caller",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StormCaller"
+      }
+    ],
+    "StuckMerchant": [
+      {
+        "key": "/Items/Weapons/Basic/Spear/Weapon_Pan_Spear",
+        "name": "Spear",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StuckMerchant"
+      },
+      {
+        "key": "/Items/Armor/Radiant/Armor_Legs_Radiant",
+        "name": "Radiant (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StuckMerchant"
+      },
+      {
+        "key": "/Items/Armor/Radiant/Armor_Body_Radiant",
+        "name": "Radiant (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StuckMerchant"
+      },
+      {
+        "key": "/Items/Armor/Radiant/Armor_Head_Radiant",
+        "name": "Radiant (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StuckMerchant"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_GuardiansRing",
+        "name": "Guardians Ring",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StuckMerchant"
+      },
+      {
+        "key": "/Items/Traits/Trait_GuardiansBlessing",
+        "name": "Guardians Blessing",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "StuckMerchant"
+      }
+    ],
+    "SwampGuardian": [
+      {
+        "key": "/Items/Weapons/Boss/HiveCannon/Weapon_Swamp_HiveCannon",
+        "name": "Hive Cannon",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SwampGuardian"
+      },
+      {
+        "key": "/Items/Weapons/Boss/GuardianAxe/Weapon_Swamp_GuardianAxe",
+        "name": "Guardian Axe",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SwampGuardian"
+      },
+      {
+        "key": "/Items/Traits/Trait_Executioner",
+        "name": "Executioner",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SwampGuardian"
+      },
+      {
+        "key": "/Player/Emotes/Emote_Confused",
+        "name": "Confused",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SwampGuardian"
+      }
+    ],
+    "SwarmMaster": [
+      {
+        "key": "/Items/Mods/BreathOfDesert",
+        "name": "Breath Of Desert",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "SwarmMaster"
+      }
+    ],
+    "TalismanOfAnimosity": [
+      {
+        "key": "/Items/Trinkets/TalismanOfAnimosity",
+        "name": "Talisman Of Animosity",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TalismanOfAnimosity"
+      }
+    ],
+    "TalismanOfPerseverance": [
+      {
+        "key": "/Items/Trinkets/TalismanOfPerseverance",
+        "name": "Talisman Of Perseverance",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "According to devs, can also be a random drop on Yaesha (unconfirmed)",
+        "dlc": "",
+        "eventName": "TalismanOfPerseverance"
+      }
+    ],
+    "TerrorMargin": [
+      {
+        "key": "/Items/Trinkets/TerrorMargin",
+        "name": "Terror Margin",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Rural Earth",
+        "dlc": "Subject 2923",
+        "eventName": "TerrorMargin"
+      }
+    ],
+    "TheCleanRoom": [
+      {
+        "key": "/Items/Weapons/Basic/Wasteland_Flail/Weapon_Wasteland_Flail",
+        "name": "Wastelander Flail",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TheCleanRoom"
+      }
+    ],
+    "TheHarrow": [
+      {
+        "key": "/Items/Weapons/Boss/Defiler/Weapon_Wasteland_Defiler",
+        "name": "Defiler",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TheHarrow"
+      },
+      {
+        "key": "/Items/Weapons/Boss/LostHarpoon/Weapon_Wasteland_LostHarpoon",
+        "name": "Lost Harpoon",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TheHarrow"
+      },
+      {
+        "key": "/Player/Emotes/Emote_Fail",
+        "name": "Fail",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TheHarrow"
+      }
+    ],
+    "TheJackal": [
+      {
+        "key": "/Items/Mods/ColdSpear",
+        "name": "Cold Spear",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "TheJackal"
+      }
+    ],
+    "TheLostGantry": [
+      {
+        "key": "/Items/Weapons/Basic/Wasteland_BeamRifle/Weapon_Wasteland_BeamRifle",
+        "name": "Beam Rifle",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TheLostGantry"
+      }
+    ],
+    "TheRisen": [
+      {
+        "key": "/Items/Trinkets/SoulAnchor",
+        "name": "Soul Anchor",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TheRisen"
+      }
+    ],
+    "TotemFather": [
+      {
+        "key": "/Items/Traits/Trait_ArcaneStrike",
+        "name": "Arcane Strike",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TotemFather"
+      },
+      {
+        "key": "/Items/Weapons/Boss/Pan_EyeOfTheStorm/Weapon_Pan_EyeOfTheStorm",
+        "name": "Eye Of The Storm",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TotemFather"
+      },
+      {
+        "key": "/Items/Weapons/Boss/Pan_VoiceOfTheTempest/Weapon_Pan_VoiceOfTheTempest",
+        "name": "Voice Of The Tempest",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TotemFather"
+      },
+      {
+        "key": "/Player/Emotes/Emote_TeaTime",
+        "name": "Tea Time",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "TotemFather"
+      }
+    ],
+    "Tyrant": [
+      {
+        "key": "/Items/Mods/Swarm",
+        "name": "Swarm",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Tyrant"
+      },
+      {
+        "key": "/Items/Traits/Trait_Catalyst",
+        "name": "Catalyst",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Tyrant"
+      }
+    ],
+    "UndyingKing": [
+      {
+        "key": "/Items/Weapons/Boss/Ruin/Weapon_Wasteland_Ruin",
+        "name": "Ruin",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "UndyingKing"
+      },
+      {
+        "key": "/Items/Traits/Trait_Kingslayer",
+        "name": "Kingslayer",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "UndyingKing"
+      },
+      {
+        "key": "/Items/Weapons/Boss/Riven/Weapon_Wasteland_Riven",
+        "name": "Riven",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "UndyingKing"
+      },
+      {
+        "key": "/Player/Emotes/Emote_Gravedigger",
+        "name": "Gravedigger",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "UndyingKing"
+      }
+    ],
+    "UrikkiBlademasters": [
+      {
+        "key": "/Items/Mods/FanOfKnives",
+        "name": "Fan Of Knives",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "UrikkiBlademasters"
+      }
+    ],
+    "VargylBones": [
+      {
+        "key": "/Items/Weapons/Boss/Frostborne/Weapon_Frostborne",
+        "name": "Frostborne",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "VargylBones"
+      }
+    ],
+    "VengeanceIdol": [
+      {
+        "key": "/Items/Trinkets/VengeanceIdol",
+        "name": "Vengeance Idol",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "VengeanceIdol"
+      }
+    ],
+    "Uncategorized": [
+      {
+        "key": "/Items/Traits/Trait_Exploiter",
+        "name": "Exploiter",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Handling",
+        "name": "Handling",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_KeepersBlessing",
+        "name": "Keepers Blessing",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_RapidStrike",
+        "name": "Rapid Strike",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Revivalist",
+        "name": "Revivalist",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_SleightOfHand",
+        "name": "Sleight Of Hand",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Suspicion",
+        "name": "Suspicion",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Teamwork",
+        "name": "Teamwork",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_TriggerHappy",
+        "name": "Trigger Happy",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_WillToLive",
+        "name": "Will To Live",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_WorldWalker",
+        "name": "World Walker",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Invoker",
+        "name": "Invoker",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_FlashCaster",
+        "name": "Flash Caster",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "Obtain 25 weapon mods",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Climber",
+        "name": "Climber",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "Vault over 50 ledges",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_ArmorPiercer",
+        "name": "Armor Piercer",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "Deal 5,000 damage to armored points on enemies",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Demolitionist",
+        "name": "Demolitionist",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "Get 100 kills using explosion damage",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Tormentor",
+        "name": "Tormentor",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "Inflict 100 status effects on enemies",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Traits/Trait_Vaccine",
+        "name": "Vaccine",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "Cure 25 full status effects using consumables",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Player/Emotes/Emote_Wave",
+        "name": "Wave",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Armor/Adventurer/Armor_Head_Adventurer",
+        "name": "Adventurer (Head)",
+        "type": "Armor",
+        "mode": "survival",
+        "notes": "Reward for 5 consecutive boss kills",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Weapons/Human/Melee/Sword/Weapon_HerosSword",
+        "name": "Heros Sword",
+        "type": "Weapon",
+        "mode": "survival",
+        "notes": "Reward for 10 consecutive boss kills",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_LoopOfProsperity",
+        "name": "Loop Of Prosperity",
+        "type": "Trinket",
+        "mode": "survival",
+        "notes": "Reward for 25 total boss kills",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/TalismanOfPerseverance",
+        "name": "Talisman Of Perseverance",
+        "type": "Trinket",
+        "mode": "survival",
+        "notes": "Reward for 50 total boss kills",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/DaredevilsCharm",
+        "name": "Daredevils Charm",
+        "type": "Trinket",
+        "mode": "survival",
+        "notes": "Reward for 75 total boss kills",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/BlackRose",
+        "name": "Black Rose",
+        "type": "Trinket",
+        "mode": "survival",
+        "notes": "Reward for 100 total boss kills",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/BlackCatBand",
+        "name": "Black Cat Band",
+        "type": "Trinket",
+        "mode": "survival",
+        "notes": "Reward for defeating all minibosses twice(?)",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/BrightSteelRing",
+        "name": "Bright Steel Ring",
+        "type": "Trinket",
+        "mode": "survival",
+        "notes": "Reward for defeating all world bosses twice(?)",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/WhiteRose",
+        "name": "White Rose",
+        "type": "Trinket",
+        "mode": "survival",
+        "notes": "Reward for defeating all bosses an unknown number of times",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/RingOfFlawlessBeauty",
+        "name": "Ring Of Flawless Beauty",
+        "type": "Trinket",
+        "mode": "survival",
+        "notes": "Purchase 100 items",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/AkariWarBand",
+        "name": "Akari War Band",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "Reward for defeating Clavinger/Harrow",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_EmpoweringLoop",
+        "name": "Empowering Loop",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "Reward for defeating Ixillis",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_ProvisionerRing",
+        "name": "Provisioner Ring",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "Reward for defeating Singe/Ent",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/RingOfSumpremacy",
+        "name": "Ring of Supremacy",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "Reward for defeating Totem Father/Ravager",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_NightmareSpiral",
+        "name": "Nightmare Spiral",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "Reward for defeating Dreamer",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Player/Emotes/Emote_HighFive",
+        "name": "High Five",
+        "type": "Emote",
+        "mode": "hardcore",
+        "notes": "Reward for defeating Dreamer",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_BandOfAccord",
+        "name": "Band Of Accord",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "High five emote another player",
+        "dlc": "",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/RingOfThePunisher",
+        "name": "Ring Of The Punisher",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "Reward for defeating Brudvaak and Vargr",
+        "dlc": "Subject 2923",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/ShatteredVertebrae",
+        "name": "Shattered Vertebrae",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "Reward for defeating Root Harbinger",
+        "dlc": "Subject 2923",
+        "eventName": "Uncategorized"
+      },
+      {
+        "key": "/Items/Trinkets/OnyxPendulum",
+        "name": "Onyx Pendulum",
+        "type": "Trinket",
+        "mode": "hardcore",
+        "notes": "Reward for completing both campaigns",
+        "dlc": "Subject 2923",
+        "eventName": "Uncategorized"
+      }
+    ],
+    "VolatileGem": [
+      {
+        "key": "/Items/Trinkets/VolatileGem",
+        "name": "Volatile Gem",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Random drop on Reisum",
+        "dlc": "Subject 2923",
+        "eventName": "VolatileGem"
+      }
+    ],
+    "Vyr": [
+      {
+        "key": "/Items/Mods/VeilOfTheBlackTear",
+        "name": "Veil Of The Black Tear",
+        "type": "Mod",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Vyr"
+      }
+    ],
+    "WailingWood": [
+      {
+        "key": "/Items/Trinkets/Trinket_TwistedIdol",
+        "name": "Twisted Idol",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WailingWood"
+      },
+      {
+        "key": "/Items/Traits/Trait_BarkSkin",
+        "name": "Bark Skin",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WailingWood"
+      }
+    ],
+    "Ward13": [
+      {
+        "key": "/Items/Weapons/Basic/LongGuns/Coachgun/Weapon_Coachgun",
+        "name": "Coachgun",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Weapons/Human/Melee/Hatchet/Weapon_Hatchet",
+        "name": "Hatchet",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Cultist/Armor_Body_Cultist",
+        "name": "Cultist (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Cultist/Armor_Head_Cultist",
+        "name": "Cultist (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Cultist/Armor_Legs_Cultist",
+        "name": "Cultist (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Weapons/Basic/LongGuns/HuntingRifle/Weapon_HuntingRifle",
+        "name": "Hunting Rifle",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Weapons/Human/Melee/Sword/Weapon_Sword",
+        "name": "Sword",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Hunter/Armor_Body_Hunter",
+        "name": "Hunter (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Hunter/Armor_Head_Hunter",
+        "name": "Hunter (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Hunter/Armor_Legs_Hunter",
+        "name": "Hunter (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Weapons/Basic/LongGuns/Shotgun/Weapon_Shotgun",
+        "name": "Shotgun",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Scrapper/Armor_Body_Scrapper",
+        "name": "Scrapper (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Scrapper/Armor_Head_Scrapper",
+        "name": "Scrapper (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Armor/Scrapper/Armor_Legs_Scrapper",
+        "name": "Scrapper (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Weapons/Human/Melee/Hammer/Weapon_Hammer",
+        "name": "Hammer",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Traits/Trait_ElderKnowledge",
+        "name": "Elder Knowledge",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Weapons/Basic/HandGuns/SubMachineGun/Weapon_Submachinegun",
+        "name": "Submachinegun",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      },
+      {
+        "key": "/Items/Trinkets/RingOfTheAdmiral",
+        "name": "Ring Of The Admiral",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward13"
+      }
+    ],
+    "Ward17": [
+      {
+        "key": "/Items/Weapons/Boss/Guns/LongGuns/Repulsor/Weapon_Atoll_Repulsor",
+        "name": "Repulsor",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward17"
+      },
+      {
+        "key": "/Items/Traits/Trait_MindsEye",
+        "name": "Minds Eye",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward17"
+      },
+      {
+        "key": "/Player/Emotes/Emote_PraiseTheGun",
+        "name": "Praise The Gun",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Ward17"
+      }
+    ],
+    "Ward17Root": [
+      {
+        "key": "/Items/Weapons/Boss/FusionRifle/Weapon_Rural_FusionRifle",
+        "name": "Fusion Rifle",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "Ward17Root"
+      },
+      {
+        "key": "/Items/Weapons/Boss/WorldsEdge/Weapon_Rural_WorldsEdge",
+        "name": "Worlds Edge",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "Ward17Root"
+      },
+      {
+        "key": "/Items/Traits/Trait_LastResort",
+        "name": "Last Resort",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "Ward17Root"
+      }
+    ],
+    "WardPrime": [
+      {
+        "key": "/Items/Weapons/Basic/MachinePistol/Weapon_MachinePistol",
+        "name": "Machine Pistol",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "WardPrime"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_RingOfHonor",
+        "name": "Ring Of Honor",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "WardPrime"
+      },
+      {
+        "key": "/Items/Traits/Trait_Wisdom",
+        "name": "Wisdom",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "WardPrime"
+      }
+    ],
+    "WarningTotems": [
+      {
+        "key": "/Items/Trinkets/BloodlettersInsignia",
+        "name": "Bloodletters Insignia",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "Subject 2923",
+        "eventName": "WarningTotems"
+      },
+      {
+        "key": "/Items/Trinkets/JuggernautBand",
+        "name": "Juggernaut Band",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Destroy some unactivated and some activated totems",
+        "dlc": "Subject 2923",
+        "eventName": "WarningTotems"
+      },
+      {
+        "key": "/Items/Trinkets/Trinket_EvokersSeal",
+        "name": "Evokers Seal",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Destroy all totems without activating them",
+        "dlc": "Subject 2923",
+        "eventName": "WarningTotems"
+      },
+      {
+        "key": "/Items/Trinkets/VulcansDetonator",
+        "name": "Vulcans Detonator",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "Destroy all totems after activating them",
+        "dlc": "Subject 2923",
+        "eventName": "WarningTotems"
+      }
+    ],
+    "Wisp": [
+      {
+        "key": "/Items/Trinkets/SoulEmber",
+        "name": "Soul Ember",
+        "type": "Trinket",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Wisp"
+      },
+      {
+        "key": "/Items/Traits/Trait_Evocation",
+        "name": "Evocation",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Wisp"
+      }
+    ],
+    "WastelandGuardian": [
+      {
+        "key": "/Items/Weapons/Boss/WorldBreaker/Weapon_Wasteland_WorldBreaker",
+        "name": "World Breaker",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WastelandGuardian"
+      },
+      {
+        "key": "/Items/Weapons/Boss/ParticleAccelerator/Weapon_Wasteland_ParticleAccelerator",
+        "name": "Particle Accelerator",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WastelandGuardian"
+      },
+      {
+        "key": "/Items/Traits/Trait_Recovery",
+        "name": "Recovery",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WastelandGuardian"
+      },
+      {
+        "key": "/Player/Emotes/Emote_Laugh",
+        "name": "Laugh",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WastelandGuardian"
+      }
+    ],
+    "Wolf": [
+      {
+        "key": "/Items/Weapons/Boss/Pan_CurseOfTheJungleGod/Weapon_Pan_CurseOfTheJungleGod",
+        "name": "Curse Of The Jungle God",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Wolf"
+      },
+      {
+        "key": "/Items/Weapons/Boss/Pan_ScarOfTheJungleGod/Weapon_Pan_ScarOfTheJungleGod",
+        "name": "Scar Of The Jungle God",
+        "type": "Weapon",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Wolf"
+      },
+      {
+        "key": "/Items/Traits/Trait_ArcaneStrike",
+        "name": "Arcane Strike",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Wolf"
+      },
+      {
+        "key": "/Items/Traits/Trait_Swiftness",
+        "name": "Swiftness",
+        "type": "Trait",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Wolf"
+      },
+      {
+        "key": "/Player/Emotes/Emote_FreezeFrame",
+        "name": "Freeze Frame",
+        "type": "Emote",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "Wolf"
+      }
+    ],
+    "WolfShrine": [
+      {
+        "key": "/Items/Armor/Elder/Armor_Head_Elder",
+        "name": "Elder (Head)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WolfShrine"
+      },
+      {
+        "key": "/Items/Armor/Elder/Armor_Body_Elder",
+        "name": "Elder (Body)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WolfShrine"
+      },
+      {
+        "key": "/Items/Armor/Elder/Armor_Legs_Elder",
+        "name": "Elder (Legs)",
+        "type": "Armor",
+        "mode": "normal",
+        "notes": "",
+        "dlc": "",
+        "eventName": "WolfShrine"
+      }
+    ]
+  },
+  "allItems": [
+    {
+      "key": "/Items/Traits/Trait_Luminescent",
+      "name": "Luminescent",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "AbandonedThrone"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_AbrasiveAmulet",
+      "name": "Abrasive Amulet",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Corsus",
+      "dlc": "",
+      "eventName": "AbrasiveAmulet"
+    },
+    {
+      "key": "/Items/Weapons/Basic/HandGuns/Revolver/Weapon_Revolver",
+      "name": "Revolver",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "AcesCoin"
+    },
+    {
+      "key": "/Items/Trinkets/ScavengersRing",
+      "name": "Scavengers Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "Afterbirth"
+    },
+    {
+      "key": "/Items/Trinkets/BlessedNecklace",
+      "name": "Blessed Necklace",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Free Krall Baby then speak to mother at Chillwind Hovel",
+      "dlc": "Subject 2923",
+      "eventName": "Afterbirth"
+    },
+    {
+      "key": "/Items/Trinkets/AggressorsBane",
+      "name": "Aggressors Bane",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "AggressorsBane"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_AlchemistsJewel",
+      "name": "Alchemists Jewel",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "AlchemistsJewel"
+    },
+    {
+      "key": "/Items/Armor/Akari/Armor_Head_Akari",
+      "name": "Akari (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "ArmorVault"
+    },
+    {
+      "key": "/Items/Armor/Akari/Armor_Body_Akari",
+      "name": "Akari (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "ArmorVault"
+    },
+    {
+      "key": "/Items/Armor/Akari/Armor_Legs_Akari",
+      "name": "Akari (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "ArmorVault"
+    },
+    {
+      "key": "/Items/Trinkets/BackbreakerRing",
+      "name": "Backbreaker Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Rural Earth",
+      "dlc": "Subject 2923",
+      "eventName": "BackbreakerRing"
+    },
+    {
+      "key": "/Items/Trinkets/BandsOfCastorAndPollux/Trinket_BandOfCastor",
+      "name": "Band Of Castor",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BandOfCastor"
+    },
+    {
+      "key": "/Items/Trinkets/BandsOfCastorAndPollux/Trinket_BandOfPollux",
+      "name": "Band Of Pollux",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BandOfPollux"
+    },
+    {
+      "key": "/Items/Trinkets/BandOfStrength",
+      "name": "Band Of Strength",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BandOfStrength"
+    },
+    {
+      "key": "/Items/Mods/UnstableQuills",
+      "name": "Unstable Quills",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BarbTerror"
+    },
+    {
+      "key": "/Items/Trinkets/HangmansMemento",
+      "name": "Hangmans Memento",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "BarnSiege"
+    },
+    {
+      "key": "/Items/Mods/BlinkToken",
+      "name": "Blink Token",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BlinkFiend"
+    },
+    {
+      "key": "/Items/Weapons/Basic/RicochetRifle/Weapon_Pan_RicochetRifle",
+      "name": "Ricochet Rifle",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BlinkThief"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_CelerityStone",
+      "name": "Celerity Stone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BlinkThief"
+    },
+    {
+      "key": "/Items/Mods/Blizzard",
+      "name": "Blizzard",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "BlizzardMage"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_BloodFont",
+      "name": "Blood Font",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BloodFont"
+    },
+    {
+      "key": "/Items/Mods/ExplosiveShot",
+      "name": "Explosive Shot",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Brabus"
+    },
+    {
+      "key": "/Items/Armor/Bandit/Armor_Head_Bandit",
+      "name": "Bandit (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Brabus"
+    },
+    {
+      "key": "/Items/Armor/Bandit/Armor_Body_Bandit",
+      "name": "Bandit (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Brabus"
+    },
+    {
+      "key": "/Items/Armor/Bandit/Armor_Legs_Bandit",
+      "name": "Bandit (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Brabus"
+    },
+    {
+      "key": "/Items/Traits/Trait_ColdAsIce",
+      "name": "Cold As Ice",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Brabus"
+    },
+    {
+      "key": "/Items/Trinkets/GIftOfTheIskal",
+      "name": "Gift of the Iskal",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "BrainBug"
+    },
+    {
+      "key": "/Items/Armor/Carapace/Armor_Head_Carapace",
+      "name": "Carapace (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "BrainBug"
+    },
+    {
+      "key": "/Items/Armor/Carapace/Armor_Body_Carapace",
+      "name": "Carapace (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "BrainBug"
+    },
+    {
+      "key": "/Items/Armor/Carapace/Armor_Legs_Carapace",
+      "name": "Carapace (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "BrainBug"
+    },
+    {
+      "key": "/Items/Trinkets/BrutalMark",
+      "name": "Brutal Mark",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "BrutalMark"
+    },
+    {
+      "key": "/Items/Trinkets/BurdenOfTheReckless",
+      "name": "Burden Of The Reckless",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Rhom",
+      "dlc": "",
+      "eventName": "BurdenOfTheReckless"
+    },
+    {
+      "key": "/Items/Trinkets/BurdenOfTheGambler",
+      "name": "Burden Of The Gambler",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Earth",
+      "dlc": "",
+      "eventName": "BurdenOfTheGambler"
+    },
+    {
+      "key": "/Items/Trinkets/BurdenOfTheDevoted",
+      "name": "Burden Of The Devoted",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Corsus",
+      "dlc": "",
+      "eventName": "BurdenOfTheDevoted"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_BurdenOfTheFollower",
+      "name": "Burden Of The Follower",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Yaesha",
+      "dlc": "",
+      "eventName": "BurdenOfTheFollower"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_BurdenOfTheWarlord",
+      "name": "Burden Of The Warlord",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Reisum",
+      "dlc": "Subject 2923",
+      "eventName": "BurdenOfTheWarlord"
+    },
+    {
+      "key": "/Items/Trinkets/ButchersFetish",
+      "name": "Butchers Fetish",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "ButchersFetish"
+    },
+    {
+      "key": "/Items/Trinkets/CharcoalNecklace",
+      "name": "Charcoal Necklace",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Reisum",
+      "dlc": "Subject 2923",
+      "eventName": "CharcoalNecklace"
+    },
+    {
+      "key": "/Items/Trinkets/CleansingJewel",
+      "name": "Cleansing Jewel",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "CleansingJewel"
+    },
+    {
+      "key": "/Items/Trinkets/CompulsionLoop",
+      "name": "Compulsion Loop",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "CompulsionLoop"
+    },
+    {
+      "key": "/Items/Trinkets/SwashbucklersSignet",
+      "name": "Swashbucklers Signet",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "CreepersPeeper"
+    },
+    {
+      "key": "/Items/Weapons/Basic/MiniCrossbow/Weapon_MiniCrossbow",
+      "name": "Twin Shot",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "CreepersPeeper"
+    },
+    {
+      "key": "/Items/Traits/Trait_Concentration",
+      "name": "Concentration",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Cryptolith"
+    },
+    {
+      "key": "/Items/Traits/Trait_BloodBond",
+      "name": "Blood Bond",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Cryptolith"
+    },
+    {
+      "key": "/Items/Armor/Armor_Head_Labyrinth",
+      "name": "Labyrinth (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Cryptolith"
+    },
+    {
+      "key": "/Items/Armor/Armor_Body_Labyrinth",
+      "name": "Labyrinth (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Cryptolith"
+    },
+    {
+      "key": "/Items/Armor/Armor_Legs_Labyrinth",
+      "name": "Labyrinth (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Cryptolith"
+    },
+    {
+      "key": "/Items/Trinkets/DeceiversBand",
+      "name": "Deceivers Band",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "DeceiversBand"
+    },
+    {
+      "key": "/Items/Trinkets/DevouringLoop",
+      "name": "Devouring Loop",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "DevouringLoop"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_ScavengersBauble",
+      "name": "Scavengers Bauble",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "DoeShrine"
+    },
+    {
+      "key": "/Items/Traits/Trait_Swiftness",
+      "name": "Swiftness",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "DoeShrine"
+    },
+    {
+      "key": "/Items/Armor/Drifter/Armor_Head_Drifter",
+      "name": "Drifter (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "DrifterMask"
+    },
+    {
+      "key": "/Items/Trinkets/DriftStone",
+      "name": "Drift Stone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Reisum",
+      "dlc": "Subject 2923",
+      "eventName": "Driftstone"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_EzlansBand",
+      "name": "Ezlans Band",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "EzlansBand"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Devastator/Weapon_Swamp_Devastator",
+      "name": "Devastator",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Fatty"
+    },
+    {
+      "key": "/Items/Weapons/Boss/ButchersFlail/Weapon_Swamp_ButchersFlail",
+      "name": "Butchers Flail",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "Fatty"
+    },
+    {
+      "key": "/Items/Traits/Trait_Glutton",
+      "name": "Glutton",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Fatty"
+    },
+    {
+      "key": "/Player/Emotes/Emote_Exhausted",
+      "name": "Exhausted",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Fatty"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_RustedAmulet",
+      "name": "Rusted Amulet",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "FetidPool"
+    },
+    {
+      "key": "/Items/Trinkets/HeartOfDarkness",
+      "name": "Heart Of Darkness",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "FetidPool"
+    },
+    {
+      "key": "/Items/Trinkets/HerosRing",
+      "name": "Heros Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "FetidPool"
+    },
+    {
+      "key": "/Items/Traits/Trait_Fortification",
+      "name": "Fortification",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "FetidPool"
+    },
+    {
+      "key": "/Items/Trinkets/FiveFingeredRing",
+      "name": "Five Fingered Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on rural Earth",
+      "dlc": "Subject 2923",
+      "eventName": "FiveFingeredRing"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_HeartOfTheWolf",
+      "name": "Heart Of The Wolf",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Flautist"
+    },
+    {
+      "key": "/Items/Mods/RiftWalker",
+      "name": "Rift Walker",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "FlickeringHorror"
+    },
+    {
+      "key": "/Items/Armor/Drifter/Armor_Body_Drifter",
+      "name": "Drifter (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "FoundersHideout"
+    },
+    {
+      "key": "/Items/Armor/Drifter/Armor_Legs_Drifter",
+      "name": "Drifter (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "FoundersHideout"
+    },
+    {
+      "key": "/Items/Armor/Scavenger/Armor_Head_Scavenger",
+      "name": "Scavenger (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "FrozenLords"
+    },
+    {
+      "key": "/Items/Armor/Scavenger/Armor_Body_Scavenger",
+      "name": "Scavenger (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "FrozenLords"
+    },
+    {
+      "key": "/Items/Armor/Scavenger/Armor_Legs_Scavenger",
+      "name": "Scavenger (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "FrozenLords"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_GalenicCharm",
+      "name": "Galenic Charm",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "GalenicCharm"
+    },
+    {
+      "key": "/Items/Trinkets/GrimCoil",
+      "name": "Grim Coil",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "GraveyardElf"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_RingOfTheUnclean",
+      "name": "Ring Of The Unclean",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "GraveyardElf"
+    },
+    {
+      "key": "/Items/Traits/Trait_Potency",
+      "name": "Potency",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "GraveyardElf"
+    },
+    {
+      "key": "/Items/Trinkets/GravityStone",
+      "name": "Gravity Stone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "GravityStone"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_GunslingersCharm",
+      "name": "Gunslingers Charm",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "GunslingersCharm"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_GunslingersRing",
+      "name": "Gunslingers Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "GunslignersRing"
+    },
+    {
+      "key": "/Items/Trinkets/HeartSeeker",
+      "name": "Heart Seeker",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "HeartSeeker"
+    },
+    {
+      "key": "/Items/Trinkets/VanguardRing",
+      "name": "Vanguard Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "Homestead"
+    },
+    {
+      "key": "/Items/Mods/HowlersImmunity",
+      "name": "Howlers Immunity",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "HoundMaster"
+    },
+    {
+      "key": "/Items/Trinkets/HuntersBand",
+      "name": "Hunters Band",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "HuntersBand"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_HuntersHalo",
+      "name": "Hunters Halo",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "HuntersHalo"
+    },
+    {
+      "key": "/Items/Weapons/Basic/HandGuns/HuntingPistol/Weapon_HuntingPistol",
+      "name": "Hunting Pistol",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "HuntersHideout"
+    },
+    {
+      "key": "/Items/Traits/Trait_ShadowWalker",
+      "name": "Shadow Walker",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "HuntersHideout"
+    },
+    {
+      "key": "/Items/Trinkets/BandOfDiscord",
+      "name": "Band Of Discord",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "IceSkimmer"
+    },
+    {
+      "key": "/Items/Trinkets/RingOfSynergy",
+      "name": "Ring Of Synergy",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "IceSkimmer"
+    },
+    {
+      "key": "/Items/Weapons/Basic/SawedOffShotgun/Weapon_SawedOffShotgun",
+      "name": "Sawed Off Shotgun",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "IceSkimmer"
+    },
+    {
+      "key": "/Items/Armor/Warlord/Armor_Head_Warlord",
+      "name": "Warlord (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "IceSkimmer"
+    },
+    {
+      "key": "/Items/Armor/Warlord/Armor_Body_Warlord",
+      "name": "Warlord (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "IceSkimmer"
+    },
+    {
+      "key": "/Items/Armor/Warlord/Armor_Legs_Warlord",
+      "name": "Warlord (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "IceSkimmer"
+    },
+    {
+      "key": "/Items/Mods/WildfireShot",
+      "name": "Wildfire Shot",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "ImmolatorAndZephyr"
+    },
+    {
+      "key": "/Items/Weapons/Basic/Melee/Weapon_Swamp_Scythe",
+      "name": "Scythe",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "IskalQueen"
+    },
+    {
+      "key": "/Items/Weapons/Basic/LongGuns/Crossbow/Weapon_Swamp_Crossbow",
+      "name": "Crossbow",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "IskalQueen"
+    },
+    {
+      "key": "/Items/Armor/Slayer/Armor_Head_Slayer",
+      "name": "Slayer (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "IskalQueen"
+    },
+    {
+      "key": "/Items/Armor/Slayer/Armor_Body_Slayer",
+      "name": "Slayer (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "IskalQueen"
+    },
+    {
+      "key": "/Items/Armor/Slayer/Armor_Legs_Slayer",
+      "name": "Slayer (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "IskalQueen"
+    },
+    {
+      "key": "/Items/Trinkets/AmberMoonstone",
+      "name": "Amber Moonstone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Give Janitor's Watch to Clementine",
+      "dlc": "Subject 2923",
+      "eventName": "JanitorsWatch"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_KeepersRing",
+      "name": "Keepers Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "KeepersRing"
+    },
+    {
+      "key": "/Items/Mods/SongOfSwords",
+      "name": "Song Of Swords",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "KinCaller"
+    },
+    {
+      "key": "/Items/Traits/Trait_Siphoner",
+      "name": "Siphoner",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "KrallBaby"
+    },
+    {
+      "key": "/Items/Weapons/Basic/LongGuns/AssaultRifle/Weapon_AssaultRifle",
+      "name": "Assault Rifle",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "LastWill"
+    },
+    {
+      "key": "/Items/Traits/Trait_Spirit",
+      "name": "Spirit",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "LastWill"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_LeechEmber",
+      "name": "Leech Ember",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "LeechEmber"
+    },
+    {
+      "key": "/Items/Weapons/Basic/LongGuns/MachineGun/Weapon_Machinegun",
+      "name": "Chicago Typewriter",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "LizAndLiz"
+    },
+    {
+      "key": "/Items/Traits/Trait_Warrior",
+      "name": "Warrior",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "LizAndLiz"
+    },
+    {
+      "key": "/Items/QuestItems/TwistedMask/Quest_TwistedMask",
+      "name": "Twisted Mask (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "MadMerchant"
+    },
+    {
+      "key": "/Items/Armor/Void/Armor_Head_Void",
+      "name": "Void (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "Monolith"
+    },
+    {
+      "key": "/Items/Armor/Void/Armor_Body_Void",
+      "name": "Void (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "Monolith"
+    },
+    {
+      "key": "/Items/Armor/Void/Armor_Legs_Void",
+      "name": "Void (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "Monolith"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_MothersRing",
+      "name": "Mothers Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "MothersRing"
+    },
+    {
+      "key": "/Quests/Quest_OverworldPOI_MudTooth/Quest_BrabusPocketWatch",
+      "name": "Brabus Pocket Watch",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "MudTooth"
+    },
+    {
+      "key": "/Items/Trinkets/JewelOfTheBlackSun",
+      "name": "Jewel Of The Black Sun",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "OldManAndConstruct"
+    },
+    {
+      "key": "/Items/Trinkets/MendersCharm",
+      "name": "Menders Charm",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "OldManAndConstruct"
+    },
+    {
+      "key": "/Items/Armor/Osseous/Armor_Head_Osseous",
+      "name": "Osseous (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "OldManAndConstruct"
+    },
+    {
+      "key": "/Items/Armor/Osseous/Armor_Body_Osseous",
+      "name": "Osseous (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "OldManAndConstruct"
+    },
+    {
+      "key": "/Items/Armor/Osseous/Armor_Legs_Osseous",
+      "name": "Osseous (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "OldManAndConstruct"
+    },
+    {
+      "key": "/Items/Mods/IronSentinel",
+      "name": "Iron Sentinel",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "OldManAndConstruct"
+    },
+    {
+      "key": "/Items/Mods/VeryGoodBoy",
+      "name": "Very Good Boy",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "Pet Wud's dog on Rhom",
+      "dlc": "",
+      "eventName": "OldManAndConstruct"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_PearlOfLuminescence",
+      "name": "Pearl Of Luminescence",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "PearlOfLuminescence"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_LetosAmulet",
+      "name": "Letos Amulet",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Penitent"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_PillarOfStone",
+      "name": "Pillar Of Stone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "PillarOfStone"
+    },
+    {
+      "key": "/Items/Trinkets/PolishedWhetstone",
+      "name": "Polished Whetstone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Reisum",
+      "dlc": "Subject 2923",
+      "eventName": "PolishedWhetstone"
+    },
+    {
+      "key": "/Items/Weapons/Boss/PrideOfTheIskal/Weapon_Swamp_PrideOfTheIskal",
+      "name": "Pride Of The Iskal",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Swamps of Corsus",
+      "eventName": "QueensTemple"
+    },
+    {
+      "key": "/Items/Traits/Trait_Footwork",
+      "name": "Footwork",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "QueensTemple"
+    },
+    {
+      "key": "/Items/Mods/Seeker",
+      "name": "Seeker",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "QueensTemple"
+    },
+    {
+      "key": "/Items/Trinkets/RadioactiveEmber",
+      "name": "Radioactive Ember",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Rhom",
+      "dlc": "",
+      "eventName": "RadioactiveEmber"
+    },
+    {
+      "key": "/Items/Traits/Trait_HardCharger",
+      "name": "Hard Charger",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "RatRider"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Alternator/Weapon_Snow_Alternator",
+      "name": "Alternator",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "RatRider"
+    },
+    {
+      "key": "/Items/Weapons/Boss/ChainBlade/Weapon_Snow_ChainBlade",
+      "name": "Chain Blade",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "RatRider"
+    },
+    {
+      "key": "/Items/Trinkets/Razorstone",
+      "name": "Razorstone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RazorStone"
+    },
+    {
+      "key": "/Items/Trinkets/RazorwireNecklace",
+      "name": "Razorwire Necklace",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Reisum",
+      "dlc": "Subject 2923",
+      "eventName": "RazorwireNecklace"
+    },
+    {
+      "key": "/Items/Traits/Trait_Scavenger",
+      "name": "Scavenger",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "ReggiesRing"
+    },
+    {
+      "key": "/Items/Trinkets/RestrictionCord",
+      "name": "Restriction Cord",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Yaesha",
+      "dlc": "",
+      "eventName": "RestrictionCord"
+    },
+    {
+      "key": "/Items/Trinkets/RingOfElusion",
+      "name": "Ring Of Elusion",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RingOfElusion"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_RingOfEvasion",
+      "name": "Ring Of Evasion",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RingOfEvasion"
+    },
+    {
+      "key": "/Items/Trinkets/RockOfAnguish",
+      "name": "Rock Of Anguish",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RockOfAnguish"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_RingOfShadows",
+      "name": "Ring Of Shadows",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RingOfShadows"
+    },
+    {
+      "key": "/Items/Mods/MantleOfThorns",
+      "name": "Mantle Of Thorns",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootBrute"
+    },
+    {
+      "key": "/Items/Trinkets/BraidedThorns",
+      "name": "Braided Thorns",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootCultist"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_RootCirclet",
+      "name": "Root Circlet",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootCultist"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Root_Spitfire/Weapon_Root_Spitfire",
+      "name": "Spitfire",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootDragon"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Root_Smolder/Weapon_Root_Smolder",
+      "name": "Smolder",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootDragon"
+    },
+    {
+      "key": "/Player/Emotes/Emote_Beckon",
+      "name": "Beckon",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootDragon"
+    },
+    {
+      "key": "/Items/Traits/Trait_MothersBlessing",
+      "name": "Mothers Blessing",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootMother"
+    },
+    {
+      "key": "/Items/Weapons/Basic/LongGuns/SniperRifle/Weapon_SniperRifle",
+      "name": "Sniper Rifle",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootMother"
+    },
+    {
+      "key": "/Items/Mods/SeedCaller",
+      "name": "Seed Caller",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootTumbleweed"
+    },
+    {
+      "key": "/Items/Mods/Rattleweed",
+      "name": "Rattleweed",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootWraith"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Root_SporeLauncher/Weapon_Root_SporeLauncher",
+      "name": "Spore Launcher",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootEnt"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Root_PetrifiedMaul/Weapon_Root_PetrifiedMaul",
+      "name": "Petrified Maul",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootEnt"
+    },
+    {
+      "key": "/Items/Traits/Trait_QuickHands",
+      "name": "Quick Hands",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootEnt"
+    },
+    {
+      "key": "/Player/Emotes/Emote_Cheer",
+      "name": "Cheer",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootEnt"
+    },
+    {
+      "key": "/Items/Armor/Twisted/Armor_Head_Twisted",
+      "name": "Twisted (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootShrine"
+    },
+    {
+      "key": "/Items/Armor/Twisted/Armor_Body_Twisted",
+      "name": "Twisted (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootShrine"
+    },
+    {
+      "key": "/Items/Armor/Twisted/Armor_Legs_Twisted",
+      "name": "Twisted (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "RootShrine"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_Sagestone",
+      "name": "Sagestone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SageStone"
+    },
+    {
+      "key": "/Items/Mods/Beckon",
+      "name": "Beckon",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Sentinel"
+    },
+    {
+      "key": "/Items/Trinkets/SerpentsFang",
+      "name": "Serpents Fang",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Reisum",
+      "dlc": "Subject 2923",
+      "eventName": "SerpentsFang"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_PrismaticDiamondRing",
+      "name": "Prismatic Diamond Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "ShamanFlames"
+    },
+    {
+      "key": "/Items/Mods/FrozenMist",
+      "name": "Frozen Mist",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "ShieldWarden"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_IskalHunterBand",
+      "name": "Iskal Hunter Band",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Sketterling"
+    },
+    {
+      "key": "/Items/Trinkets/AmuletOfEpicaricacy",
+      "name": "Amulet Of Epicaricacy",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Sketterling"
+    },
+    {
+      "key": "/Items/Trinkets/RingOfTheMantis",
+      "name": "Ring Of The Mantis",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Sketterling"
+    },
+    {
+      "key": "/Items/Traits/Trait_Triage",
+      "name": "Triage",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SlaveRevolt"
+    },
+    {
+      "key": "/Items/Mods/CorrosiveAura",
+      "name": "Corrosive Aura",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SlimeHulk"
+    },
+    {
+      "key": "/Items/Traits/Trait_Catalyst",
+      "name": "Catalyst",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SlimeHulk"
+    },
+    {
+      "key": "/Items/Trinkets/SoulLink",
+      "name": "Soul Link",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SoulLink"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_SpiritStone",
+      "name": "Spirit Stone",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Yaesha",
+      "dlc": "",
+      "eventName": "SpiritStone"
+    },
+    {
+      "key": "/Items/Armor/Leto/Armor_Head_Leto",
+      "name": "Leto (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Splitter"
+    },
+    {
+      "key": "/Items/Armor/Leto/Armor_Body_Leto",
+      "name": "Leto (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Splitter"
+    },
+    {
+      "key": "/Items/Armor/Leto/Armor_Legs_Leto",
+      "name": "Leto (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Splitter"
+    },
+    {
+      "key": "/Items/Mods/FlickerCloak",
+      "name": "Flicker Cloak",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Splitter"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_StalkersBrand",
+      "name": "Stalkers Brand",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Yaesha",
+      "dlc": "",
+      "eventName": "StalkersBrand"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_StockpileCirclet",
+      "name": "Stockpile Circlet",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StockpileCirclet"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_StoneOfBalance",
+      "name": "Stone Of Balance",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StoneOfBalance"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_StormAmulet",
+      "name": "Storm Amulet",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StormAmulet"
+    },
+    {
+      "key": "/Items/Mods/StormCaller",
+      "name": "Storm Caller",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StormCaller"
+    },
+    {
+      "key": "/Items/Weapons/Basic/Spear/Weapon_Pan_Spear",
+      "name": "Spear",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StuckMerchant"
+    },
+    {
+      "key": "/Items/Armor/Radiant/Armor_Legs_Radiant",
+      "name": "Radiant (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StuckMerchant"
+    },
+    {
+      "key": "/Items/Armor/Radiant/Armor_Body_Radiant",
+      "name": "Radiant (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StuckMerchant"
+    },
+    {
+      "key": "/Items/Armor/Radiant/Armor_Head_Radiant",
+      "name": "Radiant (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StuckMerchant"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_GuardiansRing",
+      "name": "Guardians Ring",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StuckMerchant"
+    },
+    {
+      "key": "/Items/Traits/Trait_GuardiansBlessing",
+      "name": "Guardians Blessing",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "StuckMerchant"
+    },
+    {
+      "key": "/Items/Weapons/Boss/HiveCannon/Weapon_Swamp_HiveCannon",
+      "name": "Hive Cannon",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SwampGuardian"
+    },
+    {
+      "key": "/Items/Weapons/Boss/GuardianAxe/Weapon_Swamp_GuardianAxe",
+      "name": "Guardian Axe",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SwampGuardian"
+    },
+    {
+      "key": "/Items/Traits/Trait_Executioner",
+      "name": "Executioner",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SwampGuardian"
+    },
+    {
+      "key": "/Player/Emotes/Emote_Confused",
+      "name": "Confused",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SwampGuardian"
+    },
+    {
+      "key": "/Items/Mods/BreathOfDesert",
+      "name": "Breath Of Desert",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "SwarmMaster"
+    },
+    {
+      "key": "/Items/Trinkets/TalismanOfAnimosity",
+      "name": "Talisman Of Animosity",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TalismanOfAnimosity"
+    },
+    {
+      "key": "/Items/Trinkets/TalismanOfPerseverance",
+      "name": "Talisman Of Perseverance",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "According to devs, can also be a random drop on Yaesha (unconfirmed)",
+      "dlc": "",
+      "eventName": "TalismanOfPerseverance"
+    },
+    {
+      "key": "/Items/Trinkets/TerrorMargin",
+      "name": "Terror Margin",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Rural Earth",
+      "dlc": "Subject 2923",
+      "eventName": "TerrorMargin"
+    },
+    {
+      "key": "/Items/Weapons/Basic/Wasteland_Flail/Weapon_Wasteland_Flail",
+      "name": "Wastelander Flail",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TheCleanRoom"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Defiler/Weapon_Wasteland_Defiler",
+      "name": "Defiler",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TheHarrow"
+    },
+    {
+      "key": "/Items/Weapons/Boss/LostHarpoon/Weapon_Wasteland_LostHarpoon",
+      "name": "Lost Harpoon",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TheHarrow"
+    },
+    {
+      "key": "/Player/Emotes/Emote_Fail",
+      "name": "Fail",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TheHarrow"
+    },
+    {
+      "key": "/Items/Mods/ColdSpear",
+      "name": "Cold Spear",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "TheJackal"
+    },
+    {
+      "key": "/Items/Weapons/Basic/Wasteland_BeamRifle/Weapon_Wasteland_BeamRifle",
+      "name": "Beam Rifle",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TheLostGantry"
+    },
+    {
+      "key": "/Items/Trinkets/SoulAnchor",
+      "name": "Soul Anchor",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TheRisen"
+    },
+    {
+      "key": "/Items/Traits/Trait_ArcaneStrike",
+      "name": "Arcane Strike",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TotemFather"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Pan_EyeOfTheStorm/Weapon_Pan_EyeOfTheStorm",
+      "name": "Eye Of The Storm",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TotemFather"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Pan_VoiceOfTheTempest/Weapon_Pan_VoiceOfTheTempest",
+      "name": "Voice Of The Tempest",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TotemFather"
+    },
+    {
+      "key": "/Player/Emotes/Emote_TeaTime",
+      "name": "Tea Time",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "TotemFather"
+    },
+    {
+      "key": "/Items/Mods/Swarm",
+      "name": "Swarm",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Tyrant"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Ruin/Weapon_Wasteland_Ruin",
+      "name": "Ruin",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "UndyingKing"
+    },
+    {
+      "key": "/Items/Traits/Trait_Kingslayer",
+      "name": "Kingslayer",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "UndyingKing"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Riven/Weapon_Wasteland_Riven",
+      "name": "Riven",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "UndyingKing"
+    },
+    {
+      "key": "/Player/Emotes/Emote_Gravedigger",
+      "name": "Gravedigger",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "UndyingKing"
+    },
+    {
+      "key": "/Items/Mods/FanOfKnives",
+      "name": "Fan Of Knives",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "UrikkiBlademasters"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Frostborne/Weapon_Frostborne",
+      "name": "Frostborne",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "VargylBones"
+    },
+    {
+      "key": "/Items/Trinkets/VengeanceIdol",
+      "name": "Vengeance Idol",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "VengeanceIdol"
+    },
+    {
+      "key": "/Items/Traits/Trait_Exploiter",
+      "name": "Exploiter",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Handling",
+      "name": "Handling",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_KeepersBlessing",
+      "name": "Keepers Blessing",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_RapidStrike",
+      "name": "Rapid Strike",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Revivalist",
+      "name": "Revivalist",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_SleightOfHand",
+      "name": "Sleight Of Hand",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Suspicion",
+      "name": "Suspicion",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Teamwork",
+      "name": "Teamwork",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_TriggerHappy",
+      "name": "Trigger Happy",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_WillToLive",
+      "name": "Will To Live",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_WorldWalker",
+      "name": "World Walker",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Invoker",
+      "name": "Invoker",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_FlashCaster",
+      "name": "Flash Caster",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "Obtain 25 weapon mods",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Climber",
+      "name": "Climber",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "Vault over 50 ledges",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_ArmorPiercer",
+      "name": "Armor Piercer",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "Deal 5,000 damage to armored points on enemies",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Demolitionist",
+      "name": "Demolitionist",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "Get 100 kills using explosion damage",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Tormentor",
+      "name": "Tormentor",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "Inflict 100 status effects on enemies",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Traits/Trait_Vaccine",
+      "name": "Vaccine",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "Cure 25 full status effects using consumables",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Player/Emotes/Emote_Wave",
+      "name": "Wave",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Armor/Adventurer/Armor_Head_Adventurer",
+      "name": "Adventurer (Head)",
+      "type": "Armor",
+      "mode": "survival",
+      "notes": "Reward for 5 consecutive boss kills",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Weapons/Human/Melee/Sword/Weapon_HerosSword",
+      "name": "Heros Sword",
+      "type": "Weapon",
+      "mode": "survival",
+      "notes": "Reward for 10 consecutive boss kills",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_LoopOfProsperity",
+      "name": "Loop Of Prosperity",
+      "type": "Trinket",
+      "mode": "survival",
+      "notes": "Reward for 25 total boss kills",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/DaredevilsCharm",
+      "name": "Daredevils Charm",
+      "type": "Trinket",
+      "mode": "survival",
+      "notes": "Reward for 75 total boss kills",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/BlackRose",
+      "name": "Black Rose",
+      "type": "Trinket",
+      "mode": "survival",
+      "notes": "Reward for 100 total boss kills",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/BlackCatBand",
+      "name": "Black Cat Band",
+      "type": "Trinket",
+      "mode": "survival",
+      "notes": "Reward for defeating all minibosses twice(?)",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/BrightSteelRing",
+      "name": "Bright Steel Ring",
+      "type": "Trinket",
+      "mode": "survival",
+      "notes": "Reward for defeating all world bosses twice(?)",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/WhiteRose",
+      "name": "White Rose",
+      "type": "Trinket",
+      "mode": "survival",
+      "notes": "Reward for defeating all bosses an unknown number of times",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/RingOfFlawlessBeauty",
+      "name": "Ring Of Flawless Beauty",
+      "type": "Trinket",
+      "mode": "survival",
+      "notes": "Purchase 100 items",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/AkariWarBand",
+      "name": "Akari War Band",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "Reward for defeating Clavinger/Harrow",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_EmpoweringLoop",
+      "name": "Empowering Loop",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "Reward for defeating Ixillis",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_ProvisionerRing",
+      "name": "Provisioner Ring",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "Reward for defeating Singe/Ent",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/RingOfSumpremacy",
+      "name": "Ring of Supremacy",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "Reward for defeating Totem Father/Ravager",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_NightmareSpiral",
+      "name": "Nightmare Spiral",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "Reward for defeating Dreamer",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Player/Emotes/Emote_HighFive",
+      "name": "High Five",
+      "type": "Emote",
+      "mode": "hardcore",
+      "notes": "Reward for defeating Dreamer",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_BandOfAccord",
+      "name": "Band Of Accord",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "High five emote another player",
+      "dlc": "",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/RingOfThePunisher",
+      "name": "Ring Of The Punisher",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "Reward for defeating Brudvaak and Vargr",
+      "dlc": "Subject 2923",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/ShatteredVertebrae",
+      "name": "Shattered Vertebrae",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "Reward for defeating Root Harbinger",
+      "dlc": "Subject 2923",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/OnyxPendulum",
+      "name": "Onyx Pendulum",
+      "type": "Trinket",
+      "mode": "hardcore",
+      "notes": "Reward for completing both campaigns",
+      "dlc": "Subject 2923",
+      "eventName": "Uncategorized"
+    },
+    {
+      "key": "/Items/Trinkets/VolatileGem",
+      "name": "Volatile Gem",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Random drop on Reisum",
+      "dlc": "Subject 2923",
+      "eventName": "VolatileGem"
+    },
+    {
+      "key": "/Items/Mods/VeilOfTheBlackTear",
+      "name": "Veil Of The Black Tear",
+      "type": "Mod",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Vyr"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_TwistedIdol",
+      "name": "Twisted Idol",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WailingWood"
+    },
+    {
+      "key": "/Items/Traits/Trait_BarkSkin",
+      "name": "Bark Skin",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WailingWood"
+    },
+    {
+      "key": "/Items/Weapons/Basic/LongGuns/Coachgun/Weapon_Coachgun",
+      "name": "Coachgun",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Weapons/Human/Melee/Hatchet/Weapon_Hatchet",
+      "name": "Hatchet",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Cultist/Armor_Body_Cultist",
+      "name": "Cultist (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Cultist/Armor_Head_Cultist",
+      "name": "Cultist (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Cultist/Armor_Legs_Cultist",
+      "name": "Cultist (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Weapons/Basic/LongGuns/HuntingRifle/Weapon_HuntingRifle",
+      "name": "Hunting Rifle",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Weapons/Human/Melee/Sword/Weapon_Sword",
+      "name": "Sword",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Hunter/Armor_Body_Hunter",
+      "name": "Hunter (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Hunter/Armor_Head_Hunter",
+      "name": "Hunter (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Hunter/Armor_Legs_Hunter",
+      "name": "Hunter (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Weapons/Basic/LongGuns/Shotgun/Weapon_Shotgun",
+      "name": "Shotgun",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Scrapper/Armor_Body_Scrapper",
+      "name": "Scrapper (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Scrapper/Armor_Head_Scrapper",
+      "name": "Scrapper (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Armor/Scrapper/Armor_Legs_Scrapper",
+      "name": "Scrapper (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Weapons/Human/Melee/Hammer/Weapon_Hammer",
+      "name": "Hammer",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Traits/Trait_ElderKnowledge",
+      "name": "Elder Knowledge",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Weapons/Basic/HandGuns/SubMachineGun/Weapon_Submachinegun",
+      "name": "Submachinegun",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Trinkets/RingOfTheAdmiral",
+      "name": "Ring Of The Admiral",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward13"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Guns/LongGuns/Repulsor/Weapon_Atoll_Repulsor",
+      "name": "Repulsor",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward17"
+    },
+    {
+      "key": "/Items/Traits/Trait_MindsEye",
+      "name": "Minds Eye",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward17"
+    },
+    {
+      "key": "/Player/Emotes/Emote_PraiseTheGun",
+      "name": "Praise The Gun",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Ward17"
+    },
+    {
+      "key": "/Items/Weapons/Boss/FusionRifle/Weapon_Rural_FusionRifle",
+      "name": "Fusion Rifle",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "Ward17Root"
+    },
+    {
+      "key": "/Items/Weapons/Boss/WorldsEdge/Weapon_Rural_WorldsEdge",
+      "name": "Worlds Edge",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "Ward17Root"
+    },
+    {
+      "key": "/Items/Traits/Trait_LastResort",
+      "name": "Last Resort",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "Ward17Root"
+    },
+    {
+      "key": "/Items/Weapons/Basic/MachinePistol/Weapon_MachinePistol",
+      "name": "Machine Pistol",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "WardPrime"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_RingOfHonor",
+      "name": "Ring Of Honor",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "WardPrime"
+    },
+    {
+      "key": "/Items/Traits/Trait_Wisdom",
+      "name": "Wisdom",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "WardPrime"
+    },
+    {
+      "key": "/Items/Trinkets/BloodlettersInsignia",
+      "name": "Bloodletters Insignia",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "Subject 2923",
+      "eventName": "WarningTotems"
+    },
+    {
+      "key": "/Items/Trinkets/JuggernautBand",
+      "name": "Juggernaut Band",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Destroy some unactivated and some activated totems",
+      "dlc": "Subject 2923",
+      "eventName": "WarningTotems"
+    },
+    {
+      "key": "/Items/Trinkets/Trinket_EvokersSeal",
+      "name": "Evokers Seal",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Destroy all totems without activating them",
+      "dlc": "Subject 2923",
+      "eventName": "WarningTotems"
+    },
+    {
+      "key": "/Items/Trinkets/VulcansDetonator",
+      "name": "Vulcans Detonator",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "Destroy all totems after activating them",
+      "dlc": "Subject 2923",
+      "eventName": "WarningTotems"
+    },
+    {
+      "key": "/Items/Trinkets/SoulEmber",
+      "name": "Soul Ember",
+      "type": "Trinket",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Wisp"
+    },
+    {
+      "key": "/Items/Traits/Trait_Evocation",
+      "name": "Evocation",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Wisp"
+    },
+    {
+      "key": "/Items/Weapons/Boss/WorldBreaker/Weapon_Wasteland_WorldBreaker",
+      "name": "World Breaker",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WastelandGuardian"
+    },
+    {
+      "key": "/Items/Weapons/Boss/ParticleAccelerator/Weapon_Wasteland_ParticleAccelerator",
+      "name": "Particle Accelerator",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WastelandGuardian"
+    },
+    {
+      "key": "/Items/Traits/Trait_Recovery",
+      "name": "Recovery",
+      "type": "Trait",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WastelandGuardian"
+    },
+    {
+      "key": "/Player/Emotes/Emote_Laugh",
+      "name": "Laugh",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WastelandGuardian"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Pan_CurseOfTheJungleGod/Weapon_Pan_CurseOfTheJungleGod",
+      "name": "Curse Of The Jungle God",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Wolf"
+    },
+    {
+      "key": "/Items/Weapons/Boss/Pan_ScarOfTheJungleGod/Weapon_Pan_ScarOfTheJungleGod",
+      "name": "Scar Of The Jungle God",
+      "type": "Weapon",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Wolf"
+    },
+    {
+      "key": "/Player/Emotes/Emote_FreezeFrame",
+      "name": "Freeze Frame",
+      "type": "Emote",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "Wolf"
+    },
+    {
+      "key": "/Items/Armor/Elder/Armor_Head_Elder",
+      "name": "Elder (Head)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WolfShrine"
+    },
+    {
+      "key": "/Items/Armor/Elder/Armor_Body_Elder",
+      "name": "Elder (Body)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WolfShrine"
+    },
+    {
+      "key": "/Items/Armor/Elder/Armor_Legs_Elder",
+      "name": "Elder (Legs)",
+      "type": "Armor",
+      "mode": "normal",
+      "notes": "",
+      "dlc": "",
+      "eventName": "WolfShrine"
+    }
+  ]
+}
