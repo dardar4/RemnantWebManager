@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
 interface TopAppBarProps {
   isLiveSave: boolean;
@@ -18,14 +18,17 @@ export const TopAppBar: FC<TopAppBarProps> = ({
       {/* Brand Anchor */}
       <div className="brand-anchor">
         <div className="brand-icon-box">
-          <span className="material-symbols-outlined" style={{ color: 'var(--primary)', fontSize: '20px' }}>
+          <span
+            className="material-symbols-outlined"
+            style={{ color: "var(--primary)", fontSize: "20px" }}
+          >
             terminal
           </span>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           <div className="brand-title-row">
             <span className="brand-title">REMNANT MANAGER</span>
-            <span className="brand-version-badge">v2.4.0-REL</span>
+            <span className="brand-version-badge">v1.0.0</span>
           </div>
           <span className="brand-subtitle">
             TACTICAL COMPANION // WORLD ANALYZER &amp; CHECKLIST
@@ -40,12 +43,23 @@ export const TopAppBar: FC<TopAppBarProps> = ({
           onClick={onOpenSaveFile}
           title="Click to load Remnant save file (profile.sav / save_0.sav)"
         >
-          <span className={`sync-dot ${isLiveSave ? 'live' : 'pulse'}`} />
+          <span className={`sync-dot ${isLiveSave ? "live" : "pulse"}`} />
           <span className="sync-text">
-            {saveName} [{isLiveSave ? 'SYNCD' : 'DEMO'}]
+            {saveName} [{isLiveSave ? "SYNCD" : "DEMO"}]
           </span>
-          <span style={{ color: 'var(--outline)', fontSize: '10px', marginLeft: '2px' }}>|</span>
-          <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--outline)' }}>
+          <span
+            style={{
+              color: "var(--outline)",
+              fontSize: "10px",
+              marginLeft: "2px",
+            }}
+          >
+            |
+          </span>
+          <span
+            className="material-symbols-outlined"
+            style={{ fontSize: "14px", color: "var(--outline)" }}
+          >
             folder_open
           </span>
         </div>

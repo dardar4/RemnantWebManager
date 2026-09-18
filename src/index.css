@@ -31,6 +31,33 @@
   --font-headline: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
   --font-label: 'JetBrains Mono', monospace;
+
+  /* Terra & Moss Natural Tactical Palette */
+  --terra-50: #FAF8F5;
+  --terra-100: #F3EFE9;
+  --terra-150: #EBE5DC;
+  --terra-200: #E2DACF;
+  --terra-300: #CFC3B3;
+  --terra-400: #AFA08E;
+  --terra-500: #877563;
+  --terra-600: #5F5244;
+  --terra-700: #3D342B;
+  --terra-800: #231F1A;
+  --terra-900: #141210;
+
+  --moss-50: #F2F7F4;
+  --moss-100: #E3ECE6;
+  --moss-200: #C2D8C9;
+  --moss-300: #94BBA0;
+  --moss-500: #4A7C59;
+  --moss-600: #3D684A;
+  --moss-700: #2E5038;
+  --moss-800: #213A28;
+
+  --amber-stone-100: #FDF6E2;
+  --amber-stone-700: #8A5D19;
+  --rust-stone-100: #FBECE8;
+  --rust-stone-700: #9C3D28;
 }
 
 * {
@@ -867,3 +894,97 @@ body {
   flex-direction: column;
   gap: 1rem;
 }
+
+/* Toast Notification Bar */
+.toast-bar {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  background-color: var(--moss-700);
+  color: #ffffff;
+  border: 1px solid var(--moss-600);
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(33, 58, 40, 0.4), 0 8px 10px -6px rgba(33, 58, 40, 0.2);
+  font-family: var(--font-headline);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  animation: slideDownToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDownToast {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* World Analyzer Dropzone */
+.wa-dropzone {
+  background-color: #F8F5EE;
+  border: 2px dashed var(--terra-300);
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.wa-dropzone.drag-active {
+  border-color: var(--moss-500);
+  background-color: #F2EFE8;
+}
+
+.wa-dropzone-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  background-color: var(--terra-100);
+  border: 1px solid var(--terra-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+  color: var(--terra-600);
+  transition: all 0.2s ease;
+}
+
+.wa-dropzone:hover .wa-dropzone-icon {
+  background-color: rgba(194, 216, 201, 0.7);
+  border-color: var(--moss-300);
+  color: var(--moss-700);
+}
+
+/* World Analyzer Table */
+.wa-table-container {
+  background-color: #ffffff;
+  border: 1px solid rgba(226, 218, 207, 0.9);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px -2px rgba(45, 38, 30, 0.05);
+}
+
+.wa-table-header {
+  background-color: #2C3830;
+  color: var(--terra-50);
+  font-family: var(--font-label);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.wa-table-header th {
+  padding: 0.875rem 1.25rem;
+  border-right: 1px solid rgba(46, 80, 56, 0.4);
+}
+

@@ -8,6 +8,7 @@ import { MainPortal } from './components/MainPortal';
 import { WorldAnalyzerView } from './components/WorldAnalyzerView';
 import { ChecklistView } from './components/ChecklistView';
 import { SettingsModal } from './components/SettingsModal';
+import { Toast } from './components/Toast';
 
 const LOCAL_STORAGE_KEY = 'remnant_web_characters_v2';
 const LOCAL_STORAGE_ACTIVE_KEY = 'remnant_web_active_char_v2';
@@ -21,6 +22,7 @@ export function App() {
   const [isLiveSave, setIsLiveSave] = useState<boolean>(false);
   const [saveName, setSaveName] = useState<string>('SaveSlot_0.sav');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -124,7 +126,11 @@ export function App() {
       setCharacters(currentChars);
       setActiveCharIndex(0);
       setIsLiveSave(true);
-      setSaveName(worldFiles[0]?.name || 'SaveSlot_0.sav');
+      setSaveName(worldFiles[0]?.name || profileFile?.name || 'SaveSlot_0.sav');
+      setToastMessage('file upload succefully');
+      setTimeout(() => {
+        setToastMessage(null);
+      }, 4000);
     } catch (err) {
       console.error('Error parsing Remnant save file:', err);
       alert('Error parsing save files. Please ensure you selected valid Remnant: From the Ashes files.');
@@ -234,6 +240,11 @@ export function App() {
           {currentView === 'world-analyzer' && (
             <WorldAnalyzerView
               character={activeCharacter}
+              characters={characters}
+              activeCharIndex={activeCharIndex}
+              onSelectChar={(idx) => setActiveCharIndex(idx)}
+              onUploadFiles={processFiles}
+              onOpenFolder={handleOpenFolder}
               onBackToHome={() => setCurrentView('home')}
             />
           )}
@@ -247,6 +258,9 @@ export function App() {
           )}
         </main>
       </div>
+
+      {/* Toast Bar Notification */}
+      <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
 
       {/* Settings / Upload Dialog */}
       <SettingsModal

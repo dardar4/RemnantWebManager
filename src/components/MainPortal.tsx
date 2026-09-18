@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC } from "react";
 
 interface MainPortalProps {
   onLaunchWorldAnalyzer: () => void;
@@ -12,22 +12,35 @@ export const MainPortal: FC<MainPortalProps> = ({
   overallPercent,
 }) => {
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', position: 'relative' }}>
+    <div
+      style={{
+        flex: 1,
+        display: "flex",
+        flexDirection: "column",
+        position: "relative",
+      }}
+    >
       {/* Header Sub-bar / Breadcrumbs & Telemetry Status */}
       <div className="sub-header-bar">
         <div className="breadcrumbs">
-          <span style={{ color: 'var(--on-surface-variant)', fontWeight: 600 }}>REMNANT PORTAL</span>
+          <span style={{ color: "var(--on-surface-variant)", fontWeight: 600 }}>
+            REMNANT PORTAL
+          </span>
           <span>/</span>
-          <span className="breadcrumb-active">HOME WORKSPACE</span>
+          <span className="breadcrumb-active">HOME</span>
         </div>
         <div className="telemetry-meta">
           <div className="telemetry-meta-item">
-            <span style={{ color: 'var(--outline)' }}>DATABASE LINK:</span>
-            <span style={{ color: 'var(--tertiary)', fontWeight: 600 }}>STABLE (WARD_13_MONOLITH)</span>
+            <span style={{ color: "var(--outline)" }}>DATABASE LINK:</span>
+            <span style={{ color: "var(--tertiary)", fontWeight: 600 }}>
+              STABLE (WARD_13_MONOLITH)
+            </span>
           </div>
           <div className="telemetry-meta-item">
-            <span style={{ color: 'var(--outline)' }}>DIFFICULTY:</span>
-            <span style={{ color: 'var(--secondary)', fontWeight: 700 }}>APOCALYPSE</span>
+            <span style={{ color: "var(--outline)" }}>DIFFICULTY:</span>
+            <span style={{ color: "var(--secondary)", fontWeight: 700 }}>
+              APOCALYPSE
+            </span>
           </div>
         </div>
       </div>
@@ -39,10 +52,16 @@ export const MainPortal: FC<MainPortalProps> = ({
 
         {/* Explanatory Prompt */}
         <p className="portal-description">
-          Select <span style={{ color: 'var(--secondary)', fontWeight: 600 }}>'World Analyzer'</span> from
-          the sidebar to inspect active world rolls, boss encounters, and guaranteed drops, or explore the{' '}
-          <span style={{ color: 'var(--primary)', fontWeight: 600 }}>'Checklist'</span> subcategories to manage
-          your gear and trait progression.
+          Select{" "}
+          <span style={{ color: "var(--secondary)", fontWeight: 600 }}>
+            'World Analyzer'
+          </span>{" "}
+          from the sidebar to inspect active world rolls, boss encounters, and
+          guaranteed drops, or explore the{" "}
+          <span style={{ color: "var(--primary)", fontWeight: 600 }}>
+            'Checklist'
+          </span>{" "}
+          subcategories to manage your gear and trait progression.
         </p>
 
         {/* Quick-Action Bento Cards */}
@@ -61,7 +80,7 @@ export const MainPortal: FC<MainPortalProps> = ({
               <div className="bento-icon-box">
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: '20px', color: 'inherit' }}
+                  style={{ fontSize: "20px", color: "inherit" }}
                 >
                   explore
                 </span>
@@ -72,11 +91,16 @@ export const MainPortal: FC<MainPortalProps> = ({
             <div className="bento-body">
               <h3 className="bento-heading">Launch World Analyzer</h3>
               <p className="bento-text">
-                Parse campaign &amp; adventure seeds across Earth, Rhom, Corsus, Yaesha, and Reisum. Real-time boss encounter maps &amp; loot tables.
+                Parse campaign &amp; adventure seeds across Earth, Rhom, Corsus,
+                Yaesha, and Reisum. Real-time boss encounter maps &amp; loot
+                tables.
               </p>
               <div className="bento-cta cta-gold">
                 <span>INSPECT ACTIVE ROLL</span>
-                <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontSize: "14px" }}
+                >
                   arrow_forward
                 </span>
               </div>
@@ -97,22 +121,29 @@ export const MainPortal: FC<MainPortalProps> = ({
               <div className="bento-icon-box">
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: '20px', color: 'inherit' }}
+                  style={{ fontSize: "20px", color: "inherit" }}
                 >
                   inventory_2
                 </span>
               </div>
-              <span className="bento-badge badge-red">{overallPercent}% ACQUIRED</span>
+              <span className="bento-badge badge-red">
+                {overallPercent}% ACQUIRED
+              </span>
             </div>
 
             <div className="bento-body">
               <h3 className="bento-heading">Explore Checklist</h3>
               <p className="bento-text">
-                Track collection matrices for Weapons, Armor sets, Rings, Amulets, Weapon Mods, and Traits with drop conditions and criteria.
+                Track collection matrices for Weapons, Armor sets, Rings,
+                Amulets, Weapon Mods, and Traits with drop conditions and
+                criteria.
               </p>
               <div className="bento-cta cta-red">
                 <span>OPEN GEAR MATRIX</span>
-                <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontSize: "14px" }}
+                >
                   arrow_forward
                 </span>
               </div>
