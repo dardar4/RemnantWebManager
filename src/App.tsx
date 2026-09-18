@@ -52,8 +52,13 @@ export function App() {
       if (savedChars) {
         const parsed = JSON.parse(savedChars) as RemnantCharacter[];
         if (parsed.length > 0) {
-          setCharacters(parsed);
-          setActiveCharIndex(savedActive ? Math.min(Number(savedActive), parsed.length - 1) : 0);
+          const updated = parsed.map((c) => ({
+            ...c,
+            campaignDifficulty: c.campaignDifficulty || (c.campaignEvents && c.campaignEvents.length > 0 ? 'Normal' : null),
+            adventureDifficulty: c.adventureDifficulty || (c.adventureEvents && c.adventureEvents.length > 0 ? 'Normal' : null),
+          }));
+          setCharacters(updated);
+          setActiveCharIndex(savedActive ? Math.min(Number(savedActive), updated.length - 1) : 0);
           setIsLiveSave(savedIsLive === 'true');
           setSaveName(savedIsLive === 'true' ? 'SaveSlot_0.sav' : 'No save loaded');
           return;
@@ -237,6 +242,8 @@ export function App() {
         currentChars[slot].adventureEvents = worldResult.adventureEvents;
         currentChars[slot].hasAdventureData = worldResult.hasAdventureData;
         currentChars[slot].adventureZone = worldResult.adventureZone;
+        currentChars[slot].campaignDifficulty = worldResult.campaignDifficulty;
+        currentChars[slot].adventureDifficulty = worldResult.adventureDifficulty;
 
         if (targetActiveIndex === null) {
           targetActiveIndex = slot;

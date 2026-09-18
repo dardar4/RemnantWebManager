@@ -30,6 +30,8 @@ export interface RemnantCharacter {
   missingItems: RemnantItem[];
   hasAdventureData: boolean;
   adventureZone?: string | null;
+  campaignDifficulty?: string | null;
+  adventureDifficulty?: string | null;
 }
 
 export interface GameData {

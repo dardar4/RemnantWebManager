@@ -5,18 +5,16 @@ import { gameData } from '../utils/saveParser';
 
 interface WorldAnalyzerViewProps {
   character: RemnantCharacter;
-  characters: RemnantCharacter[];
-  activeCharIndex: number;
-  onSelectChar: (index: number) => void;
+  characters?: RemnantCharacter[];
+  activeCharIndex?: number;
+  onSelectChar?: (index: number) => void;
   onBackToHome: () => void;
   onOpenSettings?: () => void;
 }
 
 export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   character,
-  characters,
-  activeCharIndex,
-  onSelectChar,
+  characters = [],
   onOpenSettings,
 }) => {
   const [mode, setMode] = useState<'campaign' | 'adventure'>('adventure');
@@ -31,6 +29,25 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   };
 
   const currentEvents = mode === 'campaign' ? (character.campaignEvents || []) : (character.adventureEvents || []);
+  const currentDifficulty = mode === 'campaign'
+    ? (character.campaignDifficulty || (character.campaignEvents && character.campaignEvents.length > 0 ? 'Normal' : null))
+    : (character.adventureDifficulty || (character.adventureEvents && character.adventureEvents.length > 0 ? 'Normal' : null));
+
+  const getDifficultyColor = (diff?: string | null): string => {
+    if (!diff) return 'var(--terra-900)';
+    switch (diff.toLowerCase()) {
+      case 'normal':
+        return '#15803d'; // Green
+      case 'hard':
+        return '#b45309'; // Golden Amber
+      case 'nightmare':
+        return '#ea580c'; // Vibrant Flame Orange
+      case 'apocalypse':
+        return '#dc2626'; // Strong Crimson Red
+      default:
+        return 'var(--terra-900)';
+    }
+  };
 
   const filteredEvents = currentEvents.filter((evt) => {
     if (!searchQuery.trim()) return true;
@@ -50,24 +67,13 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
     );
   });
 
-  const handleDownloadJson = () => {
-    if (currentEvents.length === 0) return;
-    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(currentEvents, null, 2));
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute('href', dataStr);
-    downloadAnchor.setAttribute('download', `remnant_${mode}_roll_slot${activeCharIndex}.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-  };
-
   const getBadgeStyles = (type: string) => {
     switch (type) {
       case 'World Boss':
         return { bg: 'rgba(185, 28, 28, 0.08)', color: '#b91c1c', border: 'rgba(185, 28, 28, 0.25)' };
       case 'Miniboss':
         return { bg: 'rgba(217, 119, 6, 0.08)', color: '#d97706', border: 'rgba(217, 119, 6, 0.25)' };
-      case 'Side Dungeon':
+      case 'Dungeon':
         return { bg: 'rgba(37, 99, 235, 0.08)', color: '#2563eb', border: 'rgba(37, 99, 235, 0.25)' };
       case 'Point of Interest':
         return { bg: 'rgba(124, 58, 237, 0.08)', color: '#7c3aed', border: 'rgba(124, 58, 237, 0.25)' };
@@ -81,7 +87,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   };
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--terra-50)', minHeight: '100%', overflowY: 'auto' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--terra-50)', minHeight: '100%' }}>
       <div style={{ padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '1600px', margin: '0 auto', width: '100%' }}>
         {/* Top Header Bar */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -149,162 +155,137 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                       fontWeight: 600,
                       padding: '0.125rem 0.5rem',
                       borderRadius: '9999px',
-                      backgroundColor: 'var(--terra-100)',
-                      color: 'var(--terra-600)',
+                      backgroundColor: 'rgba(74, 114, 87, 0.12)',
+                      color: 'var(--moss-800)',
                     }}
                   >
-                    {isGuideOpen ? 'Hide' : 'Show Guide'}
+                    Tips &amp; Info
                   </span>
                 </div>
-                <p
-                  style={{
-                    fontSize: '11px',
-                    color: 'var(--terra-500)',
-                    marginTop: '0.125rem',
-                  }}
-                >
-                  Quick setup instructions, rerolling at the World Stone, and analyzing rolls
+                <p style={{ fontSize: '12px', color: 'var(--terra-600)', margin: '0.2rem 0 0' }}>
+                  Learn how save sync works, troubleshooting missing items, and known game nuances
                 </p>
               </div>
             </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', color: 'var(--terra-500)' }}>
-              <span
-                className="material-symbols-outlined"
-                style={{
-                  fontSize: '22px',
-                  transform: isGuideOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-                  transition: 'transform 0.2s ease',
-                }}
-              >
-                expand_more
-              </span>
-            </div>
+            <span
+              className="material-symbols-outlined"
+              style={{
+                fontSize: '20px',
+                color: 'var(--terra-500)',
+                transform: isGuideOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                transition: 'transform 0.2s ease',
+              }}
+            >
+              expand_more
+            </span>
           </button>
 
-          {/* Expandable Content Area */}
+          {/* Accordion Content */}
           {isGuideOpen && (
             <div
               style={{
-                padding: '1.25rem',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '1.25rem',
+                padding: '1.25rem 1.5rem',
+                borderTop: '1px solid var(--terra-100)',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gap: '1.5rem',
+                fontSize: '13px',
+                color: 'var(--terra-700)',
+                lineHeight: 1.6,
+                backgroundColor: '#ffffff',
               }}
             >
-              {/* Sub-section 1: How to Use */}
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.625rem' }}>
-                  <h4
-                    style={{
-                      fontFamily: 'var(--font-headline)',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      color: 'var(--terra-900)',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    How to use:
-                  </h4>
-                  {onOpenSettings && (
-                    <button
-                      type="button"
-                      onClick={onOpenSettings}
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '0.375rem',
-                        padding: '0.3rem 0.65rem',
-                        fontSize: '11px',
-                        fontWeight: 600,
-                        color: 'var(--terra-800)',
-                        backgroundColor: 'var(--terra-100)',
-                        border: '1px solid var(--terra-300)',
-                        borderRadius: '0.5rem',
-                        cursor: 'pointer',
-                        transition: 'background-color 0.15s ease',
-                      }}
-                    >
-                      <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--terra-700)' }}>
-                        settings
-                      </span>
-                      <span>Open Settings</span>
-                    </button>
-                  )}
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6 }}>
-                  <p>
-                    <strong>1. Load Your Save Files:</strong> Click the <strong>Open Settings</strong> button above (or the ⚙️ gear icon in the header) and click <strong>Copy</strong> next to the save directory path. Then click <strong>Upload Save Files</strong>, paste the path into Windows Explorer, and select both <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code> and <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code>. <em>(Tip: You can also drag and drop both files directly anywhere onto this page!)</em>
-                  </p>
-                  <p>
-                    <strong>2. Reroll In-Game at the World Stone:</strong> In Remnant: From the Ashes, whenever you re-roll your Campaign or Adventure mode at Ward 13, interact with the red World Stone to save your new world roll to disk.
-                  </p>
-                  <p>
-                    <strong>3. Refresh &amp; Analyze World:</strong> Re-upload your save files or click the global <strong>Refresh button (🔄)</strong> in the top header to instantly parse and view all newly spawned world bosses, dungeons, random events, and missing items.
-                  </p>
-                </div>
-
-                {/* Local file parsing disclaimer */}
-                <div style={{ marginTop: '0.875rem', paddingTop: '0.875rem', borderTop: '1px solid var(--terra-100)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '11px', color: 'var(--terra-500)', fontWeight: 500 }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--moss-600)' }}>
-                    check_circle
+              {/* How To Use */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--terra-900)', fontWeight: 700 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--moss-700)' }}>
+                    sync
                   </span>
-                  <span>Local file parsing only — zero telemetry data sent over external networks.</span>
+                  <span>How World Analysis Works</span>
                 </div>
+                <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                  <li>
+                    Touch a <strong>World Stone checkpoint</strong> in-game after traveling to an area or rerolling to ensure your local save file records the generated seeds.
+                  </li>
+                  <li>
+                    Click the <strong>Refresh Telemetry</strong> button in the top bar or press <kbd style={{ padding: '0.1rem 0.35rem', backgroundColor: 'var(--terra-100)', borderRadius: '4px', fontSize: '11px' }}>F5</kbd> to reload save state.
+                  </li>
+                  <li>
+                    Filter missing items using the search bar below or toggle between <strong>Campaign</strong> and <strong>Adventure</strong> rolls.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Reroll Tips */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--terra-900)', fontWeight: 700 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--moss-700)' }}>
+                    casino
+                  </span>
+                  <span>Rerolling Adventure Worlds</span>
+                </div>
+                <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                  <li>
+                    In Ward 13, access the World Stone &gt; <em>World Settings</em> &gt; <em>Reroll Adventure Mode</em>.
+                  </li>
+                  <li>
+                    Teleport into the zone once to trigger world generation, then hit Refresh in this manager to inspect loot before proceeding.
+                  </li>
+                  <li>
+                    Rerolling Adventure Mode does not reset your Campaign story progress.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Known Issues & Nuances */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--terra-900)', fontWeight: 700 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px', color: '#b91c1c' }}>
+                    warning
+                  </span>
+                  <span>Known Nuances &amp; Edge Cases</span>
+                </div>
+                <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                  <li>
+                    <strong>Cryptolith:</strong> Appears in multiple zones (Rhom, Corsus). Items such as the <em>Soul Link</em> or <em>Labyrinth Armor</em> unlock across progressive activations.
+                  </li>
+                  <li>
+                    <strong>Survival / Hardcore:</strong> Only save files from standard Campaign and Adventure modes are tracked in this table.
+                  </li>
+                  <li>
+                    <strong>Stuck Merchant / Liz &amp; Liz:</strong> Some quest rewards depend on specific quest choices (e.g. keeping both Liz alive for the Chicago Typewriter key).
+                  </li>
+                </ul>
+              </div>
+
+              {/* Security & Local Processing Note */}
+              <div
+                style={{
+                  gridColumn: '1 / -1',
+                  padding: '0.65rem 1rem',
+                  backgroundColor: 'rgba(74, 114, 87, 0.08)',
+                  borderRadius: '0.5rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontSize: '12px',
+                  color: 'var(--moss-900)',
+                }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '16px', color: 'var(--moss-700)' }}>
+                  security
+                </span>
+                <span>
+                  <strong>100% Client-Side:</strong> Save analysis executes strictly inside your browser. No save game or telemetry data is ever uploaded or transmitted externally.
+                </span>
               </div>
             </div>
           )}
         </section>
 
-        {/* Character Selection & Mode Bar */}
+        {/* Mode Segmented Controls & Search Row */}
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingTop: '0.25rem' }}>
-          {/* Character selection centered row */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
-            <span style={{ fontSize: '12px', fontFamily: 'var(--font-headline)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--terra-700)' }}>
-              Character selection:
-            </span>
-            <div style={{ position: 'relative', width: '20rem' }}>
-              <select
-                value={activeCharIndex}
-                disabled={characters.length === 0}
-                onChange={(e) => onSelectChar(Number(e.target.value))}
-                style={{
-                  width: '100%',
-                  appearance: 'none',
-                  borderRadius: '0.75rem',
-                  backgroundColor: characters.length === 0 ? 'var(--terra-50)' : '#ffffff',
-                  border: '1px solid var(--terra-300)',
-                  padding: '0.65rem 2.25rem 0.65rem 1rem',
-                  fontSize: '14px',
-                  fontWeight: 700,
-                  color: characters.length === 0 ? 'var(--terra-500)' : 'var(--terra-900)',
-                  boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-                  cursor: characters.length === 0 ? 'default' : 'pointer',
-                  outline: 'none',
-                }}
-              >
-                {characters.length === 0 ? (
-                  <option value="">No characters loaded</option>
-                ) : (
-                  characters.map((c, i) => (
-                    <option key={c.id} value={i}>
-                      Character {i + 1} ({c.archetype} // {c.inventory.length} items)
-                    </option>
-                  ))
-                )}
-              </select>
-              <div style={{ pointerEvents: 'none', position: 'absolute', top: 0, bottom: 0, right: 0, display: 'flex', alignItems: 'center', padding: '0 0.75rem', color: 'var(--terra-600)' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-                  expand_more
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Mode Segmented Controls & Search Row */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', paddingTop: '0.5rem' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
             {/* Segmented Tab Navigation */}
             <div style={{ display: 'inline-flex', padding: '0.25rem', borderRadius: '0.75rem', backgroundColor: '#EDE7DD', border: '1px solid rgba(207, 195, 179, 0.8)' }}>
               <button
@@ -436,7 +417,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
 
         {/* World Roll Table Section */}
         <section className="wa-table-container">
-          <div style={{ overflowX: 'auto' }}>
+          <div style={{ overflowX: 'auto', borderTopLeftRadius: '1rem', borderTopRightRadius: '1rem' }}>
             <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
               <thead>
                 <tr className="wa-table-header">
@@ -621,8 +602,40 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
             </table>
           </div>
 
-          {/* Table Footer Status */}
-          <div style={{ padding: '0.875rem 1.5rem', backgroundColor: 'var(--terra-50)', borderTop: '1px solid rgba(226, 218, 207, 0.8)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px', color: 'var(--terra-600)', gap: '0.75rem' }}>
+          {/* Table Footer Status (Sticky at bottom) */}
+          <div
+            style={{
+              position: 'sticky',
+              bottom: 0,
+              zIndex: 10,
+              padding: '0.875rem 1.5rem',
+              backgroundColor: '#FAF8F5',
+              borderTop: '1px solid rgba(226, 218, 207, 0.9)',
+              borderBottomLeftRadius: '1rem',
+              borderBottomRightRadius: '1rem',
+              boxShadow: '0 -4px 12px rgba(45, 38, 30, 0.08)',
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontSize: '13px',
+              color: 'var(--terra-600)',
+              gap: '0.75rem',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontFamily: 'var(--font-label)', fontSize: '12px' }}>
+              <span>
+                Mode: <strong style={{ color: 'var(--terra-900)' }}>{mode === 'campaign' ? 'Campaign' : 'Adventure'}</strong>
+              </span>
+              {currentDifficulty && (
+                <>
+                  <span style={{ color: 'var(--terra-300)' }}>|</span>
+                  <span>
+                    Difficulty: <strong style={{ color: getDifficultyColor(currentDifficulty), fontWeight: 700 }}>{currentDifficulty}</strong>
+                  </span>
+                </>
+              )}
+            </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span
                 style={{
@@ -634,20 +647,6 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               />
               <span style={{ fontWeight: 500 }}>
                 Analysis synced to local save state: {filteredEvents.length} of {currentEvents.length} world entries rendered.
-              </span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontFamily: 'var(--font-label)', fontSize: '12px' }}>
-              <span>Mode: {mode === 'campaign' ? 'Campaign' : 'Adventure'}</span>
-              <span style={{ color: 'var(--terra-300)' }}>|</span>
-              <span
-                onClick={handleDownloadJson}
-                style={{
-                  color: currentEvents.length > 0 ? 'var(--moss-700)' : 'var(--terra-400)',
-                  fontWeight: 600,
-                  cursor: currentEvents.length > 0 ? 'pointer' : 'default',
-                }}
-              >
-                Download Raw JSON
               </span>
             </div>
           </div>

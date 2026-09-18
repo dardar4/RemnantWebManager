@@ -374,12 +374,30 @@ export function parseWorldSave(savetext: string, character: RemnantCharacter): {
   adventureEvents: RemnantWorldEvent[];
   hasAdventureData: boolean;
   adventureZone: string | null;
+  campaignDifficulty: string | null;
+  adventureDifficulty: string | null;
 } {
   const inventorySet = new Set(character.inventory);
   let campaignEvents: RemnantWorldEvent[] = [];
   let adventureEvents: RemnantWorldEvent[] = [];
   let hasAdventureData = false;
   let adventureZoneName: string | null = null;
+  let campaignDifficulty: string | null = null;
+  let adventureDifficulty: string | null = null;
+
+  // Detect Difficulty from save header
+  const bpIdx = savetext.indexOf('BP_RemnantSaveGame');
+  if (bpIdx !== -1) {
+    const headerBlock = savetext.substring(bpIdx, bpIdx + 1000);
+    const diffMatch = headerBlock.match(/\x00(Normal|Hard|Nightmare|Apocalypse)\x00/);
+    if (diffMatch) {
+      if (headerBlock.includes('Quest_AdventureMode') || headerBlock.includes('Adventure')) {
+        adventureDifficulty = diffMatch[1];
+      } else {
+        campaignDifficulty = diffMatch[1];
+      }
+    }
+  }
 
   // 1. Campaign Main
   const strCampaignEnd = '/Game/Campaign_Main/Quest_Campaign_Main.Quest_Campaign_Main_C';
@@ -406,6 +424,11 @@ export function parseWorldSave(savetext: string, character: RemnantCharacter): {
     }
   }
 
+  // If campaign events were parsed and difficulty wasn't explicitly set, default to Normal
+  if (campaignEvents.length > 0 && !campaignDifficulty) {
+    campaignDifficulty = 'Normal';
+  }
+
   // 3. Adventure mode
   if (savetext.includes('Quest_AdventureMode_')) {
     let advZone: string | null = null;
@@ -419,12 +442,27 @@ export function parseWorldSave(savetext: string, character: RemnantCharacter): {
       hasAdventureData = true;
       adventureZoneName = advZone;
       const strAdvEnd = `/Game/World_${advZone}/Quests/Quest_AdventureMode/Quest_AdventureMode_${advZone}.Quest_AdventureMode_${advZone}_C`;
-      const advEnd = savetext.indexOf(strAdvEnd) + strAdvEnd.length;
+      const advEndIdx = savetext.indexOf(strAdvEnd);
+      const advEnd = advEndIdx !== -1 ? advEndIdx + strAdvEnd.length : savetext.length;
       let advtext = savetext.substring(0, advEnd);
       const strAdvStart = `/Game/World_${advZone}/Quests/Quest_AdventureMode/Quest_AdventureMode_${advZone}_0`;
       const advStart = advtext.lastIndexOf(strAdvStart) + strAdvStart.length;
       advtext = advtext.substring(advStart);
       adventureEvents = processEvents(advtext, 'Adventure', inventorySet);
+
+      // Check if difficulty is in the adventure quest block
+      if (!adventureDifficulty && advEndIdx !== -1) {
+        const advContext = savetext.substring(Math.max(0, advEndIdx - 2000), Math.min(savetext.length, advEndIdx + 2000));
+        const advMatch = advContext.match(/\x00(Normal|Hard|Nightmare|Apocalypse)\x00/);
+        if (advMatch) {
+          adventureDifficulty = advMatch[1];
+        }
+      }
+
+      // If adventure events were parsed and difficulty wasn't explicitly set, default to Normal
+      if (adventureEvents.length > 0 && !adventureDifficulty) {
+        adventureDifficulty = 'Normal';
+      }
     }
   }
 
@@ -433,5 +471,7 @@ export function parseWorldSave(savetext: string, character: RemnantCharacter): {
     adventureEvents,
     hasAdventureData,
     adventureZone: adventureZoneName,
+    campaignDifficulty,
+    adventureDifficulty,
   };
 }

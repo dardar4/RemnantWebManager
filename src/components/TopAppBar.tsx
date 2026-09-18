@@ -101,29 +101,50 @@ export const TopAppBar: FC<TopAppBarProps> = ({
         </div>
 
         {characters && characters.length > 0 ? (
-          <select
-            value={activeCharIndex}
-            onChange={(e) => onSelectChar && onSelectChar(Number(e.target.value))}
-            style={{
-              fontFamily: "var(--font-label)",
-              fontSize: "13px",
-              fontWeight: 600,
-              padding: "0.35rem 0.75rem",
-              background: "var(--surface-container-lowest)",
-              border: "1px solid var(--outline-variant)",
-              borderRadius: "5px",
-              color: "var(--on-surface)",
-              outline: "none",
-              cursor: characters.length > 1 ? "pointer" : "default",
-              width: "100%",
-            }}
-          >
-            {characters.map((c, i) => (
-              <option key={c.id} value={i}>
-                Slot #{i + 1}: {c.archetype} ({c.inventory.length} items)
-              </option>
-            ))}
-          </select>
+          <div style={{ position: "relative", width: "100%" }}>
+            <select
+              value={activeCharIndex}
+              onChange={(e) => onSelectChar && onSelectChar(Number(e.target.value))}
+              style={{
+                fontFamily: "var(--font-label)",
+                fontSize: "13px",
+                fontWeight: 600,
+                padding: "0.35rem 2.25rem 0.35rem 0.75rem",
+                appearance: "none",
+                WebkitAppearance: "none",
+                MozAppearance: "none",
+                background: "var(--surface-container-lowest)",
+                border: "1px solid var(--outline-variant)",
+                borderRadius: "5px",
+                color: "var(--on-surface)",
+                outline: "none",
+                cursor: characters.length > 1 ? "pointer" : "default",
+                width: "100%",
+              }}
+            >
+              {characters.map((c, i) => (
+                <option key={c.id} value={i}>
+                  Slot #{i + 1}: {c.archetype} ({c.inventory.length} items)
+                </option>
+              ))}
+            </select>
+            <div
+              style={{
+                pointerEvents: "none",
+                position: "absolute",
+                top: 0,
+                bottom: 0,
+                right: "0.75rem",
+                display: "flex",
+                alignItems: "center",
+                color: "var(--on-surface)",
+              }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: "18px" }}>
+                expand_more
+              </span>
+            </div>
+          </div>
         ) : (
           <div
             style={{
