@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FC } from "react";
 import type { RemnantCharacter } from "../types/remnant";
 import { getChecklistCategories } from "../utils/itemCategorizer";
@@ -22,7 +22,13 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
   onSelectChar,
   onSelectView,
 }) => {
-  const [checklistExpanded, setChecklistExpanded] = useState<boolean>(true);
+  const [checklistExpanded, setChecklistExpanded] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (currentView === "checklist") {
+      setChecklistExpanded(true);
+    }
+  }, [currentView]);
 
   const categories = getChecklistCategories(activeCharacter.inventory);
   const totalOwned = categories.reduce((sum, c) => sum + c.owned, 0);
