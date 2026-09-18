@@ -361,6 +361,10 @@ export function App() {
         isLiveSave={isLiveSave}
         saveName={saveName}
         isAnalyzing={isAnalyzing}
+        characters={characters}
+        activeCharacter={activeCharacter}
+        activeCharIndex={activeCharIndex}
+        onSelectChar={(idx) => setActiveCharIndex(idx)}
         onRefresh={() => handleAnalyzeSaves(false)}
         onOpenSaveFile={() => setIsSettingsOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}

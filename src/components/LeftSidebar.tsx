@@ -7,9 +7,9 @@ interface LeftSidebarProps {
   currentView: string;
   selectedCategory: string | null;
   activeCharacter: RemnantCharacter;
-  characters: RemnantCharacter[];
-  activeCharIndex: number;
-  onSelectChar: (index: number) => void;
+  characters?: RemnantCharacter[];
+  activeCharIndex?: number;
+  onSelectChar?: (index: number) => void;
   onSelectView: (view: string, category?: string | null) => void;
 }
 
@@ -17,9 +17,6 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
   currentView,
   selectedCategory,
   activeCharacter,
-  characters,
-  activeCharIndex,
-  onSelectChar,
   onSelectView,
 }) => {
   const [checklistExpanded, setChecklistExpanded] = useState<boolean>(false);
@@ -200,7 +197,7 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
         </div>
       </div>
 
-      {/* Bottom Rail: Active Character & Config */}
+      {/* Bottom Rail: Version Information */}
       <div className="sidebar-bottom-rail">
         <div
           style={{
@@ -215,43 +212,14 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
               fontSize: "10px",
               color: "var(--outline)",
               textTransform: "uppercase",
-            }}
-          >
-            ACTIVE PROFILE
-          </span>
-          <span
-            style={{
-              fontFamily: "var(--font-label)",
-              fontSize: "10px",
-              color: "var(--secondary)",
+              letterSpacing: "0.06em",
               fontWeight: 700,
             }}
           >
-            {activeCharacter.archetype}
+            VERSION
           </span>
+          <span className="brand-version-badge">v1.0.0</span>
         </div>
-
-        {characters.length > 1 && (
-          <select
-            value={activeCharIndex}
-            onChange={(e) => onSelectChar(Number(e.target.value))}
-            style={{
-              fontFamily: "var(--font-label)",
-              fontSize: "11px",
-              padding: "4px",
-              background: "var(--surface-container-lowest)",
-              border: "1px solid var(--outline-variant)",
-              color: "var(--on-surface)",
-              outline: "none",
-            }}
-          >
-            {characters.map((c, i) => (
-              <option key={c.id} value={i}>
-                Slot #{i + 1}: {c.archetype} ({c.inventory.length} items)
-              </option>
-            ))}
-          </select>
-        )}
       </div>
     </aside>
   );

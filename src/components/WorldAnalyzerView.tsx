@@ -82,10 +82,10 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--terra-50)', minHeight: '100%', overflowY: 'auto' }}>
-      <div style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
+      <div style={{ padding: '1.5rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '1600px', margin: '0 auto', width: '100%' }}>
         {/* Top Header Bar */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h2 style={{ fontFamily: 'var(--font-headline)', fontSize: '20px', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--terra-900)' }}>
+          <h2 style={{ fontFamily: 'var(--font-headline)', fontSize: '24px', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--terra-900)' }}>
             World Analyzer Telemetry
           </h2>
         </div>
@@ -133,7 +133,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   <span
                     style={{
                       fontFamily: 'var(--font-headline)',
-                      fontSize: '13px',
+                      fontSize: '14px',
                       fontWeight: 700,
                       color: 'var(--terra-900)',
                       textTransform: 'uppercase',
@@ -262,10 +262,10 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingTop: '0.25rem' }}>
           {/* Character selection centered row */}
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
-            <span style={{ fontSize: '11px', fontFamily: 'var(--font-headline)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--terra-700)' }}>
+            <span style={{ fontSize: '12px', fontFamily: 'var(--font-headline)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--terra-700)' }}>
               Character selection:
             </span>
-            <div style={{ position: 'relative', width: '18rem' }}>
+            <div style={{ position: 'relative', width: '20rem' }}>
               <select
                 value={activeCharIndex}
                 disabled={characters.length === 0}
@@ -276,8 +276,8 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   borderRadius: '0.75rem',
                   backgroundColor: characters.length === 0 ? 'var(--terra-50)' : '#ffffff',
                   border: '1px solid var(--terra-300)',
-                  padding: '0.625rem 2.25rem 0.625rem 1rem',
-                  fontSize: '13px',
+                  padding: '0.65rem 2.25rem 0.65rem 1rem',
+                  fontSize: '14px',
                   fontWeight: 700,
                   color: characters.length === 0 ? 'var(--terra-500)' : 'var(--terra-900)',
                   boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
@@ -311,8 +311,8 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 type="button"
                 onClick={() => setMode('campaign')}
                 style={{
-                  padding: '0.4rem 1.25rem',
-                  fontSize: '12px',
+                  padding: '0.5rem 1.5rem',
+                  fontSize: '14px',
                   fontWeight: mode === 'campaign' ? 700 : 600,
                   borderRadius: '0.5rem',
                   color: mode === 'campaign' ? '#ffffff' : 'var(--terra-700)',
@@ -329,8 +329,8 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 type="button"
                 onClick={() => setMode('adventure')}
                 style={{
-                  padding: '0.4rem 1.25rem',
-                  fontSize: '12px',
+                  padding: '0.5rem 1.5rem',
+                  fontSize: '14px',
                   fontWeight: mode === 'adventure' ? 700 : 600,
                   borderRadius: '0.5rem',
                   color: mode === 'adventure' ? '#ffffff' : 'var(--terra-700)',
@@ -346,15 +346,15 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
             </div>
 
             {/* Search Input */}
-            <div style={{ position: 'relative', width: '100%', maxWidth: '28rem' }}>
+            <div style={{ position: 'relative', width: '100%', maxWidth: '32rem' }}>
               <span
                 className="material-symbols-outlined"
                 style={{
                   position: 'absolute',
-                  left: '0.75rem',
+                  left: '0.875rem',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  fontSize: '18px',
+                  fontSize: '20px',
                   color: 'var(--terra-400)',
                   pointerEvents: 'none',
                 }}
@@ -368,14 +368,14 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
                   width: '100%',
-                  paddingLeft: '2.25rem',
-                  paddingRight: '0.875rem',
-                  paddingTop: '0.5rem',
-                  paddingBottom: '0.5rem',
+                  paddingLeft: '2.5rem',
+                  paddingRight: '1rem',
+                  paddingTop: '0.625rem',
+                  paddingBottom: '0.625rem',
                   borderRadius: '0.75rem',
                   backgroundColor: '#ffffff',
                   border: '1px solid var(--terra-300)',
-                  fontSize: '12px',
+                  fontSize: '14px',
                   fontFamily: 'var(--font-label)',
                   color: 'var(--terra-900)',
                   outline: 'none',
@@ -447,7 +447,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   <th style={{ width: '28%' }} scope="col">Missing Items</th>
                 </tr>
               </thead>
-              <tbody style={{ fontSize: '12px', color: 'var(--terra-800)' }}>
+              <tbody style={{ fontSize: '14px', color: 'var(--terra-800)' }}>
                 {currentEvents.length === 0 ? (
                   <tr>
                     <td colSpan={5} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
@@ -531,27 +531,27 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                         }}
                       >
                         {/* Area */}
-                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
-                          <span style={{ fontWeight: 700, color: 'var(--terra-800)', fontSize: '12px' }}>
+                        <td style={{ padding: '0.9rem 1.25rem', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+                          <span style={{ fontWeight: 700, color: 'var(--terra-800)', fontSize: '14px' }}>
                             {area}
                           </span>
                         </td>
 
                         {/* Location */}
-                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
-                          <span style={{ fontWeight: 500, color: 'var(--terra-900)', fontSize: '12px' }}>
+                        <td style={{ padding: '0.9rem 1.25rem', verticalAlign: 'middle' }}>
+                          <span style={{ fontWeight: 500, color: 'var(--terra-900)', fontSize: '14px' }}>
                             {locationName}
                           </span>
                         </td>
 
                         {/* Event Type */}
-                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
+                        <td style={{ padding: '0.9rem 1.25rem', verticalAlign: 'middle' }}>
                           <span
                             style={{
                               display: 'inline-block',
-                              padding: '0.2rem 0.55rem',
+                              padding: '0.25rem 0.65rem',
                               borderRadius: '9999px',
-                              fontSize: '10px',
+                              fontSize: '11px',
                               fontWeight: 700,
                               textTransform: 'uppercase',
                               letterSpacing: '0.04em',
@@ -565,16 +565,16 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                         </td>
 
                         {/* Event Name */}
-                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
-                          <span style={{ fontWeight: 700, color: 'var(--terra-900)', fontSize: '13px' }}>
+                        <td style={{ padding: '0.9rem 1.25rem', verticalAlign: 'middle' }}>
+                          <span style={{ fontWeight: 700, color: 'var(--terra-900)', fontSize: '15px' }}>
                             {evt.name}
                           </span>
                         </td>
 
                         {/* Missing Items */}
-                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
+                        <td style={{ padding: '0.9rem 1.25rem', verticalAlign: 'middle' }}>
                           {evt.missingItems && evt.missingItems.length > 0 ? (
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                               {evt.missingItems.map((item, itemIdx) => {
                                 const itemType = getItemType(item);
                                 return (
@@ -583,16 +583,16 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                                     style={{
                                       display: 'flex',
                                       alignItems: 'baseline',
-                                      gap: '0.35rem',
-                                      fontSize: '12px',
-                                      lineHeight: 1.4,
+                                      gap: '0.4rem',
+                                      fontSize: '14px',
+                                      lineHeight: 1.45,
                                     }}
                                   >
                                     <span style={{ fontWeight: 600, color: 'var(--terra-900)' }}>
                                       {item.name}
                                     </span>
                                     {itemType && (
-                                      <span style={{ color: 'var(--terra-500)', fontSize: '11px', fontWeight: 500 }}>
+                                      <span style={{ color: 'var(--terra-500)', fontSize: '12px', fontWeight: 500 }}>
                                         ({itemType})
                                       </span>
                                     )}
@@ -601,14 +601,14 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                               })}
                             </div>
                           ) : character.inventory && character.inventory.length > 0 && evt.possibleItems && evt.possibleItems.length > 0 ? (
-                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', color: 'var(--moss-700)', fontSize: '11px', fontWeight: 600 }}>
-                              <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', color: 'var(--moss-700)', fontSize: '13px', fontWeight: 600 }}>
+                              <span className="material-symbols-outlined" style={{ fontSize: '17px' }}>
                                 check_circle
                               </span>
                               All Acquired
                             </span>
                           ) : (
-                            <span style={{ color: 'var(--terra-400)', fontSize: '12px', fontStyle: 'italic' }}>
+                            <span style={{ color: 'var(--terra-400)', fontSize: '14px', fontStyle: 'italic' }}>
                               —
                             </span>
                           )}
@@ -622,7 +622,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
           </div>
 
           {/* Table Footer Status */}
-          <div style={{ padding: '0.75rem 1.5rem', backgroundColor: 'var(--terra-50)', borderTop: '1px solid rgba(226, 218, 207, 0.8)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', color: 'var(--terra-600)', gap: '0.75rem' }}>
+          <div style={{ padding: '0.875rem 1.5rem', backgroundColor: 'var(--terra-50)', borderTop: '1px solid rgba(226, 218, 207, 0.8)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', fontSize: '13px', color: 'var(--terra-600)', gap: '0.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span
                 style={{
@@ -636,7 +636,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 Analysis synced to local save state: {filteredEvents.length} of {currentEvents.length} world entries rendered.
               </span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontFamily: 'var(--font-label)', fontSize: '11px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontFamily: 'var(--font-label)', fontSize: '12px' }}>
               <span>Mode: {mode === 'campaign' ? 'Campaign' : 'Adventure'}</span>
               <span style={{ color: 'var(--terra-300)' }}>|</span>
               <span
