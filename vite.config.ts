@@ -7,10 +7,19 @@ function remnantSavePlugin(): Plugin {
   return {
     name: 'remnant-save-plugin',
     configureServer(server) {
-      server.middlewares.use('/api/local-saves', (_req, res) => {
+      server.middlewares.use('/api/local-saves', (req, res) => {
         try {
-          const localAppData = process.env.LOCALAPPDATA || path.join(process.env.USERPROFILE || '', 'AppData', 'Local');
-          const saveDir = path.join(localAppData, 'Remnant', 'Saved', 'SaveGames');
+          const url = new URL(req.url || '', 'http://localhost');
+          const customPath = url.searchParams.get('path');
+
+          let saveDir = customPath?.trim();
+          if (saveDir) {
+            saveDir = saveDir.replace(/%LOCALAPPDATA%/gi, process.env.LOCALAPPDATA || '');
+            saveDir = saveDir.replace(/%USERPROFILE%/gi, process.env.USERPROFILE || '');
+          } else {
+            const localAppData = process.env.LOCALAPPDATA || path.join(process.env.USERPROFILE || '', 'AppData', 'Local');
+            saveDir = path.join(localAppData, 'Remnant', 'Saved', 'SaveGames');
+          }
 
           if (!fs.existsSync(saveDir)) {
             res.statusCode = 404;

@@ -5,6 +5,7 @@ import { getSampleCharacter } from './utils/demoData';
 import {
   getStoredDirectoryHandle,
   saveDirectoryHandle,
+  clearStoredDirectoryHandle,
   verifyHandlePermission,
   readSavFilesFromHandle,
   isDirectoryPickerSupported,
@@ -21,6 +22,8 @@ import { Toast } from './components/Toast';
 const LOCAL_STORAGE_KEY = 'remnant_web_characters_v2';
 const LOCAL_STORAGE_ACTIVE_KEY = 'remnant_web_active_char_v2';
 const LOCAL_STORAGE_LIVE_KEY = 'remnant_web_is_live_v2';
+const LOCAL_STORAGE_PATH_KEY = 'remnant_save_directory_path';
+const DEFAULT_SAVE_PATH = '%LOCALAPPDATA%\\Remnant\\Saved\\SaveGames';
 
 export function App() {
   const [characters, setCharacters] = useState<RemnantCharacter[]>([]);
@@ -33,6 +36,9 @@ export function App() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [linkedFolderName, setLinkedFolderName] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
+  const [saveDirectoryPath, setSaveDirectoryPath] = useState<string>(() => {
+    return localStorage.getItem(LOCAL_STORAGE_PATH_KEY) || DEFAULT_SAVE_PATH;
+  });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -64,9 +70,9 @@ export function App() {
     setSaveName('SaveSlot_0.sav');
   }, []);
 
-  // Check local server endpoint or stored directory handle
+  // Check local server endpoint with configured path or stored directory handle
   useEffect(() => {
-    fetchLocalSaves().then((localData) => {
+    fetchLocalSaves(saveDirectoryPath).then((localData) => {
       if (localData && localData.files.length > 0) {
         setLinkedFolderName('SaveGames (Auto-detected)');
       } else {
@@ -77,7 +83,7 @@ export function App() {
         });
       }
     });
-  }, []);
+  }, [saveDirectoryPath]);
 
   // Save state to LocalStorage
   useEffect(() => {
@@ -94,15 +100,38 @@ export function App() {
 
   const activeCharacter = characters[activeCharIndex] || characters[0] || getSampleCharacter();
 
-  const handleResetDemo = () => {
-    const demo = [getSampleCharacter()];
-    setCharacters(demo);
-    setActiveCharIndex(0);
-    setIsLiveSave(false);
-    setSaveName('SaveSlot_0.sav');
+  const handleSaveDirectoryChange = async (newPath: string): Promise<boolean> => {
+    const trimmed = newPath.trim() || DEFAULT_SAVE_PATH;
+    localStorage.setItem(LOCAL_STORAGE_PATH_KEY, trimmed);
+    setSaveDirectoryPath(trimmed);
+
+    const localData = await fetchLocalSaves(trimmed);
+    if (localData && localData.files.length > 0) {
+      setLinkedFolderName('SaveGames (Configured)');
+      await processFiles(localData.files);
+      setToastMessage('Save directory updated and save files reloaded!');
+      return true;
+    } else {
+      setToastMessage('Directory path saved. (Note: No .sav files found in this folder)');
+      return false;
+    }
+  };
+
+  const handleResetAllData = async () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     localStorage.removeItem(LOCAL_STORAGE_ACTIVE_KEY);
     localStorage.removeItem(LOCAL_STORAGE_LIVE_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_PATH_KEY);
+
+    await clearStoredDirectoryHandle();
+
+    setCharacters([getSampleCharacter()]);
+    setActiveCharIndex(0);
+    setIsLiveSave(false);
+    setSaveName('SaveSlot_0.sav');
+    setLinkedFolderName(null);
+    setSaveDirectoryPath(DEFAULT_SAVE_PATH);
+    setToastMessage('All configuration, save files, and world telemetry cleared.');
   };
 
   const processFiles = async (files: FileList | File[]) => {
@@ -217,7 +246,7 @@ export function App() {
     try {
       // 1. Try local server endpoint first if not forcing a manual folder picker
       if (!forcePickNewFolder) {
-        const localData = await fetchLocalSaves();
+        const localData = await fetchLocalSaves(saveDirectoryPath);
         if (localData && localData.files.length > 0) {
           setLinkedFolderName('SaveGames (Auto-detected)');
           await processFiles(localData.files);
@@ -323,7 +352,7 @@ export function App() {
           activeCharIndex={activeCharIndex}
           onSelectChar={(idx) => setActiveCharIndex(idx)}
           onSelectView={handleSelectView}
-          onResetDemo={handleResetDemo}
+          onResetDemo={handleResetAllData}
         />
 
         {/* MAIN VIEWPORT */}
@@ -370,11 +399,10 @@ export function App() {
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
-        onPickFiles={() => fileInputRef.current?.click()}
+        saveDirectoryPath={saveDirectoryPath}
+        onSaveDirectoryChange={handleSaveDirectoryChange}
         onPickFolder={() => handleAnalyzeSaves(true)}
-        onResetDemo={handleResetDemo}
-        isLiveSave={isLiveSave}
-        saveName={saveName}
+        onResetAllData={handleResetAllData}
       />
     </div>
   );

@@ -136,9 +136,12 @@ export function isDirectoryPickerSupported(): boolean {
  * Attempt to load save files from the local server endpoint (/api/local-saves)
  * This automatically accesses %LOCALAPPDATA%\Remnant\Saved\SaveGames without browser sandbox restrictions
  */
-export async function fetchLocalSaves(): Promise<{ path: string; files: File[] } | null> {
+export async function fetchLocalSaves(customPath?: string | null): Promise<{ path: string; files: File[] } | null> {
   try {
-    const res = await fetch('/api/local-saves');
+    const url = customPath?.trim()
+      ? `/api/local-saves?path=${encodeURIComponent(customPath.trim())}`
+      : '/api/local-saves';
+    const res = await fetch(url);
     if (!res.ok) return null;
     const data = await res.json();
     if (!data || !Array.isArray(data.files) || data.files.length === 0) {
