@@ -104,27 +104,65 @@ export function App() {
     };
 
     try {
-      let currentChars = [...characters];
+      let currentChars = isLiveSave ? [...characters] : [];
 
       if (profileFile) {
         const profileText = await readFileText(profileFile);
-        currentChars = parseProfileSav(profileText);
+        const parsedProfileChars = parseProfileSav(profileText);
+        if (parsedProfileChars.length > 0) {
+          currentChars = parsedProfileChars.map((pChar, idx) => {
+            const existing = currentChars[idx];
+            return {
+              ...pChar,
+              campaignEvents: existing?.campaignEvents || [],
+              adventureEvents: existing?.adventureEvents || [],
+              hasAdventureData: existing?.hasAdventureData || false,
+              adventureZone: existing?.adventureZone || null,
+            };
+          });
+        }
+      }
+
+      let targetActiveIndex: number | null = null;
+
+      for (const worldFile of worldFiles) {
+        const match = worldFile.name.match(/save_(\d+)\.sav/i);
+        const slot = match ? parseInt(match[1], 10) : 0;
+
+        while (currentChars.length <= slot) {
+          const newSlot = currentChars.length;
+          currentChars.push({
+            id: newSlot,
+            archetype: `Character ${newSlot + 1}`,
+            inventory: [],
+            campaignEvents: [],
+            adventureEvents: [],
+            missingItems: [],
+            hasAdventureData: false,
+            adventureZone: null,
+          });
+        }
+
+        const worldText = await readFileText(worldFile);
+        const worldResult = parseWorldSave(worldText, currentChars[slot]);
+        currentChars[slot].campaignEvents = worldResult.campaignEvents;
+        currentChars[slot].adventureEvents = worldResult.adventureEvents;
+        currentChars[slot].hasAdventureData = worldResult.hasAdventureData;
+        currentChars[slot].adventureZone = worldResult.adventureZone;
+
+        if (targetActiveIndex === null) {
+          targetActiveIndex = slot;
+        }
       }
 
       if (currentChars.length === 0) {
         currentChars = [getSampleCharacter()];
       }
 
-      for (let i = 0; i < worldFiles.length && i < currentChars.length; i++) {
-        const worldText = await readFileText(worldFiles[i]);
-        const worldResult = parseWorldSave(worldText, currentChars[i]);
-        currentChars[i].campaignEvents = worldResult.campaignEvents;
-        currentChars[i].adventureEvents = worldResult.adventureEvents;
-        currentChars[i].hasAdventureData = worldResult.hasAdventureData;
-      }
-
       setCharacters(currentChars);
-      setActiveCharIndex(0);
+      if (targetActiveIndex !== null) {
+        setActiveCharIndex(targetActiveIndex);
+      }
       setIsLiveSave(true);
       setSaveName(worldFiles[0]?.name || profileFile?.name || 'SaveSlot_0.sav');
       setToastMessage('file upload succefully');

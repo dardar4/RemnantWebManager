@@ -373,11 +373,13 @@ export function parseWorldSave(savetext: string, character: RemnantCharacter): {
   campaignEvents: RemnantWorldEvent[];
   adventureEvents: RemnantWorldEvent[];
   hasAdventureData: boolean;
+  adventureZone: string | null;
 } {
   const inventorySet = new Set(character.inventory);
   let campaignEvents: RemnantWorldEvent[] = [];
   let adventureEvents: RemnantWorldEvent[] = [];
   let hasAdventureData = false;
+  let adventureZoneName: string | null = null;
 
   // 1. Campaign Main
   const strCampaignEnd = '/Game/Campaign_Main/Quest_Campaign_Main.Quest_Campaign_Main_C';
@@ -406,7 +408,6 @@ export function parseWorldSave(savetext: string, character: RemnantCharacter): {
 
   // 3. Adventure mode
   if (savetext.includes('Quest_AdventureMode_')) {
-    hasAdventureData = true;
     let advZone: string | null = null;
     if (savetext.includes('Quest_AdventureMode_City_C')) advZone = 'City';
     else if (savetext.includes('Quest_AdventureMode_Wasteland_C')) advZone = 'Wasteland';
@@ -415,6 +416,8 @@ export function parseWorldSave(savetext: string, character: RemnantCharacter): {
     else if (savetext.includes('Quest_AdventureMode_Snow_C')) advZone = 'Snow';
 
     if (advZone) {
+      hasAdventureData = true;
+      adventureZoneName = advZone;
       const strAdvEnd = `/Game/World_${advZone}/Quests/Quest_AdventureMode/Quest_AdventureMode_${advZone}.Quest_AdventureMode_${advZone}_C`;
       const advEnd = savetext.indexOf(strAdvEnd) + strAdvEnd.length;
       let advtext = savetext.substring(0, advEnd);
@@ -429,5 +432,6 @@ export function parseWorldSave(savetext: string, character: RemnantCharacter): {
     campaignEvents,
     adventureEvents,
     hasAdventureData,
+    adventureZone: adventureZoneName,
   };
 }

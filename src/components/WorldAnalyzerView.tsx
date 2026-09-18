@@ -53,6 +53,71 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
     }
   };
 
+  const currentEvents = mode === 'campaign' ? (character.campaignEvents || []) : (character.adventureEvents || []);
+
+  const filteredEvents = currentEvents.filter((evt) => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase();
+    return (
+      evt.name.toLowerCase().includes(q) ||
+      evt.location.toLowerCase().includes(q) ||
+      evt.type.toLowerCase().includes(q) ||
+      evt.missingItems.some((item) => item.name.toLowerCase().includes(q)) ||
+      evt.possibleItems.some((item) => item.name.toLowerCase().includes(q))
+    );
+  });
+
+  const handleDownloadJson = () => {
+    if (currentEvents.length === 0) return;
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(currentEvents, null, 2));
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', dataStr);
+    downloadAnchor.setAttribute('download', `remnant_${mode}_roll_slot${activeCharIndex}.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+  };
+
+  const getBadgeStyles = (type: string) => {
+    switch (type) {
+      case 'World Boss':
+        return { bg: 'rgba(185, 28, 28, 0.08)', color: '#b91c1c', border: 'rgba(185, 28, 28, 0.25)' };
+      case 'Miniboss':
+        return { bg: 'rgba(217, 119, 6, 0.08)', color: '#d97706', border: 'rgba(217, 119, 6, 0.25)' };
+      case 'Side Dungeon':
+        return { bg: 'rgba(37, 99, 235, 0.08)', color: '#2563eb', border: 'rgba(37, 99, 235, 0.25)' };
+      case 'Point of Interest':
+        return { bg: 'rgba(124, 58, 237, 0.08)', color: '#7c3aed', border: 'rgba(124, 58, 237, 0.25)' };
+      case 'Siege':
+        return { bg: 'rgba(194, 65, 12, 0.08)', color: '#c2410c', border: 'rgba(194, 65, 12, 0.25)' };
+      case 'Item Drop':
+        return { bg: 'rgba(5, 150, 105, 0.08)', color: '#059669', border: 'rgba(5, 150, 105, 0.25)' };
+      default:
+        return { bg: 'rgba(74, 114, 87, 0.1)', color: 'var(--moss-800)', border: 'rgba(74, 114, 87, 0.25)' };
+    }
+  };
+
+  const getBiomeDisplay = () => {
+    if (mode === 'adventure') {
+      if (character.adventureZone) {
+        const zoneMap: Record<string, string> = {
+          City: 'Earth',
+          Wasteland: 'Rhom',
+          Swamp: 'Corsus',
+          Jungle: 'Yaesha',
+          Snow: 'Reisum',
+        };
+        const zoneName = zoneMap[character.adventureZone] || character.adventureZone;
+        return `Current Biome: ${zoneName} (Adventure Mode)`;
+      }
+      return 'Current Biome: Adventure Mode';
+    }
+    if (character.campaignEvents && character.campaignEvents.length > 0) {
+      return 'Current Biome: Campaign Overworld (Earth / Rhom / Corsus / Yaesha / Reisum)';
+    }
+    return `Current Biome: Earth (${mode === 'campaign' ? 'Campaign' : 'Adventure'} Mode)`;
+  };
+
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--terra-50)', minHeight: '100%', overflowY: 'auto' }}>
       {/* Hidden file input */}
@@ -472,15 +537,15 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
           <div style={{ padding: '0.75rem 1.5rem', backgroundColor: '#FAF8F5', borderBottom: '1px solid rgba(226, 218, 207, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontWeight: 700, color: 'var(--terra-900)' }}>
-                Current Biome: Earth ({mode === 'campaign' ? 'Campaign' : 'Adventure'} Mode) // {character.archetype}
+                {getBiomeDisplay()} // {character.archetype}
               </span>
               <span style={{ color: 'var(--terra-400)' }}>•</span>
               <span style={{ color: 'var(--terra-600)', fontFamily: 'var(--font-label)' }}>
-                0 Nodes Identified
+                {filteredEvents.length} Nodes Identified
               </span>
             </div>
             <div style={{ color: 'var(--terra-500)', fontFamily: 'var(--font-label)', fontSize: '11px' }}>
-              Filter: Showing All Events
+              {searchQuery ? `Filter: "${searchQuery}"` : 'Filter: Showing All Events'}
             </div>
           </div>
 
@@ -495,22 +560,149 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 </tr>
               </thead>
               <tbody style={{ fontSize: '12px', color: 'var(--terra-800)' }}>
-                {/* EMPTY TABLE as requested: "for now only do the UI part. the tabel should be empty" */}
-                <tr>
-                  <td colSpan={4} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                      <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--terra-400)' }}>
-                        table_rows
-                      </span>
-                      <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--terra-800)' }}>
-                        No world data loaded yet
-                      </span>
-                      <span style={{ fontSize: '12px', color: 'var(--terra-500)', maxWidth: '28rem', lineHeight: 1.5 }}>
-                        Upload your <code style={{ backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', padding: '1px 4px', borderRadius: '3px' }}>save_0.sav</code> using the dropzone above to populate this telemetry matrix.
-                      </span>
-                    </div>
-                  </td>
-                </tr>
+                {currentEvents.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--terra-400)' }}>
+                          {mode === 'adventure' ? 'explore_off' : 'table_rows'}
+                        </span>
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--terra-800)' }}>
+                          {mode === 'adventure'
+                            ? 'No Adventure Mode roll detected in this save'
+                            : 'No world data loaded yet'}
+                        </span>
+                        <span style={{ fontSize: '12px', color: 'var(--terra-500)', maxWidth: '28rem', lineHeight: 1.5 }}>
+                          {mode === 'adventure'
+                            ? 'Roll an Adventure at the World Stone in-game to parse Adventure telemetry, or switch to Campaign mode above.'
+                            : 'Upload your save_0.sav using the dropzone above to populate this telemetry matrix.'}
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                ) : filteredEvents.length === 0 ? (
+                  <tr>
+                    <td colSpan={4} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                        <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--terra-400)' }}>
+                          search_off
+                        </span>
+                        <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--terra-800)' }}>
+                          No events match "{searchQuery}"
+                        </span>
+                        <span style={{ fontSize: '12px', color: 'var(--terra-500)' }}>
+                          Try clearing or adjusting your search query.
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                ) : (
+                  filteredEvents.map((evt, idx) => {
+                    const badge = getBadgeStyles(evt.type);
+                    const locParts = evt.location.split(': ');
+                    const zoneTag = locParts[0];
+                    const subLoc = locParts.slice(1).join(': ');
+
+                    return (
+                      <tr
+                        key={`${evt.key}-${idx}`}
+                        style={{
+                          borderBottom: '1px solid rgba(226, 218, 207, 0.6)',
+                          backgroundColor: idx % 2 === 0 ? '#ffffff' : 'rgba(250, 248, 245, 0.5)',
+                          transition: 'background-color 0.1s ease',
+                        }}
+                      >
+                        {/* Location */}
+                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <span
+                              style={{
+                                fontSize: '10px',
+                                fontFamily: 'var(--font-label)',
+                                fontWeight: 700,
+                                padding: '0.125rem 0.4rem',
+                                borderRadius: '0.25rem',
+                                backgroundColor: 'var(--terra-200)',
+                                color: 'var(--terra-800)',
+                                flexShrink: 0,
+                              }}
+                            >
+                              {zoneTag}
+                            </span>
+                            <span style={{ fontWeight: 600, color: 'var(--terra-800)', fontSize: '12px' }}>
+                              {subLoc || zoneTag}
+                            </span>
+                          </div>
+                        </td>
+
+                        {/* Event Type */}
+                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
+                          <span
+                            style={{
+                              display: 'inline-block',
+                              padding: '0.2rem 0.55rem',
+                              borderRadius: '9999px',
+                              fontSize: '10px',
+                              fontWeight: 700,
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.04em',
+                              backgroundColor: badge.bg,
+                              color: badge.color,
+                              border: `1px solid ${badge.border}`,
+                            }}
+                          >
+                            {evt.type}
+                          </span>
+                        </td>
+
+                        {/* Event Name */}
+                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
+                          <span style={{ fontWeight: 700, color: 'var(--terra-900)', fontSize: '13px' }}>
+                            {evt.name}
+                          </span>
+                        </td>
+
+                        {/* Missing Items */}
+                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
+                          {evt.missingItems && evt.missingItems.length > 0 ? (
+                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                              {evt.missingItems.map((item, itemIdx) => (
+                                <span
+                                  key={itemIdx}
+                                  style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    padding: '0.15rem 0.5rem',
+                                    borderRadius: '0.375rem',
+                                    fontSize: '11px',
+                                    fontWeight: 600,
+                                    fontFamily: 'var(--font-label)',
+                                    backgroundColor: 'var(--terra-100)',
+                                    color: 'var(--terra-800)',
+                                    border: '1px solid var(--terra-200)',
+                                  }}
+                                >
+                                  {item.name}
+                                </span>
+                              ))}
+                            </div>
+                          ) : character.inventory && character.inventory.length > 0 && evt.possibleItems && evt.possibleItems.length > 0 ? (
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', color: 'var(--moss-700)', fontSize: '11px', fontWeight: 600 }}>
+                              <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                                check_circle
+                              </span>
+                              All Acquired
+                            </span>
+                          ) : (
+                            <span style={{ color: 'var(--terra-400)', fontSize: '12px', fontStyle: 'italic' }}>
+                              —
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
               </tbody>
             </table>
           </div>
@@ -518,15 +710,31 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
           {/* Table Footer Status */}
           <div style={{ padding: '0.75rem 1.5rem', backgroundColor: 'var(--terra-50)', borderTop: '1px solid rgba(226, 218, 207, 0.8)', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', color: 'var(--terra-600)', gap: '0.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ width: '8px', height: '8px', borderRadius: '9999px', backgroundColor: 'var(--terra-400)' }} />
+              <span
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '9999px',
+                  backgroundColor: currentEvents.length > 0 ? 'var(--moss-600)' : 'var(--terra-400)',
+                }}
+              />
               <span style={{ fontWeight: 500 }}>
-                Analysis synced to local save state: 0 of 0 world entries rendered.
+                Analysis synced to local save state: {filteredEvents.length} of {currentEvents.length} world entries rendered.
               </span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontFamily: 'var(--font-label)', fontSize: '11px' }}>
-              <span>Save Timestamp: —</span>
+              <span>Mode: {mode === 'campaign' ? 'Campaign' : 'Adventure'}</span>
               <span style={{ color: 'var(--terra-300)' }}>|</span>
-              <span style={{ color: 'var(--moss-700)', fontWeight: 600 }}>Download Raw JSON</span>
+              <span
+                onClick={handleDownloadJson}
+                style={{
+                  color: currentEvents.length > 0 ? 'var(--moss-700)' : 'var(--terra-400)',
+                  fontWeight: 600,
+                  cursor: currentEvents.length > 0 ? 'pointer' : 'default',
+                }}
+              >
+                Download Raw JSON
+              </span>
             </div>
           </div>
         </section>

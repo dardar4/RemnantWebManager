@@ -29,6 +29,7 @@ export interface RemnantCharacter {
   adventureEvents: RemnantWorldEvent[];
   missingItems: RemnantItem[];
   hasAdventureData: boolean;
+  adventureZone?: string | null;
 }
 
 export interface GameData {
