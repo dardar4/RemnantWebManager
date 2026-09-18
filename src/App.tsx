@@ -271,9 +271,6 @@ export function App() {
       setIsLiveSave(true);
       setSaveName(worldFiles[0]?.name || profileFile?.name || 'SaveSlot_0.sav');
       setToastMessage(isSilent ? 'World telemetry auto-refreshed from disk' : 'Save files analyzed successfully');
-      setTimeout(() => {
-        setToastMessage(null);
-      }, 3500);
     } catch (err) {
       console.error('Error parsing Remnant save file:', err);
       if (!isSilent) {

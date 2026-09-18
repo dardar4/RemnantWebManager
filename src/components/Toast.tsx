@@ -1,11 +1,25 @@
+import { useEffect } from 'react';
 import type { FC } from 'react';
 
 interface ToastProps {
   message: string | null;
   onClose: () => void;
+  duration?: number;
 }
 
-export const Toast: FC<ToastProps> = ({ message, onClose }) => {
+export const Toast: FC<ToastProps> = ({ message, onClose, duration = 3500 }) => {
+  useEffect(() => {
+    if (!message) return;
+
+    const timer = setTimeout(() => {
+      onClose();
+    }, duration);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [message, onClose, duration]);
+
   if (!message) return null;
 
   return (
