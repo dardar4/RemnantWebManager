@@ -32,50 +32,63 @@ export function isAmulet(item: RemnantItem): boolean {
   return !isRing(item);
 }
 
+export interface ChecklistGroupDef {
+  id: string;
+  name: string;
+  icon: string;
+  filter: (item: RemnantItem) => boolean;
+}
+
+export const CHECKLIST_GROUPS: ChecklistGroupDef[] = [
+  {
+    id: 'weapons',
+    name: 'Weapons',
+    icon: 'crisis_alert',
+    filter: (i: RemnantItem) => i.type === 'Weapon',
+  },
+  {
+    id: 'armor',
+    name: 'Armor Sets',
+    icon: 'shield',
+    filter: (i: RemnantItem) => i.type === 'Armor',
+  },
+  {
+    id: 'rings',
+    name: 'Rings',
+    icon: 'radio_button_checked',
+    filter: (i: RemnantItem) => isRing(i),
+  },
+  {
+    id: 'amulets',
+    name: 'Amulets',
+    icon: 'token',
+    filter: (i: RemnantItem) => isAmulet(i),
+  },
+  {
+    id: 'mods',
+    name: 'Mods',
+    icon: 'auto_fix_high',
+    filter: (i: RemnantItem) => i.type === 'Mod',
+  },
+  {
+    id: 'traits',
+    name: 'Traits',
+    icon: 'psychology',
+    filter: (i: RemnantItem) => i.type === 'Trait',
+  },
+  {
+    id: 'emotes',
+    name: 'Emotes',
+    icon: 'sentiment_satisfied',
+    filter: (i: RemnantItem) => i.type === 'Emote',
+  },
+];
+
 export function getChecklistCategories(inventory: string[]): CategoryProgress[] {
   const inventorySet = new Set(inventory);
   const allItems = gameData.allItems;
 
-  const categories = [
-    {
-      id: 'weapons',
-      name: 'Weapons',
-      icon: 'crisis_alert',
-      filter: (i: RemnantItem) => i.type === 'Weapon',
-    },
-    {
-      id: 'armor',
-      name: 'Armor',
-      icon: 'shield',
-      filter: (i: RemnantItem) => i.type === 'Armor',
-    },
-    {
-      id: 'rings',
-      name: 'Rings',
-      icon: 'radio_button_checked',
-      filter: (i: RemnantItem) => isRing(i),
-    },
-    {
-      id: 'amulets',
-      name: 'Amulets',
-      icon: 'token',
-      filter: (i: RemnantItem) => isAmulet(i),
-    },
-    {
-      id: 'mods',
-      name: 'Mods',
-      icon: 'auto_fix_high',
-      filter: (i: RemnantItem) => i.type === 'Mod',
-    },
-    {
-      id: 'traits',
-      name: 'Traits',
-      icon: 'psychology',
-      filter: (i: RemnantItem) => i.type === 'Trait',
-    },
-  ];
-
-  return categories.map(cat => {
+  return CHECKLIST_GROUPS.map(cat => {
     const itemsInCat = allItems.filter(cat.filter);
     const total = itemsInCat.length;
     const owned = itemsInCat.filter(i => inventorySet.has(i.key)).length;

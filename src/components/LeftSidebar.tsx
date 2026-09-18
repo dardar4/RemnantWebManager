@@ -120,8 +120,13 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
           {/* Secondary Module: Checklist (Accordion) */}
           <div style={{ padding: "0.25rem 0.75rem 0 0.75rem" }}>
             <div
-              className="checklist-accordion-header"
-              onClick={() => setChecklistExpanded(!checklistExpanded)}
+              className={`checklist-accordion-header ${
+                currentView === "checklist" && (!selectedCategory || selectedCategory === "all") ? "active" : ""
+              }`}
+              onClick={() => {
+                onSelectView("checklist", null);
+                setChecklistExpanded(true);
+              }}
             >
               <div
                 style={{
@@ -146,6 +151,11 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
                 </span>
                 <span
                   className={`material-symbols-outlined chevron-icon ${checklistExpanded ? "rotated" : ""}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setChecklistExpanded((prev) => !prev);
+                  }}
+                  title={checklistExpanded ? "Collapse checklist" : "Expand checklist"}
                 >
                   expand_more
                 </span>

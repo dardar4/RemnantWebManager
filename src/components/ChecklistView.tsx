@@ -1,61 +1,82 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, Fragment } from 'react';
 import type { FC } from 'react';
 import type { RemnantCharacter, RemnantItem } from '../types/remnant';
 import { gameData } from '../utils/saveParser';
-import { isRing, isAmulet } from '../utils/itemCategorizer';
+import { CHECKLIST_GROUPS } from '../utils/itemCategorizer';
 
 interface ChecklistViewProps {
   character: RemnantCharacter;
-  initialCategory?: string | null;
+  selectedCategory?: string | null;
+  onSelectCategory?: (category: string) => void;
   onBackToHome: () => void;
 }
 
 export const ChecklistView: FC<ChecklistViewProps> = ({
   character,
-  initialCategory,
+  selectedCategory,
+  onSelectCategory,
 }) => {
-  const [selectedCat, setSelectedCat] = useState<string>(initialCategory || 'all');
+  const currentCat = selectedCategory || 'all';
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [onlyMissing, setOnlyMissing] = useState<boolean>(false);
 
   const inventorySet = useMemo(() => new Set(character.inventory), [character.inventory]);
 
-  const filteredItems = useMemo(() => {
-    return gameData.allItems.filter((item: RemnantItem) => {
-      // Category filter
-      if (selectedCat === 'weapons' && item.type !== 'Weapon') return false;
-      if (selectedCat === 'armor' && item.type !== 'Armor') return false;
-      if (selectedCat === 'rings' && !isRing(item)) return false;
-      if (selectedCat === 'amulets' && !isAmulet(item)) return false;
-      if (selectedCat === 'mods' && item.type !== 'Mod') return false;
-      if (selectedCat === 'traits' && item.type !== 'Trait') return false;
-
-      // Missing only filter
-      if (onlyMissing && inventorySet.has(item.key)) return false;
-
-      // Text search
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase();
-        const matchName = item.name.toLowerCase().includes(q);
-        const matchAlt = item.altname?.toLowerCase().includes(q);
-        const matchLoc = item.notes?.toLowerCase().includes(q);
-        const matchEvent = item.eventName?.toLowerCase().includes(q);
-        if (!matchName && !matchAlt && !matchLoc && !matchEvent) return false;
-      }
-
-      return true;
-    });
-  }, [selectedCat, searchQuery, onlyMissing, inventorySet]);
+  const handleCategoryClick = (catId: string) => {
+    if (onSelectCategory) {
+      onSelectCategory(catId);
+    }
+  };
 
   const categories = [
     { id: 'all', label: 'All Gear' },
-    { id: 'weapons', label: 'Weapons' },
-    { id: 'armor', label: 'Armor Sets' },
-    { id: 'rings', label: 'Rings' },
-    { id: 'amulets', label: 'Amulets' },
-    { id: 'mods', label: 'Mods' },
-    { id: 'traits', label: 'Traits' },
+    ...CHECKLIST_GROUPS.map((g) => ({ id: g.id, label: g.name })),
   ];
+
+  // Which groups to display based on active category filter
+  const activeGroups = useMemo(() => {
+    if (currentCat === 'all') {
+      return CHECKLIST_GROUPS;
+    }
+    return CHECKLIST_GROUPS.filter((g) => g.id === currentCat);
+  }, [currentCat]);
+
+  // Compute grouped items matching current search and missing filter
+  const groupedSections = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+
+    return activeGroups.map((group) => {
+      // 1. All items belonging to this category
+      const groupAllItems = gameData.allItems.filter(group.filter);
+      const groupTotal = groupAllItems.length;
+      const groupOwned = groupAllItems.filter((i) => inventorySet.has(i.key)).length;
+      const groupPercent = groupTotal > 0 ? Math.round((groupOwned / groupTotal) * 100) : 0;
+
+      // 2. Filtered items for display
+      const displayItems = groupAllItems.filter((item: RemnantItem) => {
+        if (onlyMissing && inventorySet.has(item.key)) return false;
+        if (q) {
+          const matchName = item.name.toLowerCase().includes(q);
+          const matchAlt = item.altname?.toLowerCase().includes(q);
+          const matchLoc = item.notes?.toLowerCase().includes(q);
+          const matchEvent = item.eventName?.toLowerCase().includes(q);
+          const matchType = item.type?.toLowerCase().includes(q);
+          if (!matchName && !matchAlt && !matchLoc && !matchEvent && !matchType) return false;
+        }
+        return true;
+      });
+
+      return {
+        group,
+        groupTotal,
+        groupOwned,
+        groupPercent,
+        items: displayItems,
+      };
+    });
+  }, [activeGroups, inventorySet, onlyMissing, searchQuery]);
+
+  const totalMatches = groupedSections.reduce((sum, g) => sum + g.items.length, 0);
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -76,16 +97,18 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
             {categories.map((c) => (
               <button
                 key={c.id}
-                onClick={() => setSelectedCat(c.id)}
+                onClick={() => handleCategoryClick(c.id)}
                 style={{
                   fontFamily: 'var(--font-label)',
                   fontSize: '11px',
-                  padding: '3px 8px',
-                  background: selectedCat === c.id ? 'var(--primary)' : 'var(--surface-container-low)',
-                  color: selectedCat === c.id ? '#ffffff' : 'var(--on-surface)',
+                  padding: '4px 10px',
+                  background: currentCat === c.id ? 'var(--primary)' : 'var(--surface-container-low)',
+                  color: currentCat === c.id ? '#ffffff' : 'var(--on-surface)',
                   border: '1px solid var(--outline-variant)',
+                  borderRadius: '3px',
                   cursor: 'pointer',
-                  fontWeight: selectedCat === c.id ? 700 : 500,
+                  fontWeight: currentCat === c.id ? 700 : 500,
+                  transition: 'all 0.15s ease',
                 }}
               >
                 {c.label}
@@ -129,58 +152,120 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
               </tr>
             </thead>
             <tbody>
-              {filteredItems.length === 0 ? (
+              {totalMatches === 0 ? (
                 <tr>
                   <td colSpan={6} style={{ textAlign: 'center', padding: '2.5rem', color: 'var(--outline)', fontFamily: 'var(--font-label)' }}>
                     NO ITEMS MATCHING QUERY
                   </td>
                 </tr>
               ) : (
-                filteredItems.map((item, idx) => {
-                  const isOwned = inventorySet.has(item.key);
+                groupedSections.map(({ group, groupTotal, groupOwned, groupPercent, items }) => {
+                  if (items.length === 0) return null;
+
                   return (
-                    <tr
-                      key={`${item.key}-${idx}`}
-                      style={{
-                        borderBottom: '1px solid var(--outline-variant)',
-                        backgroundColor: isOwned ? 'transparent' : 'rgba(255, 240, 240, 0.4)',
-                      }}
-                    >
-                      <td style={{ padding: '8px 12px' }}>
-                        <span style={{
-                          fontFamily: 'var(--font-label)',
-                          fontSize: '10px',
-                          fontWeight: 700,
-                          padding: '2px 6px',
-                          background: isOwned ? 'rgba(0, 103, 99, 0.1)' : 'rgba(183, 20, 34, 0.1)',
-                          color: isOwned ? 'var(--tertiary)' : 'var(--primary)',
-                          border: `1px solid ${isOwned ? 'var(--tertiary)' : 'var(--primary)'}`,
-                        }}>
-                          {isOwned ? 'OWNED' : 'MISSING'}
-                        </span>
-                      </td>
-                      <td style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '11px', color: 'var(--outline)' }}>
-                        {item.type}
-                      </td>
-                      <td style={{ padding: '8px 12px', fontWeight: 600, color: isOwned ? 'inherit' : 'var(--primary)' }}>
-                        {item.name}
-                      </td>
-                      <td style={{ padding: '8px 12px', color: 'var(--secondary)', fontFamily: 'var(--font-label)', fontSize: '11px' }}>
-                        {item.eventName ? gameData.events[item.eventName] || item.eventName : 'Uncategorized'}
-                      </td>
-                      <td style={{ padding: '8px 12px', fontSize: '11px' }}>
-                        {item.dlc ? (
-                          <span style={{ color: 'var(--tertiary)', fontWeight: 600 }}>{item.dlc}</span>
-                        ) : item.mode !== 'normal' ? (
-                          <span style={{ color: 'var(--secondary)', fontWeight: 700 }}>{item.mode.toUpperCase()}</span>
-                        ) : (
-                          <span style={{ color: 'var(--outline)' }}>Base Game</span>
-                        )}
-                      </td>
-                      <td style={{ padding: '8px 12px', fontSize: '11px', color: 'var(--outline)' }}>
-                        {item.notes || '—'}
-                      </td>
-                    </tr>
+                    <Fragment key={`group-section-${group.id}`}>
+                      {/* Group Header Banner */}
+                      <tr
+                        key={`group-banner-${group.id}`}
+                        style={{
+                          backgroundColor: 'var(--terra-100)',
+                          borderTop: '2px solid var(--terra-300)',
+                          borderBottom: '1px solid var(--terra-300)',
+                        }}
+                      >
+                        <td colSpan={6} style={{ padding: '0.625rem 0.875rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                              <span
+                                className="material-symbols-outlined"
+                                style={{ fontSize: '18px', color: 'var(--moss-700)' }}
+                              >
+                                {group.icon}
+                              </span>
+                              <span
+                                style={{
+                                  fontFamily: 'var(--font-headline)',
+                                  fontSize: '13px',
+                                  fontWeight: 700,
+                                  color: 'var(--terra-900)',
+                                  letterSpacing: '0.03em',
+                                  textTransform: 'uppercase',
+                                }}
+                              >
+                                {group.name}
+                              </span>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                              <span
+                                style={{
+                                  fontFamily: 'var(--font-label)',
+                                  fontSize: '11px',
+                                  fontWeight: 600,
+                                  color: 'var(--terra-700)',
+                                  backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                                  padding: '0.15rem 0.5rem',
+                                  borderRadius: '0.375rem',
+                                  border: '1px solid var(--terra-200)',
+                                }}
+                              >
+                                {groupOwned} / {groupTotal} Acquired ({groupPercent}%)
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+
+                      {/* Items in this Group */}
+                      {items.map((item, idx) => {
+                        const isOwned = inventorySet.has(item.key);
+                        return (
+                          <tr
+                            key={`${item.key}-${idx}`}
+                            style={{
+                              borderBottom: '1px solid var(--outline-variant)',
+                              backgroundColor: isOwned ? '#ffffff' : 'rgba(255, 240, 240, 0.4)',
+                            }}
+                          >
+                            <td style={{ padding: '8px 12px' }}>
+                              <span
+                                style={{
+                                  fontFamily: 'var(--font-label)',
+                                  fontSize: '10px',
+                                  fontWeight: 700,
+                                  padding: '2px 6px',
+                                  background: isOwned ? 'rgba(0, 103, 99, 0.1)' : 'rgba(183, 20, 34, 0.1)',
+                                  color: isOwned ? 'var(--tertiary)' : 'var(--primary)',
+                                  border: `1px solid ${isOwned ? 'var(--tertiary)' : 'var(--primary)'}`,
+                                }}
+                              >
+                                {isOwned ? 'OWNED' : 'MISSING'}
+                              </span>
+                            </td>
+                            <td style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '11px', color: 'var(--outline)' }}>
+                              {item.type}
+                            </td>
+                            <td style={{ padding: '8px 12px', fontWeight: 600, color: isOwned ? 'inherit' : 'var(--primary)' }}>
+                              {item.name}
+                            </td>
+                            <td style={{ padding: '8px 12px', color: 'var(--secondary)', fontFamily: 'var(--font-label)', fontSize: '11px' }}>
+                              {item.eventName ? gameData.events[item.eventName] || item.eventName : 'Uncategorized'}
+                            </td>
+                            <td style={{ padding: '8px 12px', fontSize: '11px' }}>
+                              {item.dlc ? (
+                                <span style={{ color: 'var(--tertiary)', fontWeight: 600 }}>{item.dlc}</span>
+                              ) : item.mode !== 'normal' ? (
+                                <span style={{ color: 'var(--secondary)', fontWeight: 700 }}>{item.mode.toUpperCase()}</span>
+                              ) : (
+                                <span style={{ color: 'var(--outline)' }}>Base Game</span>
+                              )}
+                            </td>
+                            <td style={{ padding: '8px 12px', fontSize: '11px', color: 'var(--outline)' }}>
+                              {item.notes || '—'}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </Fragment>
                   );
                 })
               )}
@@ -191,3 +276,4 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
     </div>
   );
 };
+

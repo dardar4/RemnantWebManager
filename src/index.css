@@ -349,11 +349,26 @@ body {
   cursor: pointer;
   background: transparent;
   border: none;
-  transition: color 0.15s ease;
+  border-left: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.checklist-accordion-header:hover {
+  background-color: var(--surface-container-low);
 }
 
 .checklist-accordion-header:hover .checklist-title {
   color: var(--primary);
+}
+
+.checklist-accordion-header.active {
+  background-color: var(--surface-container-low);
+  border-left-color: var(--primary);
+}
+
+.checklist-accordion-header.active .checklist-title {
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .checklist-title {

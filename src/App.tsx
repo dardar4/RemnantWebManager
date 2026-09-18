@@ -423,7 +423,8 @@ export function App() {
           {currentView === 'checklist' && (
             <ChecklistView
               character={activeCharacter}
-              initialCategory={selectedChecklistCat}
+              selectedCategory={selectedChecklistCat}
+              onSelectCategory={(cat) => setSelectedChecklistCat(cat === 'all' ? null : cat)}
               onBackToHome={() => setCurrentView('home')}
             />
           )}
