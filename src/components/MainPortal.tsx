@@ -32,34 +32,8 @@ export const MainPortal: FC<MainPortalProps> = ({
         </div>
       </div>
 
-      {/* Atmospheric Ambient Glow behind Centered Card */}
-      <div className="ambient-glow">
-        <div className="ambient-glow-circle" />
-      </div>
-
-      {/* Centered Portal Readiness State */}
+      {/* Main Portal State */}
       <div className="portal-centered-container">
-        {/* Central Artifact Emblem / Terminal Monolith Icon */}
-        <div className="emblem-wrapper">
-          <div className="emblem-ring">
-            <span
-              className="material-symbols-outlined"
-              style={{ color: 'var(--primary)', fontSize: '36px' }}
-            >
-              deployed_code
-            </span>
-            {/* Inner Corner Accents */}
-            <div className="emblem-corner-tl" />
-            <div className="emblem-corner-br" />
-          </div>
-
-          {/* Pulse Dot */}
-          <span className="emblem-pulse-dot">
-            <span className="emblem-pulse-ping" />
-            <span className="emblem-pulse-core" />
-          </span>
-        </div>
-
         {/* Main Readiness Title */}
         <h1 className="portal-title">Select a Module to Begin</h1>
 

@@ -34,12 +34,6 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
     <aside className="sidebar">
       {/* Top Rail: Navigation & Categories */}
       <div style={{ display: 'flex', flexDirection: 'column', flex: 1, overflowY: 'auto' }} className="custom-scrollbar">
-        {/* Sector Telemetry Header */}
-        <div className="sidebar-header">
-          <span className="sidebar-title">NAVIGATION MATRIX</span>
-          <span className="sidebar-status">READY</span>
-        </div>
-
         {/* Navigation Tree */}
         <div className="sidebar-nav">
           {/* Home Link */}

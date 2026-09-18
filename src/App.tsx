@@ -219,7 +219,7 @@ export function App() {
         />
 
         {/* MAIN VIEWPORT */}
-        <main className="main-viewport telemetry-grid">
+        <main className="main-viewport">
           {currentView === 'home' && (
             <MainPortal
               overallPercent={overallPercent}
