@@ -102,30 +102,6 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
     }
   };
 
-  const getBiomeDisplay = () => {
-    if (characters.length === 0) {
-      return 'No save data loaded';
-    }
-    if (mode === 'adventure') {
-      if (character.adventureZone) {
-        const zoneMap: Record<string, string> = {
-          City: 'Earth',
-          Wasteland: 'Rhom',
-          Swamp: 'Corsus',
-          Jungle: 'Yaesha',
-          Snow: 'Reisum',
-        };
-        const zoneName = zoneMap[character.adventureZone] || character.adventureZone;
-        return `Current Biome: ${zoneName} (Adventure Mode)`;
-      }
-      return 'Current Biome: Adventure Mode';
-    }
-    if (character.campaignEvents && character.campaignEvents.length > 0) {
-      return 'Current Biome: Campaign Overworld (Earth / Rhom / Corsus / Yaesha / Reisum)';
-    }
-    return `Current Biome: Earth (${mode === 'campaign' ? 'Campaign' : 'Adventure'} Mode)`;
-  };
-
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--terra-50)', minHeight: '100%', overflowY: 'auto' }}>
       {/* Hidden file input */}
@@ -668,35 +644,6 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
 
         {/* World Roll Table Section */}
         <section className="wa-table-container">
-          {/* Subheader status indicator */}
-          <div style={{ padding: '0.75rem 1.5rem', backgroundColor: '#FAF8F5', borderBottom: '1px solid rgba(226, 218, 207, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontWeight: 700, color: 'var(--terra-900)' }}>
-                {characters.length === 0 ? 'No save data loaded yet' : `${getBiomeDisplay()} // ${character.archetype}`}
-              </span>
-              {characters.length > 0 && (
-                <>
-                  <span style={{ color: 'var(--terra-400)' }}>•</span>
-                  <span style={{ color: 'var(--terra-600)', fontFamily: 'var(--font-label)' }}>
-                    {filteredEvents.length} Nodes Identified
-                  </span>
-                </>
-              )}
-              {character.inventory && character.inventory.length > 0 && (
-                <>
-                  <span style={{ color: 'var(--terra-400)' }}>•</span>
-                  <span style={{ color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>check_circle</span>
-                    {character.inventory.length} items synced
-                  </span>
-                </>
-              )}
-            </div>
-            <div style={{ color: 'var(--terra-500)', fontFamily: 'var(--font-label)', fontSize: '11px' }}>
-              {searchQuery ? `Filter: "${searchQuery}"` : 'Filter: Showing All Events'}
-            </div>
-          </div>
-
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
               <thead>

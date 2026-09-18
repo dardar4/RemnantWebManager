@@ -13,7 +13,6 @@ interface ChecklistViewProps {
 export const ChecklistView: FC<ChecklistViewProps> = ({
   character,
   initialCategory,
-  onBackToHome,
 }) => {
   const [selectedCat, setSelectedCat] = useState<string>(initialCategory || 'all');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -31,26 +30,27 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
       if (selectedCat === 'mods' && item.type !== 'Mod') return false;
       if (selectedCat === 'traits' && item.type !== 'Trait') return false;
 
-      // Missing filter
+      // Missing only filter
       if (onlyMissing && inventorySet.has(item.key)) return false;
 
-      // Search query
+      // Text search
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const matchName = item.name.toLowerCase().includes(q);
-        const matchNotes = (item.notes || '').toLowerCase().includes(q);
-        const matchEvent = (item.eventName || '').toLowerCase().includes(q);
-        if (!matchName && !matchNotes && !matchEvent) return false;
+        const matchAlt = item.altname?.toLowerCase().includes(q);
+        const matchLoc = item.notes?.toLowerCase().includes(q);
+        const matchEvent = item.eventName?.toLowerCase().includes(q);
+        if (!matchName && !matchAlt && !matchLoc && !matchEvent) return false;
       }
 
       return true;
     });
-  }, [selectedCat, onlyMissing, searchQuery, inventorySet]);
+  }, [selectedCat, searchQuery, onlyMissing, inventorySet]);
 
   const categories = [
-    { id: 'all', label: 'All Items' },
+    { id: 'all', label: 'All Gear' },
     { id: 'weapons', label: 'Weapons' },
-    { id: 'armor', label: 'Armor' },
+    { id: 'armor', label: 'Armor Sets' },
     { id: 'rings', label: 'Rings' },
     { id: 'amulets', label: 'Amulets' },
     { id: 'mods', label: 'Mods' },
@@ -59,24 +59,6 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-      {/* Sub-Header */}
-      <div className="sub-header-bar">
-        <div className="breadcrumbs">
-          <span
-            style={{ cursor: 'pointer', color: 'var(--on-surface-variant)' }}
-            onClick={onBackToHome}
-          >
-            REMNANT PORTAL
-          </span>
-          <span>/</span>
-          <span className="breadcrumb-active">GEAR MATRIX</span>
-          <span>/</span>
-          <span style={{ color: 'var(--primary)', fontWeight: 600, textTransform: 'uppercase' }}>
-            {categories.find((c) => c.id === selectedCat)?.label || 'ITEMS'}
-          </span>
-        </div>
-      </div>
-
       <div className="view-container">
         {/* Filter Controls */}
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>

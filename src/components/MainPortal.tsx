@@ -20,31 +20,6 @@ export const MainPortal: FC<MainPortalProps> = ({
         position: "relative",
       }}
     >
-      {/* Header Sub-bar / Breadcrumbs & Telemetry Status */}
-      <div className="sub-header-bar">
-        <div className="breadcrumbs">
-          <span style={{ color: "var(--on-surface-variant)", fontWeight: 600 }}>
-            REMNANT PORTAL
-          </span>
-          <span>/</span>
-          <span className="breadcrumb-active">HOME</span>
-        </div>
-        <div className="telemetry-meta">
-          <div className="telemetry-meta-item">
-            <span style={{ color: "var(--outline)" }}>DATABASE LINK:</span>
-            <span style={{ color: "var(--tertiary)", fontWeight: 600 }}>
-              STABLE (WARD_13_MONOLITH)
-            </span>
-          </div>
-          <div className="telemetry-meta-item">
-            <span style={{ color: "var(--outline)" }}>DIFFICULTY:</span>
-            <span style={{ color: "var(--secondary)", fontWeight: 700 }}>
-              APOCALYPSE
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* Main Portal State */}
       <div className="portal-centered-container">
         {/* Main Readiness Title */}
