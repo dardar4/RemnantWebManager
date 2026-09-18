@@ -8,7 +8,7 @@ interface WorldAnalyzerViewProps {
   activeCharIndex: number;
   onSelectChar: (index: number) => void;
   onUploadFiles: (files: FileList | File[]) => Promise<void>;
-  onOpenFolder: () => Promise<void>;
+  onOpenFolder?: () => Promise<void>;
   onBackToHome: () => void;
 }
 
@@ -18,8 +18,6 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   activeCharIndex,
   onSelectChar,
   onUploadFiles,
-  onOpenFolder,
-  onBackToHome,
 }) => {
   const [mode, setMode] = useState<'campaign' | 'adventure'>('adventure');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -71,18 +69,9 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
       />
 
       <div style={{ padding: '1.75rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.75rem', maxWidth: '1280px', margin: '0 auto', width: '100%' }}>
-        {/* Breadcrumbs & Top Header Bar */}
+        {/* Top Header Bar */}
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '11px', fontFamily: 'var(--font-label)', color: 'var(--terra-500)', marginBottom: '0.25rem' }}>
-              <span style={{ cursor: 'pointer', color: 'var(--terra-600)' }} onClick={onBackToHome}>
-                REMNANT
-              </span>
-              <span>/</span>
-              <span style={{ color: 'var(--moss-700)', fontWeight: 600 }}>WORLD_ANALYZER.EXE</span>
-              <span>/</span>
-              <span style={{ color: 'var(--terra-700)' }}>EARTH_ROLL</span>
-            </div>
             <h2 style={{ fontFamily: 'var(--font-headline)', fontSize: '24px', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--terra-900)' }}>
               World Analyzer Telemetry
             </h2>
@@ -111,41 +100,17 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               <span className="material-symbols-outlined" style={{ fontSize: '16px', color: 'var(--terra-600)' }}>
                 refresh
               </span>
-              <span>Re-analyze Saves</span>
-            </button>
-            <button
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.5rem 0.875rem',
-                fontSize: '12px',
-                fontWeight: 600,
-                color: '#ffffff',
-                backgroundColor: 'var(--moss-600)',
-                border: '1px solid var(--moss-700)',
-                borderRadius: '0.75rem',
-                cursor: 'pointer',
-                boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
-              }}
-            >
-              <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
-                content_copy
-              </span>
-              <span>Export Report</span>
+              <span>Analyze saves</span>
             </button>
           </div>
         </div>
 
-        {/* Top Instruction Containers: How to Use & Known Issues */}
-        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
+        {/* Top Instruction Containers: Stacked vertically with How to use first */}
+        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {/* Box 1: How to use */}
           <div style={{ backgroundColor: '#ffffff', borderRadius: '1rem', padding: '1.25rem', border: '1px solid rgba(226, 218, 207, 0.9)', boxShadow: '0 4px 12px -2px rgba(45, 38, 30, 0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.625rem' }}>
-                <span style={{ width: '1.5rem', height: '1.5rem', borderRadius: '0.5rem', backgroundColor: 'var(--moss-100)', color: 'var(--moss-700)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '12px' }}>
-                  1
-                </span>
                 <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '13px', fontWeight: 700, color: 'var(--terra-900)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   How to use:
                 </h3>
@@ -279,21 +244,6 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   upload_file
                 </span>
                 <span>Upload File</span>
-              </button>
-              <button
-                onClick={onOpenFolder}
-                style={{
-                  padding: '0.625rem 1rem',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  color: 'var(--terra-700)',
-                  backgroundColor: '#ffffff',
-                  border: '1px solid var(--terra-300)',
-                  borderRadius: '0.75rem',
-                  cursor: 'pointer',
-                }}
-              >
-                Browse Folder
               </button>
             </div>
           </div>
@@ -450,7 +400,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                         table_rows
                       </span>
                       <span style={{ fontSize: '14px', fontWeight: 600, color: 'var(--terra-800)' }}>
-                        No world roll telemetry loaded yet
+                        No world data loaded yet
                       </span>
                       <span style={{ fontSize: '12px', color: 'var(--terra-500)', maxWidth: '28rem', lineHeight: 1.5 }}>
                         Upload your <code style={{ backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', padding: '1px 4px', borderRadius: '3px' }}>save_0.sav</code> or <code style={{ backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', padding: '1px 4px', borderRadius: '3px' }}>profile.sav</code> using the dropzone above to populate this telemetry matrix.
