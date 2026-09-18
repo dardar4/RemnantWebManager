@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import type { FC } from 'react';
 import type { RemnantCharacter, RemnantItem } from '../types/remnant';
 import { gameData } from '../utils/saveParser';
@@ -8,10 +8,6 @@ interface WorldAnalyzerViewProps {
   characters: RemnantCharacter[];
   activeCharIndex: number;
   onSelectChar: (index: number) => void;
-  onUploadFiles: (files: FileList | File[]) => Promise<void>;
-  onAnalyzeSaves: (forcePickNew?: boolean) => Promise<void>;
-  linkedFolderName?: string | null;
-  isAnalyzing?: boolean;
   onBackToHome: () => void;
   onOpenSettings?: () => void;
 }
@@ -21,17 +17,12 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   characters,
   activeCharIndex,
   onSelectChar,
-  onUploadFiles,
-  onAnalyzeSaves,
-  isAnalyzing = false,
   onOpenSettings,
 }) => {
   const [mode, setMode] = useState<'campaign' | 'adventure'>('adventure');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
-
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const savePathString = '%LOCALAPPDATA%\\Remnant\\Saved\\SaveGames';
   const displayPathString = 'C:/Users/YOUR_USER_NAME/AppData/Local/Remnant/Saved/SaveGames';
@@ -101,20 +92,6 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', backgroundColor: 'var(--terra-50)', minHeight: '100%', overflowY: 'auto' }}>
-      {/* Hidden file input */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        multiple
-        accept=".sav"
-        style={{ display: 'none' }}
-        onChange={(e) => {
-          if (e.target.files && e.target.files.length > 0) {
-            onUploadFiles(e.target.files);
-          }
-        }}
-      />
-
       <div style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
         {/* Top Header Bar */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -275,7 +252,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                     <strong>2. In-Game Re-rolls &amp; Automatic Refresh:</strong> Whenever you re-roll your Campaign or Adventure in Remnant at the World Stone, touch the red stone to save. When you switch back or Alt-Tab to this browser tab, it will <strong>automatically refresh</strong> your world rolls telemetry.
                   </p>
                   <p>
-                    <strong>3. Manual Refresh:</strong> If the automatic refresh doesn't trigger, simply click the <strong>Refresh button (🔄)</strong> located next to the search bar below to re-read the latest save files immediately.
+                    <strong>3. Manual Refresh:</strong> If the automatic refresh doesn't trigger, simply click the global <strong>Refresh button (🔄)</strong> in the top header (next to the Settings icon) to re-read the latest save files immediately.
                   </p>
                 </div>
 
@@ -438,70 +415,44 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               </button>
             </div>
 
-            {/* Search Input & Option B Refresh Button */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <div style={{ position: 'relative', width: '18rem', maxWidth: '100%' }}>
-                <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, paddingLeft: '0.75rem', display: 'flex', alignItems: 'center', pointerEvents: 'none', color: 'var(--terra-400)' }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-                    search
-                  </span>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search location, event, item..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{
-                    width: '100%',
-                    paddingLeft: '2.25rem',
-                    paddingRight: '1rem',
-                    paddingTop: '0.5rem',
-                    paddingBottom: '0.5rem',
-                    fontSize: '12px',
-                    backgroundColor: '#ffffff',
-                    border: '1px solid var(--terra-300)',
-                    borderRadius: '0.75rem',
-                    color: 'var(--terra-900)',
-                    outline: 'none',
-                    fontWeight: 500,
-                    boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-                  }}
-                />
-              </div>
-
-              {/* Option B: Manual Refresh Button */}
-              <button
-                type="button"
-                onClick={() => onAnalyzeSaves(false)}
-                disabled={isAnalyzing}
-                title="Refresh world rolls (re-read saves from disk)"
+            {/* Search Input */}
+            <div style={{ position: 'relative', width: '100%', maxWidth: '28rem' }}>
+              <span
+                className="material-symbols-outlined"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '0.5rem 0.75rem',
+                  position: 'absolute',
+                  left: '0.75rem',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  fontSize: '18px',
+                  color: 'var(--terra-400)',
+                  pointerEvents: 'none',
+                }}
+              >
+                search
+              </span>
+              <input
+                type="text"
+                placeholder="Filter bosses, dungeons, drops..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{
+                  width: '100%',
+                  paddingLeft: '2.25rem',
+                  paddingRight: '0.875rem',
+                  paddingTop: '0.5rem',
+                  paddingBottom: '0.5rem',
                   borderRadius: '0.75rem',
                   backgroundColor: '#ffffff',
                   border: '1px solid var(--terra-300)',
-                  color: 'var(--terra-700)',
-                  cursor: isAnalyzing ? 'wait' : 'pointer',
+                  fontSize: '12px',
+                  fontFamily: 'var(--font-label)',
+                  color: 'var(--terra-900)',
+                  outline: 'none',
+                  fontWeight: 500,
                   boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-                  transition: 'all 0.15s ease',
-                  flexShrink: 0,
                 }}
-              >
-                <span
-                  className="material-symbols-outlined"
-                  style={{
-                    fontSize: '18px',
-                    color: 'var(--terra-700)',
-                    transform: isAnalyzing ? 'rotate(180deg)' : 'none',
-                    transition: 'transform 0.4s ease',
-                  }}
-                >
-                  refresh
-                </span>
-              </button>
+              />
             </div>
           </div>
         </section>
@@ -532,22 +483,24 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 to filter out weapons, traits, and armor your character already owns (like in the C# tool)!
               </span>
             </div>
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              style={{
-                flexShrink: 0,
-                padding: '0.35rem 0.75rem',
-                fontSize: '11px',
-                fontWeight: 600,
-                color: '#78350F',
-                backgroundColor: '#FDE68A',
-                border: '1px solid #F59E0B',
-                borderRadius: '0.5rem',
-                cursor: 'pointer',
-              }}
-            >
-              Upload profile.sav
-            </button>
+            {onOpenSettings && (
+              <button
+                onClick={onOpenSettings}
+                style={{
+                  flexShrink: 0,
+                  padding: '0.35rem 0.75rem',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#78350F',
+                  backgroundColor: '#FDE68A',
+                  border: '1px solid #F59E0B',
+                  borderRadius: '0.5rem',
+                  cursor: 'pointer',
+                }}
+              >
+                Configure in Settings
+              </button>
+            )}
           </div>
         )}
 
@@ -581,10 +534,10 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                         </span>
                         <span style={{ fontSize: '12px', color: 'var(--terra-500)', maxWidth: '28rem', lineHeight: 1.5 }}>
                           {characters.length === 0
-                            ? 'Configure your save directory in Settings or click the Refresh button above to load your world telemetry.'
+                            ? 'Configure your save directory in Settings or click the Refresh button (🔄) in the top header to load your world telemetry.'
                             : mode === 'adventure'
                             ? 'Roll an Adventure at the World Stone in-game to parse Adventure telemetry, or switch to Campaign mode above.'
-                            : 'Touch the red World Stone in-game to flush your save, then click the Refresh button above.'}
+                            : 'Touch the red World Stone in-game to flush your save, then click the Refresh button (🔄) in the top header.'}
                         </span>
                         {characters.length === 0 && onOpenSettings && (
                           <button

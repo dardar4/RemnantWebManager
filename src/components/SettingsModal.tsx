@@ -5,6 +5,7 @@ interface SettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
   saveDirectoryPath: string;
+  linkedFolderName?: string | null;
   onSaveDirectoryChange: (newPath: string) => Promise<boolean>;
   onPickFolder: () => Promise<void>;
   onPickFiles?: () => void;
@@ -15,6 +16,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   isOpen,
   onClose,
   saveDirectoryPath,
+  linkedFolderName,
   onSaveDirectoryChange,
   onPickFolder,
   onPickFiles,
@@ -251,6 +253,31 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                 </button>
               )}
             </div>
+
+            {/* Active Linked Folder Indicator */}
+            {linkedFolderName && (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.375rem',
+                  fontSize: '11px',
+                  color: 'var(--moss-700)',
+                  backgroundColor: 'rgba(74, 114, 87, 0.08)',
+                  padding: '0.35rem 0.625rem',
+                  borderRadius: '0.375rem',
+                  border: '1px solid rgba(74, 114, 87, 0.2)',
+                  fontWeight: 500,
+                }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                  check_circle
+                </span>
+                <span>
+                  Active Link: <strong>{linkedFolderName}</strong>
+                </span>
+              </div>
+            )}
 
             {/* Status Feedback Notice */}
             {saveStatus && (

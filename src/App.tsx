@@ -413,10 +413,6 @@ export function App() {
               characters={characters}
               activeCharIndex={activeCharIndex}
               onSelectChar={(idx) => setActiveCharIndex(idx)}
-              onUploadFiles={processFiles}
-              onAnalyzeSaves={handleAnalyzeSaves}
-              linkedFolderName={linkedFolderName}
-              isAnalyzing={isAnalyzing}
               onBackToHome={() => setCurrentView('home')}
               onOpenSettings={() => setIsSettingsOpen(true)}
             />
@@ -441,6 +437,7 @@ export function App() {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
         saveDirectoryPath={saveDirectoryPath}
+        linkedFolderName={linkedFolderName}
         onSaveDirectoryChange={handleSaveDirectoryChange}
         onPickFolder={() => handleAnalyzeSaves(true)}
         onPickFiles={() => fileInputRef.current?.click()}
