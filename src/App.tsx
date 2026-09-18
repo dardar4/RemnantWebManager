@@ -270,7 +270,9 @@ export function App() {
       }
       setIsLiveSave(true);
       setSaveName(worldFiles[0]?.name || profileFile?.name || 'SaveSlot_0.sav');
-      setToastMessage(isSilent ? 'World telemetry auto-refreshed from disk' : 'Save files analyzed successfully');
+      if (!isSilent) {
+        setToastMessage('Save files analyzed successfully');
+      }
     } catch (err) {
       console.error('Error parsing Remnant save file:', err);
       if (!isSilent) {
