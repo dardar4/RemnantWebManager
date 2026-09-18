@@ -14,11 +14,19 @@ function remnantSavePlugin(): Plugin {
 
           let saveDir = customPath?.trim();
           if (saveDir) {
+            saveDir = saveDir.replace(/^["']|["']$/g, '').trim();
             saveDir = saveDir.replace(/%LOCALAPPDATA%/gi, process.env.LOCALAPPDATA || '');
             saveDir = saveDir.replace(/%USERPROFILE%/gi, process.env.USERPROFILE || '');
           } else {
             const localAppData = process.env.LOCALAPPDATA || path.join(process.env.USERPROFILE || '', 'AppData', 'Local');
             saveDir = path.join(localAppData, 'Remnant', 'Saved', 'SaveGames');
+          }
+
+          if (!fs.existsSync(saveDir)) {
+            const subfolderCheck = path.join(saveDir, 'Remnant', 'Saved', 'SaveGames');
+            if (fs.existsSync(subfolderCheck)) {
+              saveDir = subfolderCheck;
+            }
           }
 
           if (!fs.existsSync(saveDir)) {

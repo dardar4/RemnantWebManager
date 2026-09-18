@@ -142,6 +142,26 @@ export function App() {
 
   const activeCharacter = characters[activeCharIndex] || characters[0] || getBlankCharacter();
 
+  const handleSaveDirectoryChange = async (newPath: string): Promise<boolean> => {
+    const cleanPath =
+      newPath.trim().replace(/^["']|["']$/g, "") || DEFAULT_SAVE_PATH;
+    localStorage.setItem(LOCAL_STORAGE_PATH_KEY, cleanPath);
+    setSaveDirectoryPath(cleanPath);
+
+    const localData = await fetchLocalSaves(cleanPath);
+    if (localData && localData.files.length > 0) {
+      setLinkedFolderName("SaveGames (Configured)");
+      await processFiles(localData.files);
+      setToastMessage("Save directory updated and save files reloaded!");
+      return true;
+    } else {
+      setToastMessage(
+        "Directory path saved to LocalStorage. (Note: No .sav files found in this folder)"
+      );
+      return false;
+    }
+  };
+
   const handleResetAllData = async () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     localStorage.removeItem(LOCAL_STORAGE_ACTIVE_KEY);
@@ -153,10 +173,10 @@ export function App() {
     setCharacters([]);
     setActiveCharIndex(0);
     setIsLiveSave(false);
-    setSaveName('No save loaded');
+    setSaveName("No save loaded");
     setLinkedFolderName(null);
     setSaveDirectoryPath(DEFAULT_SAVE_PATH);
-    setToastMessage('All configuration, save files, and world telemetry cleared.');
+    setToastMessage("All configuration, save files, and world telemetry cleared.");
   };
 
   const processFiles = async (files: FileList | File[], isSilent = false) => {
@@ -276,9 +296,15 @@ export function App() {
     try {
       // 1. Try local server endpoint first if not forcing a manual folder picker
       if (!forcePickNewFolder) {
-        const localData = await fetchLocalSaves(saveDirectoryPath);
+        let localData = await fetchLocalSaves(saveDirectoryPath);
+        if (
+          (!localData || localData.files.length === 0) &&
+          saveDirectoryPath !== DEFAULT_SAVE_PATH
+        ) {
+          localData = await fetchLocalSaves(DEFAULT_SAVE_PATH);
+        }
         if (localData && localData.files.length > 0) {
-          setLinkedFolderName('SaveGames (Auto-detected)');
+          setLinkedFolderName("SaveGames (Auto-detected)");
           await processFiles(localData.files);
           return;
         }
@@ -293,13 +319,13 @@ export function App() {
           if (dirHandle) {
             const hasPermission = await verifyHandlePermission(dirHandle);
             if (!hasPermission) {
-              // Permission expired or denied, prompt picker
               dirHandle = null;
             }
           }
         }
 
-        if (!dirHandle) {
+        // Only open dialog if user explicitly requested to browse a folder
+        if (!dirHandle && forcePickNewFolder) {
           // @ts-expect-error - showDirectoryPicker
           dirHandle = await window.showDirectoryPicker();
           if (dirHandle) {
@@ -314,17 +340,31 @@ export function App() {
           if (files.length > 0) {
             await processFiles(files);
             return;
-          } else {
-            alert(`No Remnant save files (profile.sav or save_*.sav) found in "${dirHandle.name}".`);
+          } else if (forcePickNewFolder) {
+            alert(
+              `No Remnant save files (profile.sav or save_*.sav) found in "${dirHandle.name}".`
+            );
           }
+        } else if (!forcePickNewFolder) {
+          setToastMessage(
+            "Could not refresh automatically. Open Settings to configure your save directory."
+          );
         }
       } else {
-        fileInputRef.current?.click();
+        if (forcePickNewFolder) {
+          fileInputRef.current?.click();
+        } else {
+          setToastMessage(
+            "Could not refresh automatically. Open Settings to configure your save files."
+          );
+        }
       }
     } catch (err: unknown) {
-      if ((err as Error).name !== 'AbortError') {
-        console.error('Error analyzing saves from folder:', err);
-        fileInputRef.current?.click();
+      if ((err as Error).name !== "AbortError") {
+        console.error("Error analyzing saves from folder:", err);
+        if (forcePickNewFolder) {
+          fileInputRef.current?.click();
+        }
       }
     } finally {
       setIsAnalyzing(false);
@@ -432,7 +472,9 @@ export function App() {
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
+        saveDirectoryPath={saveDirectoryPath}
         linkedFolderName={linkedFolderName}
+        onSaveDirectoryChange={handleSaveDirectoryChange}
         onPickFiles={() => fileInputRef.current?.click()}
         onResetAllData={handleResetAllData}
       />

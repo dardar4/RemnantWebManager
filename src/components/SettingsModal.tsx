@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { FC } from "react";
 
 interface SettingsModalProps {
@@ -7,7 +7,6 @@ interface SettingsModalProps {
   saveDirectoryPath?: string;
   linkedFolderName?: string | null;
   onSaveDirectoryChange?: (newPath: string) => Promise<boolean>;
-  onPickFolder?: () => Promise<void>;
   onPickFiles?: () => void;
   onResetAllData: () => Promise<void>;
 }
@@ -15,26 +14,57 @@ interface SettingsModalProps {
 export const SettingsModal: FC<SettingsModalProps> = ({
   isOpen,
   onClose,
+  saveDirectoryPath,
   linkedFolderName,
+  onSaveDirectoryChange,
   onPickFiles,
   onResetAllData,
 }) => {
+  const defaultPath = "%LOCALAPPDATA%\\Remnant\\Saved\\SaveGames";
+  const [customPathInput, setCustomPathInput] = useState<string>(
+    saveDirectoryPath || defaultPath
+  );
   const [copied, setCopied] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [saveStatus, setSaveStatus] = useState<string | null>(null);
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [isResetting, setIsResetting] = useState<boolean>(false);
 
-  const defaultPath = "%LOCALAPPDATA%\\Remnant\\Saved\\SaveGames";
+  useEffect(() => {
+    if (saveDirectoryPath) {
+      setCustomPathInput(saveDirectoryPath);
+    }
+  }, [saveDirectoryPath]);
 
   if (!isOpen) return null;
 
-  const handleCopyPath = async () => {
+  const handleApplyPath = async () => {
+    if (!onSaveDirectoryChange) return;
+    setIsSaving(true);
+    setSaveStatus(null);
     try {
-      await navigator.clipboard.writeText(defaultPath);
+      const success = await onSaveDirectoryChange(customPathInput);
+      if (success) {
+        setSaveStatus("Directory path saved and save files reloaded successfully!");
+      } else {
+        setSaveStatus(
+          "Directory path saved to LocalStorage. (Note: No .sav files found in this folder)"
+        );
+      }
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleCopyPath = async () => {
+    const pathToCopy = customPathInput?.trim() || defaultPath;
+    try {
+      await navigator.clipboard.writeText(pathToCopy);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       const textArea = document.createElement("textarea");
-      textArea.value = defaultPath;
+      textArea.value = pathToCopy;
       document.body.appendChild(textArea);
       textArea.select();
       document.execCommand("copy");
@@ -175,34 +205,59 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               )}
             </div>
 
-            {/* Path Box with integrated copy button */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: "0.5rem 0.75rem",
-                backgroundColor: "var(--terra-50)",
-                border: "1px solid var(--terra-300)",
-                borderRadius: "0.5rem",
-                gap: "0.5rem",
-              }}
-            >
-              <code
+            {/* Path Input Box with Apply & Copy buttons */}
+            <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+              <input
+                type="text"
+                value={customPathInput}
+                onChange={(e) => {
+                  setCustomPathInput(e.target.value);
+                  setSaveStatus(null);
+                }}
+                placeholder={defaultPath}
                 style={{
                   flex: 1,
+                  padding: "0.5rem 0.75rem",
                   fontFamily: "var(--font-label)",
                   fontSize: "12px",
                   color: "var(--terra-900)",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  userSelect: "all",
+                  backgroundColor: "var(--terra-50)",
+                  border: "1px solid var(--terra-300)",
+                  borderRadius: "0.5rem",
+                  outline: "none",
                 }}
-                title={defaultPath}
-              >
-                {defaultPath}
-              </code>
+              />
+              {onSaveDirectoryChange && (
+                <button
+                  type="button"
+                  onClick={handleApplyPath}
+                  disabled={isSaving}
+                  title="Save path to LocalStorage and reload saves"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.3rem",
+                    padding: "0.5rem 0.85rem",
+                    fontSize: "11px",
+                    fontWeight: 600,
+                    color: "#ffffff",
+                    backgroundColor: "var(--moss-600)",
+                    border: "1px solid var(--moss-700)",
+                    borderRadius: "0.375rem",
+                    cursor: isSaving ? "wait" : "pointer",
+                    whiteSpace: "nowrap",
+                    transition: "background-color 0.15s ease",
+                  }}
+                >
+                  <span
+                    className="material-symbols-outlined"
+                    style={{ fontSize: "15px" }}
+                  >
+                    save
+                  </span>
+                  <span>{isSaving ? "Saving..." : "Save Path"}</span>
+                </button>
+              )}
               <button
                 type="button"
                 onClick={handleCopyPath}
@@ -211,7 +266,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "0.3rem",
-                  padding: "0.35rem 0.6rem",
+                  padding: "0.5rem 0.75rem",
                   fontSize: "11px",
                   fontWeight: 600,
                   color: copied ? "#15803d" : "var(--terra-700)",
@@ -233,32 +288,57 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               </button>
             </div>
 
-            {/* Action button row: Upload Save Files */}
+            {/* Status Feedback Notice */}
+            {saveStatus && (
+              <div
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 500,
+                  padding: "0.375rem 0.625rem",
+                  borderRadius: "0.375rem",
+                  backgroundColor: saveStatus.includes("successfully")
+                    ? "#eef8f1"
+                    : "#fef9c3",
+                  color: saveStatus.includes("successfully")
+                    ? "#15803d"
+                    : "#854d0e",
+                  border: `1px solid ${
+                    saveStatus.includes("successfully") ? "#c8e6d0" : "#fde047"
+                  }`,
+                }}
+              >
+                {saveStatus}
+              </div>
+            )}
+
+            {/* Alternative Action: Upload Save Files */}
             {onPickFiles && (
               <button
                 type="button"
-                onClick={onPickFiles}
+                onClick={() => {
+                  onPickFiles();
+                  onClose();
+                }}
                 style={{
                   width: "100%",
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
                   gap: "0.5rem",
-                  padding: "0.625rem 1rem",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  color: "#ffffff",
-                  backgroundColor: "var(--moss-600)",
-                  border: "1px solid var(--moss-700)",
+                  padding: "0.55rem 0.75rem",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  color: "var(--terra-800)",
+                  backgroundColor: "var(--terra-100)",
+                  border: "1px solid var(--terra-300)",
                   borderRadius: "0.5rem",
                   cursor: "pointer",
                   transition: "background-color 0.15s ease",
-                  boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
                 }}
               >
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: "17px" }}
+                  style={{ fontSize: "16px", color: "var(--rust-stone-700)" }}
                 >
                   upload_file
                 </span>
@@ -313,17 +393,13 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   marginBottom: "0.25rem",
                 }}
               >
-                How to select your files:
+                Save Directory &amp; Auto-Refresh Instructions:
               </div>
               <div>
-                1. Click <strong>Copy</strong> next to the directory path above.
+                1. Ensure your save path is entered above and click <strong>Save Path</strong> — this is required for the global <strong>Refresh (🔄)</strong> button and live sync to work automatically!
               </div>
               <div>
-                2. Click <strong>Upload Save Files</strong> and paste the path
-                into Windows Explorer.
-              </div>
-              <div>
-                3. Select all the{" "}
+                2. If you prefer manual uploads, click <strong>Upload Save Files</strong> (or drag &amp; drop onto the page) and select all the{" "}
                 <code
                   style={{
                     fontFamily: "var(--font-label)",
@@ -333,8 +409,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                 >
                   .sav
                 </code>{" "}
-                files you have (e.g.{" "}
-                <code
+                files you have (<code
                   style={{
                     fontFamily: "var(--font-label)",
                     color: "var(--moss-700)",
