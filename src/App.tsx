@@ -8,6 +8,7 @@ import {
   verifyHandlePermission,
   readSavFilesFromHandle,
   isDirectoryPickerSupported,
+  fetchLocalSaves,
 } from './utils/saveFolderStorage';
 import { TopAppBar } from './components/TopAppBar';
 import { LeftSidebar } from './components/LeftSidebar';
@@ -63,11 +64,17 @@ export function App() {
     setSaveName('SaveSlot_0.sav');
   }, []);
 
-  // Restore stored directory handle if available
+  // Check local server endpoint or stored directory handle
   useEffect(() => {
-    getStoredDirectoryHandle().then((handle) => {
-      if (handle) {
-        setLinkedFolderName(handle.name);
+    fetchLocalSaves().then((localData) => {
+      if (localData && localData.files.length > 0) {
+        setLinkedFolderName('SaveGames (Auto-detected)');
+      } else {
+        getStoredDirectoryHandle().then((handle) => {
+          if (handle) {
+            setLinkedFolderName(handle.name);
+          }
+        });
       }
     });
   }, []);
@@ -206,43 +213,54 @@ export function App() {
   };
 
   const handleAnalyzeSaves = async (forcePickNewFolder = false) => {
-    if (!isDirectoryPickerSupported()) {
-      fileInputRef.current?.click();
-      return;
-    }
-
     setIsAnalyzing(true);
     try {
-      let dirHandle: FileSystemDirectoryHandle | null = null;
-
+      // 1. Try local server endpoint first if not forcing a manual folder picker
       if (!forcePickNewFolder) {
-        dirHandle = await getStoredDirectoryHandle();
-        if (dirHandle) {
-          const hasPermission = await verifyHandlePermission(dirHandle);
-          if (!hasPermission) {
-            // Permission expired or denied, prompt picker
-            dirHandle = null;
+        const localData = await fetchLocalSaves();
+        if (localData && localData.files.length > 0) {
+          setLinkedFolderName('SaveGames (Auto-detected)');
+          await processFiles(localData.files);
+          return;
+        }
+      }
+
+      // 2. Fallback to File System Access API if supported
+      if (isDirectoryPickerSupported()) {
+        let dirHandle: FileSystemDirectoryHandle | null = null;
+
+        if (!forcePickNewFolder) {
+          dirHandle = await getStoredDirectoryHandle();
+          if (dirHandle) {
+            const hasPermission = await verifyHandlePermission(dirHandle);
+            if (!hasPermission) {
+              // Permission expired or denied, prompt picker
+              dirHandle = null;
+            }
           }
         }
-      }
 
-      if (!dirHandle) {
-        // @ts-expect-error - showDirectoryPicker
-        dirHandle = await window.showDirectoryPicker();
+        if (!dirHandle) {
+          // @ts-expect-error - showDirectoryPicker
+          dirHandle = await window.showDirectoryPicker();
+          if (dirHandle) {
+            await saveDirectoryHandle(dirHandle);
+            setLinkedFolderName(dirHandle.name);
+          }
+        }
+
         if (dirHandle) {
-          await saveDirectoryHandle(dirHandle);
           setLinkedFolderName(dirHandle.name);
+          const files = await readSavFilesFromHandle(dirHandle);
+          if (files.length > 0) {
+            await processFiles(files);
+            return;
+          } else {
+            alert(`No Remnant save files (profile.sav or save_*.sav) found in "${dirHandle.name}".`);
+          }
         }
-      }
-
-      if (dirHandle) {
-        setLinkedFolderName(dirHandle.name);
-        const files = await readSavFilesFromHandle(dirHandle);
-        if (files.length > 0) {
-          await processFiles(files);
-        } else {
-          alert(`No Remnant save files (profile.sav or save_*.sav) found in "${dirHandle.name}".`);
-        }
+      } else {
+        fileInputRef.current?.click();
       }
     } catch (err: unknown) {
       if ((err as Error).name !== 'AbortError') {

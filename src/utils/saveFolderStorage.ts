@@ -131,3 +131,32 @@ export async function readSavFilesFromHandle(handle: FileSystemDirectoryHandle):
 export function isDirectoryPickerSupported(): boolean {
   return typeof window !== 'undefined' && 'showDirectoryPicker' in window;
 }
+
+/**
+ * Attempt to load save files from the local server endpoint (/api/local-saves)
+ * This automatically accesses %LOCALAPPDATA%\Remnant\Saved\SaveGames without browser sandbox restrictions
+ */
+export async function fetchLocalSaves(): Promise<{ path: string; files: File[] } | null> {
+  try {
+    const res = await fetch('/api/local-saves');
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!data || !Array.isArray(data.files) || data.files.length === 0) {
+      return null;
+    }
+
+    const files: File[] = data.files.map((f: { name: string; base64: string }) => {
+      const binaryString = window.atob(f.base64);
+      const len = binaryString.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      return new File([bytes.buffer], f.name, { type: 'application/octet-stream' });
+    });
+
+    return { path: data.path || 'SaveGames', files };
+  } catch {
+    return null;
+  }
+}
