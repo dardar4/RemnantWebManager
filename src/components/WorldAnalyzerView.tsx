@@ -12,6 +12,7 @@ interface WorldAnalyzerViewProps {
   linkedFolderName?: string | null;
   isAnalyzing?: boolean;
   onBackToHome: () => void;
+  onOpenSettings?: () => void;
 }
 
 export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
@@ -21,13 +22,12 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   onSelectChar,
   onUploadFiles,
   onAnalyzeSaves,
-  linkedFolderName = null,
   isAnalyzing = false,
+  onOpenSettings,
 }) => {
   const [mode, setMode] = useState<'campaign' | 'adventure'>('adventure');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isCopied, setIsCopied] = useState<boolean>(false);
-  const [isDragOver, setIsDragOver] = useState<boolean>(false);
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -39,23 +39,6 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
     navigator.clipboard.writeText(savePathString);
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragOver(false);
-  };
-
-  const handleDrop = async (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      await onUploadFiles(e.dataTransfer.files);
-    }
   };
 
   const currentEvents = mode === 'campaign' ? (character.campaignEvents || []) : (character.adventureEvents || []);
@@ -120,88 +103,10 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
 
       <div style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
         {/* Top Header Bar */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
-          <div>
-            <h2 style={{ fontFamily: 'var(--font-headline)', fontSize: '20px', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--terra-900)' }}>
-              World Analyzer Telemetry
-            </h2>
-          </div>
-
-          {/* Action buttons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            {linkedFolderName && (
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.375rem',
-                  padding: '0.375rem 0.75rem',
-                  fontSize: '11px',
-                  fontWeight: 600,
-                  color: 'var(--moss-700)',
-                  backgroundColor: '#eef8f1',
-                  border: '1px solid #c8e6d0',
-                  borderRadius: '0.625rem',
-                }}
-                title={`Linked save folder: ${linkedFolderName}`}
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
-                  folder
-                </span>
-                <span>{linkedFolderName}</span>
-                <button
-                  onClick={() => onAnalyzeSaves(true)}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    padding: '0 0 0 4px',
-                    color: 'var(--moss-800)',
-                    fontSize: '11px',
-                    textDecoration: 'underline',
-                    fontWeight: 600,
-                  }}
-                  title="Choose a different save folder"
-                >
-                  Change
-                </button>
-              </div>
-            )}
-
-            <button
-              onClick={() => onAnalyzeSaves(false)}
-              disabled={isAnalyzing}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.5rem 0.875rem',
-                fontSize: '12px',
-                fontWeight: 600,
-                color: 'var(--terra-700)',
-                backgroundColor: 'var(--terra-100)',
-                border: '1px solid var(--terra-200)',
-                borderRadius: '0.75rem',
-                cursor: isAnalyzing ? 'wait' : 'pointer',
-                boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-                opacity: isAnalyzing ? 0.7 : 1,
-              }}
-              title={linkedFolderName ? `Reload all save files from ${linkedFolderName}` : 'Select Remnant SaveGames folder'}
-            >
-              <span
-                className="material-symbols-outlined"
-                style={{
-                  fontSize: '16px',
-                  color: 'var(--terra-600)',
-                  transform: isAnalyzing ? 'rotate(180deg)' : 'none',
-                  transition: 'transform 0.4s ease',
-                }}
-              >
-                refresh
-              </span>
-              <span>{isAnalyzing ? 'Analyzing...' : 'Analyze saves'}</span>
-            </button>
-          </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <h2 style={{ fontFamily: 'var(--font-headline)', fontSize: '20px', fontWeight: 700, letterSpacing: '-0.02em', color: 'var(--terra-900)' }}>
+            World Analyzer Telemetry
+          </h2>
         </div>
 
         {/* Combined Expandable Instructions & Known Issues Card */}
@@ -254,7 +159,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                       letterSpacing: '0.05em',
                     }}
                   >
-                    How to use & Known Issues
+                    How to use &amp; Known Issues
                   </span>
                   <span
                     style={{
@@ -277,7 +182,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                     marginTop: '0.125rem',
                   }}
                 >
-                  Save file paths, format requirements, and local parsing details
+                  Save file paths, setup guide, auto-refresh telemetry, and reroll instructions
                 </p>
               </div>
             </div>
@@ -308,7 +213,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
             >
               {/* Sub-section 1: How to Use */}
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.625rem' }}>
                   <h4
                     style={{
                       fontFamily: 'var(--font-headline)',
@@ -321,14 +226,44 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   >
                     How to use:
                   </h4>
+                  {onOpenSettings && (
+                    <button
+                      type="button"
+                      onClick={onOpenSettings}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.375rem',
+                        padding: '0.3rem 0.65rem',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        color: 'var(--terra-800)',
+                        backgroundColor: 'var(--terra-100)',
+                        border: '1px solid var(--terra-300)',
+                        borderRadius: '0.5rem',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.15s ease',
+                      }}
+                    >
+                      <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--terra-700)' }}>
+                        settings
+                      </span>
+                      <span>Open Settings</span>
+                    </button>
+                  )}
                 </div>
-                <p style={{ fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-                  Your save files are located in your Windows AppData directory. Upload files named{' '}
-                  <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>
-                    save_&#123;character number&#125;.sav
-                  </code>{' '}
-                  to inspect what events you rolled for this specific character.
-                </p>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6, marginBottom: '0.875rem' }}>
+                  <p>
+                    <strong>1. Configure Save Location:</strong> Click the <strong>Open Settings</strong> button above (or the gear icon in the top header) to configure your save directory or manually select your save files (<code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code> and <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>).
+                  </p>
+                  <p>
+                    <strong>2. In-Game Re-rolls &amp; Automatic Refresh:</strong> Whenever you re-roll your Campaign or Adventure in Remnant at the World Stone, touch the red stone to save. When you switch back or Alt-Tab to this browser tab, it will <strong>automatically refresh</strong> your world rolls telemetry.
+                  </p>
+                  <p>
+                    <strong>3. Manual Refresh:</strong> If the automatic refresh doesn't trigger, simply click the <strong>Refresh button (🔄)</strong> located next to the search bar below to re-read the latest save files immediately.
+                  </p>
+                </div>
 
                 {/* Path Helper Strip */}
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', backgroundColor: 'rgba(250, 248, 245, 0.7)', padding: '0.625rem', borderRadius: '0.75rem', border: '1px solid rgba(226, 218, 207, 0.5)' }}>
@@ -400,82 +335,6 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               </div>
             </div>
           )}
-        </section>
-
-        {/* File Dropzone Card */}
-        <section
-          className={`wa-dropzone ${isDragOver ? 'drag-active' : ''}`}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          onDrop={handleDrop}
-        >
-          <div style={{ maxWidth: '28rem', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div className="wa-dropzone-icon">
-              <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>
-                cloud_upload
-              </span>
-            </div>
-            <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '15px', fontWeight: 700, color: 'var(--terra-900)', marginBottom: '0.25rem' }}>
-              Choose or drop save files
-            </h3>
-            <p style={{ fontSize: '12px', color: 'var(--terra-500)', marginBottom: '0.875rem', fontWeight: 500 }}>
-              Supports <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_0.sav</code>,{' '}
-              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_1.sav</code>, and{' '}
-              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>profile.sav</code>
-            </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <button
-                type="button"
-                onClick={() => onAnalyzeSaves(false)}
-                disabled={isAnalyzing}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.5rem 1.25rem',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  borderRadius: '0.625rem',
-                  color: '#ffffff',
-                  backgroundColor: 'var(--moss-600)',
-                  border: '1px solid var(--moss-700)',
-                  boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
-                  cursor: isAnalyzing ? 'wait' : 'pointer',
-                }}
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
-                  {linkedFolderName ? 'sync' : 'folder_open'}
-                </span>
-                <span>
-                  {linkedFolderName ? `Reload "${linkedFolderName}"` : 'Select Save Folder'}
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.5rem 1rem',
-                  fontSize: '12px',
-                  fontWeight: 600,
-                  borderRadius: '0.625rem',
-                  color: 'var(--terra-700)',
-                  backgroundColor: 'var(--terra-100)',
-                  border: '1px solid var(--terra-200)',
-                  boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-                  cursor: 'pointer',
-                }}
-              >
-                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
-                  upload_file
-                </span>
-                <span>Upload Files Manually</span>
-              </button>
-            </div>
-          </div>
         </section>
 
         {/* Character Selection & Mode Bar */}
@@ -565,34 +424,70 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               </button>
             </div>
 
-            {/* Search Input */}
-            <div style={{ position: 'relative', width: '20rem', maxWidth: '100%' }}>
-              <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, paddingLeft: '0.75rem', display: 'flex', alignItems: 'center', pointerEvents: 'none', color: 'var(--terra-400)' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
-                  search
-                </span>
+            {/* Search Input & Option B Refresh Button */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ position: 'relative', width: '18rem', maxWidth: '100%' }}>
+                <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, paddingLeft: '0.75rem', display: 'flex', alignItems: 'center', pointerEvents: 'none', color: 'var(--terra-400)' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
+                    search
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search location, event, item..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{
+                    width: '100%',
+                    paddingLeft: '2.25rem',
+                    paddingRight: '1rem',
+                    paddingTop: '0.5rem',
+                    paddingBottom: '0.5rem',
+                    fontSize: '12px',
+                    backgroundColor: '#ffffff',
+                    border: '1px solid var(--terra-300)',
+                    borderRadius: '0.75rem',
+                    color: 'var(--terra-900)',
+                    outline: 'none',
+                    fontWeight: 500,
+                    boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
+                  }}
+                />
               </div>
-              <input
-                type="text"
-                placeholder="Search location, event, item..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+
+              {/* Option B: Manual Refresh Button */}
+              <button
+                type="button"
+                onClick={() => onAnalyzeSaves(false)}
+                disabled={isAnalyzing}
+                title="Refresh world rolls (re-read saves from disk)"
                 style={{
-                  width: '100%',
-                  paddingLeft: '2.25rem',
-                  paddingRight: '1rem',
-                  paddingTop: '0.5rem',
-                  paddingBottom: '0.5rem',
-                  fontSize: '12px',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0.5rem 0.75rem',
+                  borderRadius: '0.75rem',
                   backgroundColor: '#ffffff',
                   border: '1px solid var(--terra-300)',
-                  borderRadius: '0.75rem',
-                  color: 'var(--terra-900)',
-                  outline: 'none',
-                  fontWeight: 500,
+                  color: 'var(--terra-700)',
+                  cursor: isAnalyzing ? 'wait' : 'pointer',
                   boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
+                  transition: 'all 0.15s ease',
+                  flexShrink: 0,
                 }}
-              />
+              >
+                <span
+                  className="material-symbols-outlined"
+                  style={{
+                    fontSize: '18px',
+                    color: 'var(--terra-700)',
+                    transform: isAnalyzing ? 'rotate(180deg)' : 'none',
+                    transition: 'transform 0.4s ease',
+                  }}
+                >
+                  refresh
+                </span>
+              </button>
             </div>
           </div>
         </section>
@@ -671,11 +566,37 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                         </span>
                         <span style={{ fontSize: '12px', color: 'var(--terra-500)', maxWidth: '28rem', lineHeight: 1.5 }}>
                           {characters.length === 0
-                            ? 'Click "Analyze saves" or upload your save files using the dropzone above to populate this telemetry matrix.'
+                            ? 'Configure your save directory in Settings or click the Refresh button above to load your world telemetry.'
                             : mode === 'adventure'
                             ? 'Roll an Adventure at the World Stone in-game to parse Adventure telemetry, or switch to Campaign mode above.'
-                            : 'Upload your save_0.sav using the dropzone above to populate this telemetry matrix.'}
+                            : 'Touch the red World Stone in-game to flush your save, then click the Refresh button above.'}
                         </span>
+                        {characters.length === 0 && onOpenSettings && (
+                          <button
+                            type="button"
+                            onClick={onOpenSettings}
+                            style={{
+                              marginTop: '0.5rem',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: '0.375rem',
+                              padding: '0.4rem 0.875rem',
+                              fontSize: '11px',
+                              fontWeight: 600,
+                              color: '#ffffff',
+                              backgroundColor: 'var(--moss-600)',
+                              border: '1px solid var(--moss-700)',
+                              borderRadius: '0.5rem',
+                              cursor: 'pointer',
+                              boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                            }}
+                          >
+                            <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                              settings
+                            </span>
+                            <span>Configure in Settings</span>
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

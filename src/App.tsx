@@ -85,6 +85,43 @@ export function App() {
     });
   }, [saveDirectoryPath]);
 
+  // Option A: Auto-refresh save telemetry whenever the browser window regains focus (e.g. Alt-Tab from game)
+  useEffect(() => {
+    let lastFocusTime = 0;
+    const handleWindowFocus = async () => {
+      const now = Date.now();
+      // Throttle checks so rapid alt-tabs don't spam disk reads (minimum 3s cooldown)
+      if (now - lastFocusTime < 3000) return;
+      lastFocusTime = now;
+
+      try {
+        const localData = await fetchLocalSaves(saveDirectoryPath);
+        if (localData && localData.files.length > 0) {
+          await processFiles(localData.files, true);
+          return;
+        }
+
+        const dirHandle = await getStoredDirectoryHandle();
+        if (dirHandle) {
+          const hasPermission = await verifyHandlePermission(dirHandle);
+          if (hasPermission) {
+            const files = await readSavFilesFromHandle(dirHandle);
+            if (files.length > 0) {
+              await processFiles(files, true);
+            }
+          }
+        }
+      } catch (err) {
+        console.warn('Auto-refresh on focus check:', err);
+      }
+    };
+
+    window.addEventListener('focus', handleWindowFocus);
+    return () => {
+      window.removeEventListener('focus', handleWindowFocus);
+    };
+  }, [saveDirectoryPath, characters, isLiveSave]);
+
   // Save state to LocalStorage
   useEffect(() => {
     if (characters.length > 0) {
@@ -134,7 +171,7 @@ export function App() {
     setToastMessage('All configuration, save files, and world telemetry cleared.');
   };
 
-  const processFiles = async (files: FileList | File[]) => {
+  const processFiles = async (files: FileList | File[], isSilent = false) => {
     const fileArray = Array.from(files);
     const profileFile = fileArray.find((f) => f.name.toLowerCase() === 'profile.sav');
     const worldFiles = fileArray.filter(
@@ -144,7 +181,9 @@ export function App() {
     worldFiles.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
 
     if (!profileFile && worldFiles.length === 0) {
-      alert('Please provide "profile.sav" or "save_0.sav" from your Remnant save folder.');
+      if (!isSilent) {
+        alert('Please provide "profile.sav" or "save_0.sav" from your Remnant save folder.');
+      }
       return;
     }
 
@@ -231,13 +270,15 @@ export function App() {
       }
       setIsLiveSave(true);
       setSaveName(worldFiles[0]?.name || profileFile?.name || 'SaveSlot_0.sav');
-      setToastMessage('file upload succefully');
+      setToastMessage(isSilent ? 'World telemetry auto-refreshed from disk' : 'Save files analyzed successfully');
       setTimeout(() => {
         setToastMessage(null);
-      }, 4000);
+      }, 3500);
     } catch (err) {
       console.error('Error parsing Remnant save file:', err);
-      alert('Error parsing save files. Please ensure you selected valid Remnant: From the Ashes files.');
+      if (!isSilent) {
+        alert('Error parsing save files. Please ensure you selected valid Remnant: From the Ashes files.');
+      }
     }
   };
 
@@ -378,6 +419,7 @@ export function App() {
               linkedFolderName={linkedFolderName}
               isAnalyzing={isAnalyzing}
               onBackToHome={() => setCurrentView('home')}
+              onOpenSettings={() => setIsSettingsOpen(true)}
             />
           )}
 
@@ -401,6 +443,7 @@ export function App() {
         saveDirectoryPath={saveDirectoryPath}
         onSaveDirectoryChange={handleSaveDirectoryChange}
         onPickFolder={() => handleAnalyzeSaves(true)}
+        onPickFiles={() => fileInputRef.current?.click()}
         onResetAllData={handleResetAllData}
       />
     </div>

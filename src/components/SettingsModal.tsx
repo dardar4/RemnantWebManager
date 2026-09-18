@@ -7,6 +7,7 @@ interface SettingsModalProps {
   saveDirectoryPath: string;
   onSaveDirectoryChange: (newPath: string) => Promise<boolean>;
   onPickFolder: () => Promise<void>;
+  onPickFiles?: () => void;
   onResetAllData: () => Promise<void>;
 }
 
@@ -16,6 +17,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   saveDirectoryPath,
   onSaveDirectoryChange,
   onPickFolder,
+  onPickFiles,
   onResetAllData,
 }) => {
   const [inputPath, setInputPath] = useState<string>(saveDirectoryPath);
@@ -190,33 +192,64 @@ export const SettingsModal: FC<SettingsModalProps> = ({
             </div>
 
             {/* Action buttons row */}
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
               <button
                 type="button"
                 onClick={() => {
                   onPickFolder();
                 }}
                 style={{
-                  flex: 1,
+                  flex: '1 1 180px',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '0.5rem',
-                  padding: '0.5rem 0.75rem',
+                  padding: '0.55rem 0.75rem',
                   fontSize: '11px',
                   fontWeight: 600,
-                  color: 'var(--terra-700)',
+                  color: 'var(--terra-800)',
                   backgroundColor: 'var(--terra-100)',
-                  border: '1px solid var(--terra-200)',
+                  border: '1px solid var(--terra-300)',
                   borderRadius: '0.5rem',
                   cursor: 'pointer',
+                  transition: 'background-color 0.15s ease',
                 }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '15px', color: 'var(--moss-700)' }}>
                   folder_open
                 </span>
-                <span>Browse / Select Save Directory</span>
+                <span>Browse Save Directory</span>
               </button>
+
+              {onPickFiles && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onPickFiles();
+                  }}
+                  style={{
+                    flex: '1 1 180px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    padding: '0.55rem 0.75rem',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    color: 'var(--terra-800)',
+                    backgroundColor: 'var(--terra-100)',
+                    border: '1px solid var(--terra-300)',
+                    borderRadius: '0.5rem',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.15s ease',
+                  }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: '15px', color: 'var(--rust-stone-700)' }}>
+                    upload_file
+                  </span>
+                  <span>Upload Save Files</span>
+                </button>
+              )}
             </div>
 
             {/* Status Feedback Notice */}
