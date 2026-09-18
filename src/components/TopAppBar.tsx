@@ -45,7 +45,7 @@ export const TopAppBar: FC<TopAppBarProps> = ({
       >
         <div className="brand-icon-box">
           <img
-            src="/remnant-icon.png"
+            src="./remnant-icon.png"
             alt="Remnant"
             style={{ width: "16px", height: "16px", objectFit: "contain" }}
           />

@@ -57,5 +57,6 @@ function remnantSavePlugin(): Plugin {
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [react(), remnantSavePlugin()],
 });
