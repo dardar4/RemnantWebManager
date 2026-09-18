@@ -103,6 +103,9 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   };
 
   const getBiomeDisplay = () => {
+    if (characters.length === 0) {
+      return 'No save data loaded';
+    }
     if (mode === 'adventure') {
       if (character.adventureZone) {
         const zoneMap: Record<string, string> = {
@@ -509,27 +512,32 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
             <div style={{ position: 'relative', width: '18rem' }}>
               <select
                 value={activeCharIndex}
+                disabled={characters.length === 0}
                 onChange={(e) => onSelectChar(Number(e.target.value))}
                 style={{
                   width: '100%',
                   appearance: 'none',
                   borderRadius: '0.75rem',
-                  backgroundColor: '#ffffff',
+                  backgroundColor: characters.length === 0 ? 'var(--terra-50)' : '#ffffff',
                   border: '1px solid var(--terra-300)',
                   padding: '0.625rem 2.25rem 0.625rem 1rem',
                   fontSize: '13px',
                   fontWeight: 700,
-                  color: 'var(--terra-900)',
+                  color: characters.length === 0 ? 'var(--terra-500)' : 'var(--terra-900)',
                   boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
-                  cursor: 'pointer',
+                  cursor: characters.length === 0 ? 'default' : 'pointer',
                   outline: 'none',
                 }}
               >
-                {characters.map((c, i) => (
-                  <option key={c.id} value={i}>
-                    Character {i + 1} ({c.archetype} // {c.inventory.length} items)
-                  </option>
-                ))}
+                {characters.length === 0 ? (
+                  <option value="">No characters loaded</option>
+                ) : (
+                  characters.map((c, i) => (
+                    <option key={c.id} value={i}>
+                      Character {i + 1} ({c.archetype} // {c.inventory.length} items)
+                    </option>
+                  ))
+                )}
               </select>
               <div style={{ pointerEvents: 'none', position: 'absolute', top: 0, bottom: 0, right: 0, display: 'flex', alignItems: 'center', padding: '0 0.75rem', color: 'var(--terra-600)' }}>
                 <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>
@@ -664,12 +672,16 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
           <div style={{ padding: '0.75rem 1.5rem', backgroundColor: '#FAF8F5', borderBottom: '1px solid rgba(226, 218, 207, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <span style={{ fontWeight: 700, color: 'var(--terra-900)' }}>
-                {getBiomeDisplay()} // {character.archetype}
+                {characters.length === 0 ? 'No save data loaded yet' : `${getBiomeDisplay()} // ${character.archetype}`}
               </span>
-              <span style={{ color: 'var(--terra-400)' }}>•</span>
-              <span style={{ color: 'var(--terra-600)', fontFamily: 'var(--font-label)' }}>
-                {filteredEvents.length} Nodes Identified
-              </span>
+              {characters.length > 0 && (
+                <>
+                  <span style={{ color: 'var(--terra-400)' }}>•</span>
+                  <span style={{ color: 'var(--terra-600)', fontFamily: 'var(--font-label)' }}>
+                    {filteredEvents.length} Nodes Identified
+                  </span>
+                </>
+              )}
               {character.inventory && character.inventory.length > 0 && (
                 <>
                   <span style={{ color: 'var(--terra-400)' }}>•</span>
@@ -704,12 +716,16 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                           {mode === 'adventure' ? 'explore_off' : 'table_rows'}
                         </span>
                         <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--terra-800)' }}>
-                          {mode === 'adventure'
+                          {characters.length === 0
+                            ? 'No world data loaded yet'
+                            : mode === 'adventure'
                             ? 'No Adventure Mode roll detected in this save'
                             : 'No world data loaded yet'}
                         </span>
                         <span style={{ fontSize: '12px', color: 'var(--terra-500)', maxWidth: '28rem', lineHeight: 1.5 }}>
-                          {mode === 'adventure'
+                          {characters.length === 0
+                            ? 'Click "Analyze saves" or upload your save files using the dropzone above to populate this telemetry matrix.'
+                            : mode === 'adventure'
                             ? 'Roll an Adventure at the World Stone in-game to parse Adventure telemetry, or switch to Campaign mode above.'
                             : 'Upload your save_0.sav using the dropzone above to populate this telemetry matrix.'}
                         </span>

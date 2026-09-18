@@ -1,6 +1,19 @@
 import type { RemnantCharacter, RemnantWorldEvent } from '../types/remnant';
 import { gameData } from './saveParser';
 
+export function getBlankCharacter(): RemnantCharacter {
+  return {
+    id: 0,
+    archetype: 'No character loaded',
+    inventory: [],
+    campaignEvents: [],
+    adventureEvents: [],
+    missingItems: gameData.allItems,
+    hasAdventureData: false,
+    adventureZone: null,
+  };
+}
+
 export function getSampleCharacter(): RemnantCharacter {
   const sampleInventory = [
     '/Items/Weapons/Basic/LongGuns/HuntingRifle/Weapon_HuntingRifle',

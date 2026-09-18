@@ -11,7 +11,6 @@ interface LeftSidebarProps {
   activeCharIndex: number;
   onSelectChar: (index: number) => void;
   onSelectView: (view: string, category?: string | null) => void;
-  onResetDemo: () => void;
 }
 
 export const LeftSidebar: FC<LeftSidebarProps> = ({
@@ -22,7 +21,6 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
   activeCharIndex,
   onSelectChar,
   onSelectView,
-  onResetDemo,
 }) => {
   const [checklistExpanded, setChecklistExpanded] = useState<boolean>(true);
 
@@ -238,24 +236,6 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
             ))}
           </select>
         )}
-
-        <button
-          onClick={onResetDemo}
-          style={{
-            fontFamily: "var(--font-label)",
-            fontSize: "10px",
-            padding: "4px 8px",
-            background: "transparent",
-            border: "1px solid var(--outline-variant)",
-            color: "var(--outline)",
-            cursor: "pointer",
-            textAlign: "center",
-            marginTop: "2px",
-          }}
-          title="Reset to sample demo data"
-        >
-          RESET TO DEMO STATE
-        </button>
       </div>
     </aside>
   );

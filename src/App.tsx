@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import type { RemnantCharacter } from './types/remnant';
 import { parseProfileSav, parseWorldSave, gameData } from './utils/saveParser';
-import { getSampleCharacter } from './utils/demoData';
+import { getBlankCharacter } from './utils/demoData';
 import {
   getStoredDirectoryHandle,
   saveDirectoryHandle,
@@ -31,7 +31,7 @@ export function App() {
   const [currentView, setCurrentView] = useState<'home' | 'world-analyzer' | 'checklist'>('home');
   const [selectedChecklistCat, setSelectedChecklistCat] = useState<string | null>(null);
   const [isLiveSave, setIsLiveSave] = useState<boolean>(false);
-  const [saveName, setSaveName] = useState<string>('SaveSlot_0.sav');
+  const [saveName, setSaveName] = useState<string>('No save loaded');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [linkedFolderName, setLinkedFolderName] = useState<string | null>(null);
@@ -55,7 +55,7 @@ export function App() {
           setCharacters(parsed);
           setActiveCharIndex(savedActive ? Math.min(Number(savedActive), parsed.length - 1) : 0);
           setIsLiveSave(savedIsLive === 'true');
-          setSaveName(savedIsLive === 'true' ? 'SaveSlot_0.sav' : 'Sample_Slot.sav');
+          setSaveName(savedIsLive === 'true' ? 'SaveSlot_0.sav' : 'No save loaded');
           return;
         }
       }
@@ -63,11 +63,11 @@ export function App() {
       // ignore
     }
 
-    // Default to sample demo character
-    setCharacters([getSampleCharacter()]);
+    // Default to clean empty state (no fake dummy characters)
+    setCharacters([]);
     setActiveCharIndex(0);
     setIsLiveSave(false);
-    setSaveName('SaveSlot_0.sav');
+    setSaveName('No save loaded');
   }, []);
 
   // Check local server endpoint with configured path or stored directory handle
@@ -98,7 +98,7 @@ export function App() {
     }
   }, [characters, activeCharIndex, isLiveSave]);
 
-  const activeCharacter = characters[activeCharIndex] || characters[0] || getSampleCharacter();
+  const activeCharacter = characters[activeCharIndex] || characters[0] || getBlankCharacter();
 
   const handleSaveDirectoryChange = async (newPath: string): Promise<boolean> => {
     const trimmed = newPath.trim() || DEFAULT_SAVE_PATH;
@@ -125,10 +125,10 @@ export function App() {
 
     await clearStoredDirectoryHandle();
 
-    setCharacters([getSampleCharacter()]);
+    setCharacters([]);
     setActiveCharIndex(0);
     setIsLiveSave(false);
-    setSaveName('SaveSlot_0.sav');
+    setSaveName('No save loaded');
     setLinkedFolderName(null);
     setSaveDirectoryPath(DEFAULT_SAVE_PATH);
     setToastMessage('All configuration, save files, and world telemetry cleared.');
@@ -222,7 +222,7 @@ export function App() {
       }
 
       if (currentChars.length === 0) {
-        currentChars = [getSampleCharacter()];
+        currentChars = [];
       }
 
       setCharacters(currentChars);
@@ -352,7 +352,6 @@ export function App() {
           activeCharIndex={activeCharIndex}
           onSelectChar={(idx) => setActiveCharIndex(idx)}
           onSelectView={handleSelectView}
-          onResetDemo={handleResetAllData}
         />
 
         {/* MAIN VIEWPORT */}
