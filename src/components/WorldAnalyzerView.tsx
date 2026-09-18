@@ -387,8 +387,8 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
             </h3>
             <p style={{ fontSize: '12px', color: 'var(--terra-500)', marginBottom: '0.875rem', fontWeight: 500 }}>
               Supports <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_0.sav</code>,{' '}
-              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_1.sav</code>, or{' '}
-              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_2.sav</code>
+              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_1.sav</code>, and{' '}
+              <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>profile.sav</code>
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <button
@@ -531,7 +531,52 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
           </div>
         </section>
 
-        {/* World Roll Table Section: Empty Table (as requested for now) */}
+        {/* Profile Warning Banner when profile.sav has not been uploaded */}
+        {(!character.inventory || character.inventory.length === 0) && currentEvents.length > 0 && (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '0.75rem',
+              padding: '0.75rem 1rem',
+              backgroundColor: '#FEF3C7',
+              border: '1px solid #FCD34D',
+              borderRadius: '0.75rem',
+              fontSize: '12px',
+              color: '#92400E',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '20px', color: '#D97706', flexShrink: 0 }}>
+                info
+              </span>
+              <span>
+                <strong>Profile inventory not loaded:</strong> Showing all potential item rewards. Upload your{' '}
+                <code style={{ backgroundColor: 'rgba(217, 119, 6, 0.15)', color: '#78350F', padding: '1px 5px', borderRadius: '4px', fontWeight: 600 }}>profile.sav</code>{' '}
+                to filter out weapons, traits, and armor your character already owns (like in the C# tool)!
+              </span>
+            </div>
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              style={{
+                flexShrink: 0,
+                padding: '0.35rem 0.75rem',
+                fontSize: '11px',
+                fontWeight: 600,
+                color: '#78350F',
+                backgroundColor: '#FDE68A',
+                border: '1px solid #F59E0B',
+                borderRadius: '0.5rem',
+                cursor: 'pointer',
+              }}
+            >
+              Upload profile.sav
+            </button>
+          </div>
+        )}
+
+        {/* World Roll Table Section */}
         <section className="wa-table-container">
           {/* Subheader status indicator */}
           <div style={{ padding: '0.75rem 1.5rem', backgroundColor: '#FAF8F5', borderBottom: '1px solid rgba(226, 218, 207, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px' }}>
@@ -543,6 +588,15 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               <span style={{ color: 'var(--terra-600)', fontFamily: 'var(--font-label)' }}>
                 {filteredEvents.length} Nodes Identified
               </span>
+              {character.inventory && character.inventory.length > 0 && (
+                <>
+                  <span style={{ color: 'var(--terra-400)' }}>•</span>
+                  <span style={{ color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: '14px' }}>check_circle</span>
+                    {character.inventory.length} items synced
+                  </span>
+                </>
+              )}
             </div>
             <div style={{ color: 'var(--terra-500)', fontFamily: 'var(--font-label)', fontSize: '11px' }}>
               {searchQuery ? `Filter: "${searchQuery}"` : 'Filter: Showing All Events'}

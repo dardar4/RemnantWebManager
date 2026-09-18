@@ -112,10 +112,22 @@ export function App() {
         if (parsedProfileChars.length > 0) {
           currentChars = parsedProfileChars.map((pChar, idx) => {
             const existing = currentChars[idx];
+            const invSet = new Set(pChar.inventory);
+
+            const updatedCampaign = (existing?.campaignEvents || []).map((evt) => ({
+              ...evt,
+              missingItems: (evt.possibleItems || []).filter((i) => !invSet.has(i.key)),
+            }));
+
+            const updatedAdventure = (existing?.adventureEvents || []).map((evt) => ({
+              ...evt,
+              missingItems: (evt.possibleItems || []).filter((i) => !invSet.has(i.key)),
+            }));
+
             return {
               ...pChar,
-              campaignEvents: existing?.campaignEvents || [],
-              adventureEvents: existing?.adventureEvents || [],
+              campaignEvents: updatedCampaign,
+              adventureEvents: updatedAdventure,
               hasAdventureData: existing?.hasAdventureData || false,
               adventureZone: existing?.adventureZone || null,
             };
