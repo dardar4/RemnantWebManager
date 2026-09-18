@@ -2,6 +2,13 @@ import { useState, useEffect, useRef } from 'react';
 import type { RemnantCharacter } from './types/remnant';
 import { parseProfileSav, parseWorldSave, gameData } from './utils/saveParser';
 import { getSampleCharacter } from './utils/demoData';
+import {
+  getStoredDirectoryHandle,
+  saveDirectoryHandle,
+  verifyHandlePermission,
+  readSavFilesFromHandle,
+  isDirectoryPickerSupported,
+} from './utils/saveFolderStorage';
 import { TopAppBar } from './components/TopAppBar';
 import { LeftSidebar } from './components/LeftSidebar';
 import { MainPortal } from './components/MainPortal';
@@ -23,6 +30,8 @@ export function App() {
   const [saveName, setSaveName] = useState<string>('SaveSlot_0.sav');
   const [isSettingsOpen, setIsSettingsOpen] = useState<boolean>(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [linkedFolderName, setLinkedFolderName] = useState<string | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -52,6 +61,15 @@ export function App() {
     setActiveCharIndex(0);
     setIsLiveSave(false);
     setSaveName('SaveSlot_0.sav');
+  }, []);
+
+  // Restore stored directory handle if available
+  useEffect(() => {
+    getStoredDirectoryHandle().then((handle) => {
+      if (handle) {
+        setLinkedFolderName(handle.name);
+      }
+    });
   }, []);
 
   // Save state to LocalStorage
@@ -187,36 +205,52 @@ export function App() {
     }
   };
 
-  const handleOpenFolder = async () => {
-    try {
-      // @ts-expect-error - showDirectoryPicker
-      if (window.showDirectoryPicker) {
-        // @ts-expect-error - showDirectoryPicker
-        const dirHandle = await window.showDirectoryPicker();
-        const files: File[] = [];
+  const handleAnalyzeSaves = async (forcePickNewFolder = false) => {
+    if (!isDirectoryPickerSupported()) {
+      fileInputRef.current?.click();
+      return;
+    }
 
-        for await (const entry of (dirHandle as any).values()) {
-          if (entry.kind === 'file') {
-            const name = entry.name.toLowerCase();
-            if (name === 'profile.sav' || (name.startsWith('save_') && name.endsWith('.sav'))) {
-              const file = await entry.getFile();
-              files.push(file);
-            }
+    setIsAnalyzing(true);
+    try {
+      let dirHandle: FileSystemDirectoryHandle | null = null;
+
+      if (!forcePickNewFolder) {
+        dirHandle = await getStoredDirectoryHandle();
+        if (dirHandle) {
+          const hasPermission = await verifyHandlePermission(dirHandle);
+          if (!hasPermission) {
+            // Permission expired or denied, prompt picker
+            dirHandle = null;
           }
         }
+      }
 
+      if (!dirHandle) {
+        // @ts-expect-error - showDirectoryPicker
+        dirHandle = await window.showDirectoryPicker();
+        if (dirHandle) {
+          await saveDirectoryHandle(dirHandle);
+          setLinkedFolderName(dirHandle.name);
+        }
+      }
+
+      if (dirHandle) {
+        setLinkedFolderName(dirHandle.name);
+        const files = await readSavFilesFromHandle(dirHandle);
         if (files.length > 0) {
           await processFiles(files);
         } else {
-          alert('No Remnant save files (profile.sav or save_*.sav) found in that directory.');
+          alert(`No Remnant save files (profile.sav or save_*.sav) found in "${dirHandle.name}".`);
         }
-      } else {
-        fileInputRef.current?.click();
       }
     } catch (err: unknown) {
       if ((err as Error).name !== 'AbortError') {
+        console.error('Error analyzing saves from folder:', err);
         fileInputRef.current?.click();
       }
+    } finally {
+      setIsAnalyzing(false);
     }
   };
 
@@ -294,7 +328,9 @@ export function App() {
               activeCharIndex={activeCharIndex}
               onSelectChar={(idx) => setActiveCharIndex(idx)}
               onUploadFiles={processFiles}
-              onOpenFolder={handleOpenFolder}
+              onAnalyzeSaves={handleAnalyzeSaves}
+              linkedFolderName={linkedFolderName}
+              isAnalyzing={isAnalyzing}
               onBackToHome={() => setCurrentView('home')}
             />
           )}
@@ -317,7 +353,7 @@ export function App() {
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
         onPickFiles={() => fileInputRef.current?.click()}
-        onPickFolder={handleOpenFolder}
+        onPickFolder={() => handleAnalyzeSaves(true)}
         onResetDemo={handleResetDemo}
         isLiveSave={isLiveSave}
         saveName={saveName}

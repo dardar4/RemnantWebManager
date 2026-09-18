@@ -8,7 +8,9 @@ interface WorldAnalyzerViewProps {
   activeCharIndex: number;
   onSelectChar: (index: number) => void;
   onUploadFiles: (files: FileList | File[]) => Promise<void>;
-  onOpenFolder?: () => Promise<void>;
+  onAnalyzeSaves: (forcePickNew?: boolean) => Promise<void>;
+  linkedFolderName?: string | null;
+  isAnalyzing?: boolean;
   onBackToHome: () => void;
 }
 
@@ -18,6 +20,9 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   activeCharIndex,
   onSelectChar,
   onUploadFiles,
+  onAnalyzeSaves,
+  linkedFolderName = null,
+  isAnalyzing = false,
 }) => {
   const [mode, setMode] = useState<'campaign' | 'adventure'>('adventure');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -145,8 +150,48 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
 
           {/* Action buttons */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            {linkedFolderName && (
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.375rem',
+                  padding: '0.375rem 0.75rem',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: 'var(--moss-700)',
+                  backgroundColor: '#eef8f1',
+                  border: '1px solid #c8e6d0',
+                  borderRadius: '0.625rem',
+                }}
+                title={`Linked save folder: ${linkedFolderName}`}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                  folder
+                </span>
+                <span>{linkedFolderName}</span>
+                <button
+                  onClick={() => onAnalyzeSaves(true)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: '0 0 0 4px',
+                    color: 'var(--moss-800)',
+                    fontSize: '11px',
+                    textDecoration: 'underline',
+                    fontWeight: 600,
+                  }}
+                  title="Choose a different save folder"
+                >
+                  Change
+                </button>
+              </div>
+            )}
+
             <button
-              onClick={() => fileInputRef.current?.click()}
+              onClick={() => onAnalyzeSaves(false)}
+              disabled={isAnalyzing}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -158,15 +203,24 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 backgroundColor: 'var(--terra-100)',
                 border: '1px solid var(--terra-200)',
                 borderRadius: '0.75rem',
-                cursor: 'pointer',
+                cursor: isAnalyzing ? 'wait' : 'pointer',
                 boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
+                opacity: isAnalyzing ? 0.7 : 1,
               }}
-              title="Refresh and re-read save files"
+              title={linkedFolderName ? `Reload all save files from ${linkedFolderName}` : 'Select Remnant SaveGames folder'}
             >
-              <span className="material-symbols-outlined" style={{ fontSize: '16px', color: 'var(--terra-600)' }}>
+              <span
+                className="material-symbols-outlined"
+                style={{
+                  fontSize: '16px',
+                  color: 'var(--terra-600)',
+                  transform: isAnalyzing ? 'rotate(180deg)' : 'none',
+                  transition: 'transform 0.4s ease',
+                }}
+              >
                 refresh
               </span>
-              <span>Analyze saves</span>
+              <span>{isAnalyzing ? 'Analyzing...' : 'Analyze saves'}</span>
             </button>
           </div>
         </div>
@@ -390,9 +444,11 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>save_1.sav</code>, and{' '}
               <code style={{ fontFamily: 'var(--font-label)', color: 'var(--terra-700)', backgroundColor: 'rgba(226, 218, 207, 0.5)', padding: '0.125rem 0.375rem', borderRadius: '0.25rem' }}>profile.sav</code>
             </p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
               <button
-                onClick={() => fileInputRef.current?.click()}
+                type="button"
+                onClick={() => onAnalyzeSaves(false)}
+                disabled={isAnalyzing}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -405,13 +461,39 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   backgroundColor: 'var(--moss-600)',
                   border: '1px solid var(--moss-700)',
                   boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
+                  cursor: isAnalyzing ? 'wait' : 'pointer',
+                }}
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
+                  {linkedFolderName ? 'sync' : 'folder_open'}
+                </span>
+                <span>
+                  {linkedFolderName ? `Reload "${linkedFolderName}"` : 'Select Save Folder'}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.5rem 1rem',
+                  fontSize: '12px',
+                  fontWeight: 600,
+                  borderRadius: '0.625rem',
+                  color: 'var(--terra-700)',
+                  backgroundColor: 'var(--terra-100)',
+                  border: '1px solid var(--terra-200)',
+                  boxShadow: '0 1px 2px rgba(0,0,0,0.04)',
                   cursor: 'pointer',
                 }}
               >
                 <span className="material-symbols-outlined" style={{ fontSize: '16px' }}>
                   upload_file
                 </span>
-                <span>Upload File</span>
+                <span>Upload Files Manually</span>
               </button>
             </div>
           </div>
