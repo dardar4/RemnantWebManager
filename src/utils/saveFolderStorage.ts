@@ -133,10 +133,23 @@ export function isDirectoryPickerSupported(): boolean {
 }
 
 /**
+ * Check if running locally (where the Vite / Node dev server /api/local-saves middleware exists)
+ * On static deployments (like GitHub Pages), there is no backend server.
+ */
+export function isLocalServerAvailable(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+}
+
+/**
  * Attempt to load save files from the local server endpoint (/api/local-saves)
  * This automatically accesses %LOCALAPPDATA%\Remnant\Saved\SaveGames without browser sandbox restrictions
+ * Only executed when running on localhost where the server middleware is present.
  */
 export async function fetchLocalSaves(customPath?: string | null): Promise<{ path: string; files: File[] } | null> {
+  if (!isLocalServerAvailable()) {
+    return null;
+  }
   try {
     const url = customPath?.trim()
       ? `/api/local-saves?path=${encodeURIComponent(customPath.trim())}`

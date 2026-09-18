@@ -10,6 +10,7 @@ import {
   readSavFilesFromHandle,
   isDirectoryPickerSupported,
   fetchLocalSaves,
+  isLocalServerAvailable,
 } from './utils/saveFolderStorage';
 import { TopAppBar } from './components/TopAppBar';
 import { LeftSidebar } from './components/LeftSidebar';
@@ -148,17 +149,24 @@ export function App() {
     localStorage.setItem(LOCAL_STORAGE_PATH_KEY, cleanPath);
     setSaveDirectoryPath(cleanPath);
 
-    const localData = await fetchLocalSaves(cleanPath);
-    if (localData && localData.files.length > 0) {
-      setLinkedFolderName("SaveGames (Configured)");
-      await processFiles(localData.files);
-      setToastMessage("Save directory updated and save files reloaded!");
-      return true;
+    if (isLocalServerAvailable()) {
+      const localData = await fetchLocalSaves(cleanPath);
+      if (localData && localData.files.length > 0) {
+        setLinkedFolderName("SaveGames (Auto-detected)");
+        await processFiles(localData.files);
+        setToastMessage("Save directory updated and save files reloaded!");
+        return true;
+      } else {
+        setToastMessage(
+          "Directory path saved to LocalStorage. (Note: No .sav files found in this folder)"
+        );
+        return false;
+      }
     } else {
       setToastMessage(
-        "Directory path saved to LocalStorage. (Note: No .sav files found in this folder)"
+        "Path saved! Click 'Link Save Folder' below to grant browser access to your save folder."
       );
-      return false;
+      return true;
     }
   };
 
@@ -475,6 +483,7 @@ export function App() {
         saveDirectoryPath={saveDirectoryPath}
         linkedFolderName={linkedFolderName}
         onSaveDirectoryChange={handleSaveDirectoryChange}
+        onPickFolder={() => handleAnalyzeSaves(true)}
         onPickFiles={() => fileInputRef.current?.click()}
         onResetAllData={handleResetAllData}
       />

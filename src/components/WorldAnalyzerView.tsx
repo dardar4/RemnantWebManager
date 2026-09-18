@@ -232,13 +232,13 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 </div>
                 <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                   <li>
-                    Click <strong>Open Settings</strong> (or the ⚙️ gear icon) and make sure your save directory path (<code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>%LOCALAPPDATA%\Remnant\Saved\SaveGames</code>) is set, then click <strong>Save Path</strong> — this is required for the <strong>Refresh (🔄)</strong> button to work automatically!
+                    Click <strong>Open Settings</strong> (or the ⚙️ gear icon) and copy your save directory path: <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>%LOCALAPPDATA%\Remnant\Saved\SaveGames</code>.
                   </li>
                   <li>
-                    In Settings, you can also click <strong>Upload Save Files</strong> (or drag &amp; drop files directly onto this page) and select all the <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>.sav</code> files you have (<code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>, <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code>, etc.).
+                    In Settings, click <strong>Link Save Folder</strong> (or <strong>Save Path</strong> if running locally) — this connects your save folder and is required for the <strong>Refresh (🔄)</strong> button to work!
                   </li>
                   <li>
-                    Your characters, archetypes, inventory, and current world rolls will be parsed immediately.
+                    Alternatively, click <strong>Upload Save Files</strong> (or drag &amp; drop files directly onto this page) and select all your <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>.sav</code> files (<code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>, <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code>, etc.).
                   </li>
                 </ul>
               </div>

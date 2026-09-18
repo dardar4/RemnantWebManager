@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import type { FC } from "react";
+import {
+  isLocalServerAvailable,
+  isDirectoryPickerSupported,
+} from "../utils/saveFolderStorage";
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -7,6 +11,7 @@ interface SettingsModalProps {
   saveDirectoryPath?: string;
   linkedFolderName?: string | null;
   onSaveDirectoryChange?: (newPath: string) => Promise<boolean>;
+  onPickFolder?: () => Promise<void>;
   onPickFiles?: () => void;
   onResetAllData: () => Promise<void>;
 }
@@ -17,10 +22,12 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   saveDirectoryPath,
   linkedFolderName,
   onSaveDirectoryChange,
+  onPickFolder,
   onPickFiles,
   onResetAllData,
 }) => {
   const defaultPath = "%LOCALAPPDATA%\\Remnant\\Saved\\SaveGames";
+  const isLocal = isLocalServerAvailable();
   const [customPathInput, setCustomPathInput] = useState<string>(
     saveDirectoryPath || defaultPath
   );
@@ -232,7 +239,11 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   type="button"
                   onClick={handleApplyPath}
                   disabled={isSaving}
-                  title="Save path to LocalStorage and reload saves"
+                  title={
+                    isLocal
+                      ? "Save path to LocalStorage and reload saves"
+                      : "Save path to LocalStorage (use 'Link Save Folder' below to enable browser access on web)"
+                  }
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -311,40 +322,77 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               </div>
             )}
 
-            {/* Alternative Action: Upload Save Files */}
-            {onPickFiles && (
-              <button
-                type="button"
-                onClick={() => {
-                  onPickFiles();
-                  onClose();
-                }}
-                style={{
-                  width: "100%",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "0.5rem",
-                  padding: "0.55rem 0.75rem",
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  color: "var(--terra-800)",
-                  backgroundColor: "var(--terra-100)",
-                  border: "1px solid var(--terra-300)",
-                  borderRadius: "0.5rem",
-                  cursor: "pointer",
-                  transition: "background-color 0.15s ease",
-                }}
-              >
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontSize: "16px", color: "var(--rust-stone-700)" }}
+            {/* Action buttons row: Link Save Folder & Upload Save Files */}
+            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+              {onPickFolder && isDirectoryPickerSupported() && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onPickFolder();
+                    onClose();
+                  }}
+                  style={{
+                    flex: "1 1 200px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
+                    padding: "0.625rem 1rem",
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: "#ffffff",
+                    backgroundColor: "var(--moss-600)",
+                    border: "1px solid var(--moss-700)",
+                    borderRadius: "0.5rem",
+                    cursor: "pointer",
+                    transition: "background-color 0.15s ease",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
+                  }}
                 >
-                  upload_file
-                </span>
-                <span>Upload Save Files</span>
-              </button>
-            )}
+                  <span
+                    className="material-symbols-outlined"
+                    style={{ fontSize: "17px" }}
+                  >
+                    folder_open
+                  </span>
+                  <span>Link Save Folder (For Web Auto-Refresh)</span>
+                </button>
+              )}
+
+              {onPickFiles && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onPickFiles();
+                    onClose();
+                  }}
+                  style={{
+                    flex: "1 1 160px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
+                    padding: "0.625rem 1rem",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    color: "var(--terra-800)",
+                    backgroundColor: "var(--terra-100)",
+                    border: "1px solid var(--terra-300)",
+                    borderRadius: "0.5rem",
+                    cursor: "pointer",
+                    transition: "background-color 0.15s ease",
+                  }}
+                >
+                  <span
+                    className="material-symbols-outlined"
+                    style={{ fontSize: "17px", color: "var(--rust-stone-700)" }}
+                  >
+                    upload_file
+                  </span>
+                  <span>Upload Save Files</span>
+                </button>
+              )}
+            </div>
 
             {/* Active Linked Folder Indicator */}
             {linkedFolderName && (
@@ -356,20 +404,20 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   fontSize: "11px",
                   color: "var(--moss-700)",
                   backgroundColor: "rgba(74, 114, 87, 0.08)",
-                  padding: "0.35rem 0.625rem",
+                  padding: "0.4rem 0.65rem",
                   borderRadius: "0.375rem",
                   border: "1px solid rgba(74, 114, 87, 0.2)",
-                  fontWeight: 500,
+                  fontWeight: 600,
                 }}
               >
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: "15px" }}
+                  style={{ fontSize: "16px" }}
                 >
                   check_circle
                 </span>
                 <span>
-                  Active Link: <strong>{linkedFolderName}</strong>
+                  Active Link: <strong>{linkedFolderName}</strong> (Auto-refresh enabled)
                 </span>
               </div>
             )}
@@ -393,42 +441,16 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   marginBottom: "0.25rem",
                 }}
               >
-                Save Directory &amp; Auto-Refresh Instructions:
+                Connecting Your Saves on Web / GitHub Pages:
               </div>
               <div>
-                1. Ensure your save path is entered above and click <strong>Save Path</strong> — this is required for the global <strong>Refresh (🔄)</strong> button and live sync to work automatically!
+                1. Click <strong>Copy</strong> next to the directory path above.
               </div>
               <div>
-                2. If you prefer manual uploads, click <strong>Upload Save Files</strong> (or drag &amp; drop onto the page) and select all the{" "}
-                <code
-                  style={{
-                    fontFamily: "var(--font-label)",
-                    color: "var(--moss-700)",
-                    fontWeight: 600,
-                  }}
-                >
-                  .sav
-                </code>{" "}
-                files you have (<code
-                  style={{
-                    fontFamily: "var(--font-label)",
-                    color: "var(--moss-700)",
-                    fontWeight: 600,
-                  }}
-                >
-                  profile.sav
-                </code>
-                ,{" "}
-                <code
-                  style={{
-                    fontFamily: "var(--font-label)",
-                    color: "var(--moss-700)",
-                    fontWeight: 600,
-                  }}
-                >
-                  save_0.sav
-                </code>
-                , etc.).
+                2. Click <strong>Link Save Folder</strong>, paste the path into Windows Explorer, and select your <code>SaveGames</code> folder.
+              </div>
+              <div>
+                3. Once linked, the global <strong>Refresh (🔄)</strong> button and Alt-Tab live sync work silently directly in your browser without any server!
               </div>
               <div
                 style={{
@@ -437,8 +459,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   fontStyle: "italic",
                 }}
               >
-                Tip: You can also drag and drop your save files directly onto
-                the web page anytime!
+                Tip: You can also click <strong>Upload Save Files</strong> or drag &amp; drop save files directly onto this page anytime.
               </div>
             </div>
           </div>
