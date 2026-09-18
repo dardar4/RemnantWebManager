@@ -55,7 +55,7 @@ export const MainPortal: FC<MainPortalProps> = ({
               <div className="bento-icon-box">
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: "20px", color: "inherit" }}
+                  style={{ fontSize: "24px", color: "inherit" }}
                 >
                   explore
                 </span>
@@ -74,7 +74,7 @@ export const MainPortal: FC<MainPortalProps> = ({
                 <span>INSPECT ACTIVE ROLL</span>
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: "14px" }}
+                  style={{ fontSize: "16px" }}
                 >
                   arrow_forward
                 </span>
@@ -96,7 +96,7 @@ export const MainPortal: FC<MainPortalProps> = ({
               <div className="bento-icon-box">
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: "20px", color: "inherit" }}
+                  style={{ fontSize: "24px", color: "inherit" }}
                 >
                   inventory_2
                 </span>
@@ -117,7 +117,7 @@ export const MainPortal: FC<MainPortalProps> = ({
                 <span>OPEN GEAR MATRIX</span>
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: "14px" }}
+                  style={{ fontSize: "16px" }}
                 >
                   arrow_forward
                 </span>

@@ -195,41 +195,68 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 backgroundColor: '#ffffff',
               }}
             >
-              {/* How To Use */}
+              {/* Step 1: Save File Directory Setup */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--terra-900)', fontWeight: 700 }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--moss-700)' }}>
-                    sync
-                  </span>
-                  <span>How World Analysis Works</span>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--terra-900)', fontWeight: 700 }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--moss-700)' }}>
+                      folder_open
+                    </span>
+                    <span>1. Set Up Save Files</span>
+                  </div>
+                  {onOpenSettings && (
+                    <button
+                      type="button"
+                      onClick={onOpenSettings}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        padding: '0.25rem 0.6rem',
+                        fontSize: '11px',
+                        fontWeight: 600,
+                        color: 'var(--terra-800)',
+                        backgroundColor: 'var(--terra-100)',
+                        border: '1px solid var(--terra-300)',
+                        borderRadius: '0.5rem',
+                        cursor: 'pointer',
+                        transition: 'background-color 0.15s ease',
+                      }}
+                    >
+                      <span className="material-symbols-outlined" style={{ fontSize: '13px', color: 'var(--terra-700)' }}>
+                        settings
+                      </span>
+                      <span>Open Settings</span>
+                    </button>
+                  )}
                 </div>
                 <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                   <li>
-                    Touch a <strong>World Stone checkpoint</strong> in-game after traveling to an area or rerolling to ensure your local save file records the generated seeds.
+                    Click <strong>Open Settings</strong> (or the ⚙️ gear icon) to view and copy your save directory path: <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>%LOCALAPPDATA%\Remnant\Saved\SaveGames</code>.
                   </li>
                   <li>
-                    Click the <strong>Refresh Telemetry</strong> button in the top bar or press <kbd style={{ padding: '0.1rem 0.35rem', backgroundColor: 'var(--terra-100)', borderRadius: '4px', fontSize: '11px' }}>F5</kbd> to reload save state.
+                    In Settings, click <strong>Upload Save Files</strong> (or drag &amp; drop files directly onto this page) and select all the <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>.sav</code> files you have (<code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>, <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code>, etc.).
                   </li>
                   <li>
-                    Filter missing items using the search bar below or toggle between <strong>Campaign</strong> and <strong>Adventure</strong> rolls.
+                    Your characters, archetypes, inventory, and current world rolls will be parsed immediately.
                   </li>
                 </ul>
               </div>
 
-              {/* Reroll Tips */}
+              {/* Step 2: Reroll In-Game */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--terra-900)', fontWeight: 700 }}>
                   <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--moss-700)' }}>
                     casino
                   </span>
-                  <span>Rerolling Adventure Worlds</span>
+                  <span>2. Reroll &amp; Save Worlds</span>
                 </div>
                 <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                   <li>
-                    In Ward 13, access the World Stone &gt; <em>World Settings</em> &gt; <em>Reroll Adventure Mode</em>.
+                    In Ward 13, access the red World Stone &gt; <em>World Settings</em> &gt; <em>Reroll Adventure Mode</em> (or Campaign).
                   </li>
                   <li>
-                    Teleport into the zone once to trigger world generation, then hit Refresh in this manager to inspect loot before proceeding.
+                    Touch a <strong>World Stone checkpoint</strong> in-game after traveling to ensure your local save file flushes and records the new world generation seeds.
                   </li>
                   <li>
                     Rerolling Adventure Mode does not reset your Campaign story progress.
@@ -237,23 +264,23 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 </ul>
               </div>
 
-              {/* Known Issues & Nuances */}
+              {/* Step 3: Refresh & Analyze */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--terra-900)', fontWeight: 700 }}>
-                  <span className="material-symbols-outlined" style={{ fontSize: '18px', color: '#b91c1c' }}>
-                    warning
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--moss-700)' }}>
+                    sync
                   </span>
-                  <span>Known Nuances &amp; Edge Cases</span>
+                  <span>3. Refresh Telemetry</span>
                 </div>
                 <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                   <li>
-                    <strong>Cryptolith:</strong> Appears in multiple zones (Rhom, Corsus). Items such as the <em>Soul Link</em> or <em>Labyrinth Armor</em> unlock across progressive activations.
+                    Click the <strong>Refresh Telemetry (🔄)</strong> button in the top bar or press <kbd style={{ padding: '0.1rem 0.35rem', backgroundColor: 'var(--terra-100)', borderRadius: '4px', fontSize: '11px' }}>F5</kbd> to instantly reload save rolls.
                   </li>
                   <li>
-                    <strong>Survival / Hardcore:</strong> Only save files from standard Campaign and Adventure modes are tracked in this table.
+                    Toggle between <strong>Campaign</strong> and <strong>Adventure</strong> tabs, and filter missing items using the search bar below.
                   </li>
                   <li>
-                    <strong>Stuck Merchant / Liz &amp; Liz:</strong> Some quest rewards depend on specific quest choices (e.g. keeping both Liz alive for the Chicago Typewriter key).
+                    The difficulty indicator (Normal, Hard, Nightmare, Apocalypse) automatically updates for each world mode.
                   </li>
                 </ul>
               </div>
