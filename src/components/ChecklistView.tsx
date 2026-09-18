@@ -47,10 +47,12 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
     const q = searchQuery.trim().toLowerCase();
 
     return activeGroups.map((group) => {
-      // 1. All items belonging to this category (filtered by DLC if specified)
+      // 1. All items belonging to this category (filtered by DLC / Mode if specified)
       const groupAllItems = gameData.allItems.filter(group.filter).filter((item: RemnantItem) => {
         if (dlcFilter === 'all') return true;
-        if (dlcFilter === 'base') return !item.dlc || item.dlc.trim() === '';
+        if (dlcFilter === 'base') return (!item.dlc || item.dlc.trim() === '') && item.mode !== 'survival';
+        if (dlcFilter === 'survival') return item.mode === 'survival';
+        if (dlcFilter === 'hardcore') return item.mode === 'hardcore';
         return item.dlc === dlcFilter;
       });
 
@@ -176,7 +178,7 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
                     letterSpacing: '0.04em',
                   }}
                 >
-                  Expansion / DLC:
+                  DLC / Mode:
                 </span>
                 <select
                   value={dlcFilter}
@@ -198,6 +200,8 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
                   <option value="base">Base Game</option>
                   <option value="Subject 2923">Subject 2923</option>
                   <option value="Swamps of Corsus">Swamps of Corsus</option>
+                  <option value="survival">Survival</option>
+                  <option value="hardcore">Hardcore</option>
                 </select>
               </div>
             </div>
