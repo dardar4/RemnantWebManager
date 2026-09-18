@@ -1,22 +1,42 @@
 import type { FC } from "react";
 
 interface TopAppBarProps {
-  isLiveSave: boolean;
-  saveName: string;
-  onOpenSaveFile: () => void;
+  isLiveSave?: boolean;
+  saveName?: string;
+  onOpenSaveFile?: () => void;
   onOpenSettings?: () => void;
 }
 
-export const TopAppBar: FC<TopAppBarProps> = ({
-  isLiveSave,
-  saveName,
-  onOpenSaveFile,
-  onOpenSettings,
-}) => {
+export const TopAppBar: FC<TopAppBarProps> = ({ onOpenSettings }) => {
   return (
-    <header className="top-bar">
-      {/* Brand Anchor */}
-      <div className="brand-anchor">
+    <header
+      className="top-bar"
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr auto 1fr",
+        alignItems: "center",
+        width: "100%",
+        padding: "0 1.25rem",
+        height: "3.5rem",
+        backgroundColor: "var(--surface-dim)",
+        borderBottom: "1px solid var(--outline-variant)",
+        zIndex: 20,
+        flexShrink: 0,
+      }}
+    >
+      {/* Left spacer for symmetrical centering */}
+      <div />
+
+      {/* Centered Brand Header */}
+      <div
+        className="brand-anchor"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "0.75rem",
+          justifyContent: "center",
+        }}
+      >
         <div className="brand-icon-box">
           <span
             className="material-symbols-outlined"
@@ -25,69 +45,39 @@ export const TopAppBar: FC<TopAppBarProps> = ({
             terminal
           </span>
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div className="brand-title-row">
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div className="brand-title-row" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <span className="brand-title">REMNANT MANAGER</span>
             <span className="brand-version-badge">v1.0.0</span>
           </div>
-          <span className="brand-subtitle">
-            TACTICAL COMPANION // WORLD ANALYZER &amp; CHECKLIST
+          <span className="brand-subtitle" style={{ textAlign: "center" }}>
+            WORLD ANALYZER &amp; CHECKLIST
           </span>
         </div>
       </div>
 
-      {/* Top Right Utilities / Save Status Pill */}
-      <div className="top-utilities">
-        <div
-          className="sync-pill"
-          onClick={onOpenSaveFile}
-          title="Click to load Remnant save file (profile.sav / save_0.sav)"
+      {/* Right Side Utilities: Settings Gear Only */}
+      <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
+        <button
+          className="icon-btn"
+          title="Settings"
+          onClick={onOpenSettings}
+          style={{
+            cursor: "pointer",
+            background: "transparent",
+            border: "1px solid transparent",
+            borderRadius: "0.375rem",
+            padding: "0.375rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "var(--on-surface-variant)",
+          }}
         >
-          <span className={`sync-dot ${isLiveSave ? "live" : "pulse"}`} />
-          <span className="sync-text">
-            {saveName} [{isLiveSave ? "SYNCD" : "DEMO"}]
+          <span className="material-symbols-outlined" style={{ fontSize: "20px" }}>
+            settings
           </span>
-          <span
-            style={{
-              color: "var(--outline)",
-              fontSize: "10px",
-              marginLeft: "2px",
-            }}
-          >
-            |
-          </span>
-          <span
-            className="material-symbols-outlined"
-            style={{ fontSize: "14px", color: "var(--outline)" }}
-          >
-            folder_open
-          </span>
-        </div>
-
-        {/* Utility / Config Action Buttons */}
-        <div className="utility-actions">
-          <button
-            className="icon-btn"
-            title="Load Save File"
-            onClick={onOpenSaveFile}
-          >
-            <span className="material-symbols-outlined">file_upload</span>
-          </button>
-          <button
-            className="icon-btn"
-            title="Telemetry Tuning"
-            onClick={onOpenSettings}
-          >
-            <span className="material-symbols-outlined">tune</span>
-          </button>
-          <button
-            className="icon-btn"
-            title="Settings & Info"
-            onClick={onOpenSettings}
-          >
-            <span className="material-symbols-outlined">settings</span>
-          </button>
-        </div>
+        </button>
       </div>
     </header>
   );
