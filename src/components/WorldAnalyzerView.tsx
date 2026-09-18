@@ -543,16 +543,17 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
             <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
               <thead>
                 <tr className="wa-table-header">
-                  <th style={{ width: '25%' }} scope="col">Location</th>
-                  <th style={{ width: '18%' }} scope="col">Event Type</th>
-                  <th style={{ width: '22%' }} scope="col">Event Name</th>
-                  <th style={{ width: '35%' }} scope="col">Missing Items</th>
+                  <th style={{ width: '12%' }} scope="col">Area</th>
+                  <th style={{ width: '24%' }} scope="col">Location</th>
+                  <th style={{ width: '16%' }} scope="col">Event Type</th>
+                  <th style={{ width: '20%' }} scope="col">Event Name</th>
+                  <th style={{ width: '28%' }} scope="col">Missing Items</th>
                 </tr>
               </thead>
               <tbody style={{ fontSize: '12px', color: 'var(--terra-800)' }}>
                 {currentEvents.length === 0 ? (
                   <tr>
-                    <td colSpan={4} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
+                    <td colSpan={5} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                         <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--terra-400)' }}>
                           {mode === 'adventure' ? 'explore_off' : 'table_rows'}
@@ -602,7 +603,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   </tr>
                 ) : filteredEvents.length === 0 ? (
                   <tr>
-                    <td colSpan={4} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
+                    <td colSpan={5} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                         <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--terra-400)' }}>
                           search_off
@@ -620,8 +621,8 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   filteredEvents.map((evt, idx) => {
                     const badge = getBadgeStyles(evt.type);
                     const locParts = evt.location.split(': ');
-                    const zoneTag = locParts[0];
-                    const subLoc = locParts.slice(1).join(': ');
+                    const area = locParts[0] || '—';
+                    const locationName = locParts.length > 1 ? locParts.slice(1).join(': ') : '—';
 
                     return (
                       <tr
@@ -632,27 +633,18 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                           transition: 'background-color 0.1s ease',
                         }}
                       >
+                        {/* Area */}
+                        <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle', whiteSpace: 'nowrap' }}>
+                          <span style={{ fontWeight: 700, color: 'var(--terra-800)', fontSize: '12px' }}>
+                            {area}
+                          </span>
+                        </td>
+
                         {/* Location */}
                         <td style={{ padding: '0.75rem 1rem', verticalAlign: 'middle' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <span
-                              style={{
-                                fontSize: '10px',
-                                fontFamily: 'var(--font-label)',
-                                fontWeight: 700,
-                                padding: '0.125rem 0.4rem',
-                                borderRadius: '0.25rem',
-                                backgroundColor: 'var(--terra-200)',
-                                color: 'var(--terra-800)',
-                                flexShrink: 0,
-                              }}
-                            >
-                              {zoneTag}
-                            </span>
-                            <span style={{ fontWeight: 600, color: 'var(--terra-800)', fontSize: '12px' }}>
-                              {subLoc || zoneTag}
-                            </span>
-                          </div>
+                          <span style={{ fontWeight: 500, color: 'var(--terra-900)', fontSize: '12px' }}>
+                            {locationName}
+                          </span>
                         </td>
 
                         {/* Event Type */}
