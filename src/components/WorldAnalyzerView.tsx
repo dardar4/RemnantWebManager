@@ -23,6 +23,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -105,99 +106,206 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
           </div>
         </div>
 
-        {/* Top Instruction Containers: Stacked vertically with How to use first */}
-        <section style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          {/* Box 1: How to use */}
-          <div style={{ backgroundColor: '#ffffff', borderRadius: '1rem', padding: '1.25rem', border: '1px solid rgba(226, 218, 207, 0.9)', boxShadow: '0 4px 12px -2px rgba(45, 38, 30, 0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.625rem' }}>
-                <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '13px', fontWeight: 700, color: 'var(--terra-900)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  How to use:
-                </h3>
-              </div>
-              <p style={{ fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
-                Your save files are located in your Windows AppData directory. Upload files named{' '}
-                <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>
-                  save_&#123;character number&#125;.sav
-                </code>{' '}
-                to inspect what events you rolled for this specific character. Additionally you can upload your{' '}
-                <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>
-                  profile.sav
-                </code>{' '}
-                to detect which items you are missing and if your rolled events can reward them. You can drop multiple save files; tables update automatically.
-              </p>
-            </div>
-
-            {/* Path Helper Strip */}
-            <div style={{ marginTop: '0.5rem', paddingTop: '0.75rem', borderTop: '1px solid var(--terra-100)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', backgroundColor: 'rgba(250, 248, 245, 0.7)', padding: '0.625rem', borderRadius: '0.75rem', border: '1px solid rgba(226, 218, 207, 0.5)' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden', color: 'var(--terra-600)' }}>
-                <span className="material-symbols-outlined" style={{ fontSize: '16px', color: 'var(--terra-500)', flexShrink: 0 }}>
-                  folder
-                </span>
-                <span style={{ fontFamily: 'var(--font-label)', fontSize: '11px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--terra-800)', fontWeight: 500 }}>
-                  {displayPathString}
-                </span>
-              </div>
-              <button
-                onClick={handleCopyPath}
+        {/* Combined Expandable Instructions & Known Issues Card */}
+        <section
+          style={{
+            backgroundColor: '#ffffff',
+            borderRadius: '1rem',
+            border: '1px solid rgba(226, 218, 207, 0.9)',
+            boxShadow: '0 2px 8px -1px rgba(45, 38, 30, 0.04)',
+            overflow: 'hidden',
+          }}
+        >
+          {/* Clickable Header / Accordion trigger */}
+          <button
+            type="button"
+            onClick={() => setIsGuideOpen(!isGuideOpen)}
+            style={{
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: '0.875rem 1.25rem',
+              backgroundColor: isGuideOpen ? 'rgba(250, 248, 245, 0.85)' : '#ffffff',
+              border: 'none',
+              borderBottom: isGuideOpen ? '1px solid var(--terra-100)' : 'none',
+              cursor: 'pointer',
+              textAlign: 'left',
+              transition: 'background-color 0.15s ease',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+              <span
+                className="material-symbols-outlined"
                 style={{
-                  flexShrink: 0,
-                  padding: '0.25rem 0.625rem',
-                  fontSize: '11px',
-                  fontWeight: 500,
-                  fontFamily: 'var(--font-label)',
-                  color: 'var(--moss-700)',
-                  backgroundColor: '#ffffff',
-                  border: '1px solid var(--terra-300)',
-                  borderRadius: '0.5rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.25rem',
+                  fontSize: '20px',
+                  color: isGuideOpen ? 'var(--moss-700)' : 'var(--terra-500)',
                 }}
               >
-                <span className="material-symbols-outlined" style={{ fontSize: '12px' }}>
-                  content_copy
-                </span>
-                <span>{isCopied ? 'Copied!' : 'Copy Path'}</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Box 2: Known issues */}
-          <div style={{ backgroundColor: '#ffffff', borderRadius: '1rem', padding: '1.25rem', border: '1px solid rgba(226, 218, 207, 0.9)', boxShadow: '0 4px 12px -2px rgba(45, 38, 30, 0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.625rem' }}>
-                <span style={{ width: '1.5rem', height: '1.5rem', borderRadius: '0.5rem', backgroundColor: 'var(--amber-stone-100)', color: 'var(--amber-stone-700)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '12px' }}>
-                  !
-                </span>
-                <h3 style={{ fontFamily: 'var(--font-headline)', fontSize: '13px', fontWeight: 700, color: 'var(--terra-900)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Known Issues:
-                </h3>
-              </div>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '12px', color: 'var(--terra-700)' }}>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
-                  <span style={{ width: '6px', height: '6px', borderRadius: '9999px', backgroundColor: '#d97706', marginTop: '6px', flexShrink: 0 }} />
-                  <span>
-                    <strong>Ad blockers</strong> or strict web filters can interfere with client-side file reading hooks.
-                  </span>
-                </li>
-                <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
-                  <span style={{ width: '6px', height: '6px', borderRadius: '9999px', backgroundColor: 'var(--rust-stone-700)', marginTop: '6px', flexShrink: 0 }} />
-                  <span>
-                    <strong>Red Crystal Requirement:</strong> You must interact with the red World Stone in-game to trigger save flush before telemetry can parse new rolls.
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            <div style={{ marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid var(--terra-100)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '11px', color: 'var(--terra-500)', fontWeight: 500 }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--moss-600)' }}>
-                check_circle
+                help_outline
               </span>
-              <span>Local file parsing only — zero telemetry data sent over external networks.</span>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-headline)',
+                      fontSize: '13px',
+                      fontWeight: 700,
+                      color: 'var(--terra-900)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    How to use & Known Issues
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-label)',
+                      fontSize: '10px',
+                      fontWeight: 600,
+                      padding: '0.125rem 0.5rem',
+                      borderRadius: '9999px',
+                      backgroundColor: 'var(--terra-100)',
+                      color: 'var(--terra-600)',
+                    }}
+                  >
+                    {isGuideOpen ? 'Hide' : 'Show Guide'}
+                  </span>
+                </div>
+                <p
+                  style={{
+                    fontSize: '11px',
+                    color: 'var(--terra-500)',
+                    marginTop: '0.125rem',
+                  }}
+                >
+                  Save file paths, format requirements, and local parsing details
+                </p>
+              </div>
             </div>
-          </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', color: 'var(--terra-500)' }}>
+              <span
+                className="material-symbols-outlined"
+                style={{
+                  fontSize: '22px',
+                  transform: isGuideOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s ease',
+                }}
+              >
+                expand_more
+              </span>
+            </div>
+          </button>
+
+          {/* Expandable Content Area */}
+          {isGuideOpen && (
+            <div
+              style={{
+                padding: '1.25rem',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1.25rem',
+              }}
+            >
+              {/* Sub-section 1: How to Use */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                  <h4
+                    style={{
+                      fontFamily: 'var(--font-headline)',
+                      fontSize: '12px',
+                      fontWeight: 700,
+                      color: 'var(--terra-900)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.05em',
+                    }}
+                  >
+                    How to use:
+                  </h4>
+                </div>
+                <p style={{ fontSize: '12px', color: 'var(--terra-700)', lineHeight: 1.6, marginBottom: '0.75rem' }}>
+                  Your save files are located in your Windows AppData directory. Upload files named{' '}
+                  <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>
+                    save_&#123;character number&#125;.sav
+                  </code>{' '}
+                  to inspect what events you rolled for this specific character. Additionally you can upload your{' '}
+                  <code style={{ padding: '0.125rem 0.375rem', borderRadius: '0.25rem', backgroundColor: 'var(--terra-100)', color: 'var(--moss-700)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>
+                    profile.sav
+                  </code>{' '}
+                  to detect which items you are missing and if your rolled events can reward them. You can drop multiple save files; tables update automatically.
+                </p>
+
+                {/* Path Helper Strip */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem', backgroundColor: 'rgba(250, 248, 245, 0.7)', padding: '0.625rem', borderRadius: '0.75rem', border: '1px solid rgba(226, 218, 207, 0.5)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden', color: 'var(--terra-600)' }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: '16px', color: 'var(--terra-500)', flexShrink: 0 }}>
+                      folder
+                    </span>
+                    <span style={{ fontFamily: 'var(--font-label)', fontSize: '11px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: 'var(--terra-800)', fontWeight: 500 }}>
+                      {displayPathString}
+                    </span>
+                  </div>
+                  <button
+                    onClick={handleCopyPath}
+                    style={{
+                      flexShrink: 0,
+                      padding: '0.25rem 0.625rem',
+                      fontSize: '11px',
+                      fontWeight: 500,
+                      fontFamily: 'var(--font-label)',
+                      color: 'var(--moss-700)',
+                      backgroundColor: '#ffffff',
+                      border: '1px solid var(--terra-300)',
+                      borderRadius: '0.5rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.25rem',
+                    }}
+                  >
+                    <span className="material-symbols-outlined" style={{ fontSize: '12px' }}>
+                      content_copy
+                    </span>
+                    <span>{isCopied ? 'Copied!' : 'Copy Path'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Sub-section 2: Known Issues */}
+              <div style={{ borderTop: '1px solid var(--terra-100)', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.625rem' }}>
+                  <span style={{ width: '1.25rem', height: '1.25rem', borderRadius: '0.375rem', backgroundColor: 'var(--amber-stone-100)', color: 'var(--amber-stone-700)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '11px' }}>
+                    !
+                  </span>
+                  <h4 style={{ fontFamily: 'var(--font-headline)', fontSize: '12px', fontWeight: 700, color: 'var(--terra-900)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    Known Issues:
+                  </h4>
+                </div>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.625rem', fontSize: '12px', color: 'var(--terra-700)' }}>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
+                    <span style={{ width: '6px', height: '6px', borderRadius: '9999px', backgroundColor: '#d97706', marginTop: '6px', flexShrink: 0 }} />
+                    <span>
+                      <strong>Ad blockers</strong> or strict web filters can interfere with client-side file reading hooks.
+                    </span>
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'flex-start', gap: '0.625rem' }}>
+                    <span style={{ width: '6px', height: '6px', borderRadius: '9999px', backgroundColor: 'var(--rust-stone-700)', marginTop: '6px', flexShrink: 0 }} />
+                    <span>
+                      <strong>Red Crystal Requirement:</strong> You must interact with the red World Stone in-game to trigger save flush before telemetry can parse new rolls.
+                    </span>
+                  </li>
+                </ul>
+
+                <div style={{ marginTop: '0.75rem', paddingTop: '0.75rem', borderTop: '1px solid var(--terra-100)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '11px', color: 'var(--terra-500)', fontWeight: 500 }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '14px', color: 'var(--moss-600)' }}>
+                    check_circle
+                  </span>
+                  <span>Local file parsing only — zero telemetry data sent over external networks.</span>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* File Dropzone Card */}
