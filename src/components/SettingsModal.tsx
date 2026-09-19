@@ -41,6 +41,13 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     }
   }, [saveDirectoryPath]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      setSaveStatus(null);
+      setShowResetConfirm(false);
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleApplyPath = async () => {
@@ -75,7 +82,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     try {
       await onResetAllData();
       setShowResetConfirm(false);
-      onClose();
+      setSaveStatus(null);
+      setCustomPathInput(defaultPath);
     } finally {
       setIsResetting(false);
     }
@@ -453,7 +461,10 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                 </div>
                 <button
                   type="button"
-                  onClick={() => setShowResetConfirm(true)}
+                  onClick={() => {
+                    setSaveStatus(null);
+                    setShowResetConfirm(true);
+                  }}
                   style={{
                     padding: "0.4rem 0.75rem",
                     fontSize: "11px",
@@ -530,8 +541,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                       paths reset to default
                     </li>
                     <li>
-                      <strong>Browser Storage:</strong> IndexedDB directory
-                      handles and LocalStorage cache
+                      <strong>Browser Storage:</strong> LocalStorage cache and
+                      telemetry records
                     </li>
                   </ul>
                 </div>
