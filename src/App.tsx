@@ -23,8 +23,24 @@ const LOCAL_STORAGE_PATH_KEY = 'remnant_save_directory_path';
 
 export function App() {
   const [characters, setCharacters] = useState<RemnantCharacter[]>([]);
-  const [activeCharIndex, setActiveCharIndex] = useState<number>(0);
+  const [activeCharIndex, setActiveCharIndex] = useState<number>(() => {
+    try {
+      const savedActive = localStorage.getItem(LOCAL_STORAGE_ACTIVE_KEY);
+      return savedActive ? Number(savedActive) : 0;
+    } catch {
+      return 0;
+    }
+  });
   const [currentView, setCurrentView] = useState<'home' | 'world-analyzer' | 'checklist'>('home');
+
+  const handleSelectChar = (idx: number) => {
+    setActiveCharIndex(idx);
+    try {
+      localStorage.setItem(LOCAL_STORAGE_ACTIVE_KEY, idx.toString());
+    } catch (err) {
+      console.warn('LocalStorage save error:', err);
+    }
+  };
   const [selectedChecklistCat, setSelectedChecklistCat] = useState<string | null>(null);
   const [isLiveSave, setIsLiveSave] = useState<boolean>(false);
   const [saveName, setSaveName] = useState<string>('No save loaded');
@@ -220,8 +236,6 @@ export function App() {
         }
       }
 
-      let targetActiveIndex: number | null = null;
-
       for (const worldFile of worldFiles) {
         const match = worldFile.name.match(/save_(\d+)\.sav/i);
         const slot = match ? parseInt(match[1], 10) : 0;
@@ -248,10 +262,6 @@ export function App() {
         currentChars[slot].adventureZone = worldResult.adventureZone;
         currentChars[slot].campaignDifficulty = worldResult.campaignDifficulty;
         currentChars[slot].adventureDifficulty = worldResult.adventureDifficulty;
-
-        if (targetActiveIndex === null) {
-          targetActiveIndex = slot;
-        }
       }
 
       if (currentChars.length === 0) {
@@ -259,9 +269,22 @@ export function App() {
       }
 
       setCharacters(currentChars);
-      if (targetActiveIndex !== null) {
-        setActiveCharIndex(targetActiveIndex);
-      }
+      setActiveCharIndex((prevActive) => {
+        if (currentChars.length === 0) return 0;
+        let preferred = prevActive;
+        try {
+          const savedActive = localStorage.getItem(LOCAL_STORAGE_ACTIVE_KEY);
+          if (savedActive !== null && !isNaN(Number(savedActive))) {
+            preferred = Number(savedActive);
+          }
+        } catch {
+          // ignore
+        }
+        if (preferred >= 0 && preferred < currentChars.length) {
+          return preferred;
+        }
+        return 0;
+      });
       const loadedFileNames = fileArray
         .map((f) => f.name)
         .filter((n) => n.toLowerCase().endsWith('.sav'))
@@ -364,7 +387,7 @@ export function App() {
         characters={characters}
         activeCharacter={activeCharacter}
         activeCharIndex={activeCharIndex}
-        onSelectChar={(idx) => setActiveCharIndex(idx)}
+        onSelectChar={handleSelectChar}
         onRefresh={() => handleAnalyzeSaves(false)}
         onOpenSaveFile={() => setIsSettingsOpen(true)}
         onOpenSettings={() => setIsSettingsOpen(true)}
@@ -379,7 +402,7 @@ export function App() {
           activeCharacter={activeCharacter}
           characters={characters}
           activeCharIndex={activeCharIndex}
-          onSelectChar={(idx) => setActiveCharIndex(idx)}
+          onSelectChar={handleSelectChar}
           onSelectView={handleSelectView}
         />
 
@@ -388,6 +411,7 @@ export function App() {
           {currentView === 'home' && (
             <MainPortal
               overallPercent={overallPercent}
+              onOpenSettings={() => setIsSettingsOpen(true)}
               onLaunchWorldAnalyzer={() => setCurrentView('world-analyzer')}
               onExploreChecklist={() => {
                 setSelectedChecklistCat(null);
@@ -401,7 +425,7 @@ export function App() {
               character={activeCharacter}
               characters={characters}
               activeCharIndex={activeCharIndex}
-              onSelectChar={(idx) => setActiveCharIndex(idx)}
+              onSelectChar={handleSelectChar}
               onBackToHome={() => setCurrentView('home')}
               onOpenSettings={() => setIsSettingsOpen(true)}
             />
