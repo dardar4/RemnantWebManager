@@ -31,7 +31,6 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   );
   const [copied, setCopied] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
-  const [saveStatus, setSaveStatus] = useState<string | null>(null);
   const [showResetConfirm, setShowResetConfirm] = useState<boolean>(false);
   const [isResetting, setIsResetting] = useState<boolean>(false);
 
@@ -43,7 +42,6 @@ export const SettingsModal: FC<SettingsModalProps> = ({
 
   useEffect(() => {
     if (!isOpen) {
-      setSaveStatus(null);
       setShowResetConfirm(false);
     }
   }, [isOpen]);
@@ -53,16 +51,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   const handleApplyPath = async () => {
     if (!onSaveDirectoryChange) return;
     setIsSaving(true);
-    setSaveStatus(null);
     try {
-      const success = await onSaveDirectoryChange(customPathInput);
-      if (success) {
-        setSaveStatus("Directory path saved and save files reloaded successfully!");
-      } else {
-        setSaveStatus(
-          "Directory path saved to LocalStorage. (Note: No .sav files found in this folder)"
-        );
-      }
+      await onSaveDirectoryChange(customPathInput);
     } finally {
       setIsSaving(false);
     }
@@ -82,7 +72,6 @@ export const SettingsModal: FC<SettingsModalProps> = ({
     try {
       await onResetAllData();
       setShowResetConfirm(false);
-      setSaveStatus(null);
       setCustomPathInput(defaultPath);
     } finally {
       setIsResetting(false);
@@ -214,10 +203,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               <input
                 type="text"
                 value={customPathInput}
-                onChange={(e) => {
-                  setCustomPathInput(e.target.value);
-                  setSaveStatus(null);
-                }}
+                onChange={(e) => setCustomPathInput(e.target.value)}
                 placeholder={defaultPath}
                 style={{
                   flex: 1,
@@ -293,29 +279,6 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                 </button>
               )}
             </div>
-
-            {/* Status Feedback Notice */}
-            {saveStatus && (
-              <div
-                style={{
-                  fontSize: "11px",
-                  fontWeight: 500,
-                  padding: "0.375rem 0.625rem",
-                  borderRadius: "0.375rem",
-                  backgroundColor: saveStatus.includes("successfully")
-                    ? "#eef8f1"
-                    : "#fef9c3",
-                  color: saveStatus.includes("successfully")
-                    ? "#15803d"
-                    : "#854d0e",
-                  border: `1px solid ${
-                    saveStatus.includes("successfully") ? "#c8e6d0" : "#fde047"
-                  }`,
-                }}
-              >
-                {saveStatus}
-              </div>
-            )}
 
             {/* Action button: Upload Save Files */}
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
@@ -461,10 +424,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                 </div>
                 <button
                   type="button"
-                  onClick={() => {
-                    setSaveStatus(null);
-                    setShowResetConfirm(true);
-                  }}
+                  onClick={() => setShowResetConfirm(true)}
                   style={{
                     padding: "0.4rem 0.75rem",
                     fontSize: "11px",
