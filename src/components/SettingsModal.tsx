@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import type { FC } from "react";
 import {
   isLocalServerAvailable,
-  isDirectoryPickerSupported,
-  isFilePickerSupported,
+  copyToClipboard,
 } from "../utils/saveFolderStorage";
 
 interface SettingsModalProps {
@@ -12,8 +11,6 @@ interface SettingsModalProps {
   saveDirectoryPath?: string;
   linkedFolderName?: string | null;
   onSaveDirectoryChange?: (newPath: string) => Promise<boolean>;
-  onLinkFiles?: () => Promise<void>;
-  onPickFolder?: () => Promise<void>;
   onPickFiles?: () => void;
   onResetAllData: () => Promise<void>;
 }
@@ -24,8 +21,6 @@ export const SettingsModal: FC<SettingsModalProps> = ({
   saveDirectoryPath,
   linkedFolderName,
   onSaveDirectoryChange,
-  onLinkFiles,
-  onPickFolder,
   onPickFiles,
   onResetAllData,
 }) => {
@@ -68,17 +63,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
 
   const handleCopyPath = async () => {
     const pathToCopy = customPathInput?.trim() || defaultPath;
-    try {
-      await navigator.clipboard.writeText(pathToCopy);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      const textArea = document.createElement("textarea");
-      textArea.value = pathToCopy;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textArea);
+    const ok = await copyToClipboard(pathToCopy);
+    if (ok) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -215,7 +201,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               )}
             </div>
 
-            {/* Path Input Box with Apply & Copy buttons */}
+            {/* Path Input Box with Copy (Icon Only) & Save Path buttons */}
             <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
               <input
                 type="text"
@@ -237,6 +223,31 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   outline: "none",
                 }}
               />
+              <button
+                type="button"
+                onClick={handleCopyPath}
+                title={copied ? "Copied to clipboard!" : "Copy save directory path"}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "0.5rem 0.65rem",
+                  color: copied ? "#15803d" : "var(--terra-700)",
+                  backgroundColor: copied ? "#eef8f1" : "#ffffff",
+                  border: `1px solid ${copied ? "#c8e6d0" : "var(--terra-300)"}`,
+                  borderRadius: "0.375rem",
+                  cursor: "pointer",
+                  transition: "all 0.15s ease",
+                  flexShrink: 0,
+                }}
+              >
+                <span
+                  className="material-symbols-outlined"
+                  style={{ fontSize: "16px" }}
+                >
+                  {copied ? "check" : "content_copy"}
+                </span>
+              </button>
               {onSaveDirectoryChange && (
                 <button
                   type="button"
@@ -245,7 +256,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   title={
                     isLocal
                       ? "Save path to LocalStorage and reload saves"
-                      : "Save path to LocalStorage (use 'Link Save Files' below to enable browser access on web)"
+                      : "Save path to LocalStorage"
                   }
                   style={{
                     display: "inline-flex",
@@ -261,6 +272,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                     cursor: isSaving ? "wait" : "pointer",
                     whiteSpace: "nowrap",
                     transition: "background-color 0.15s ease",
+                    flexShrink: 0,
                   }}
                 >
                   <span
@@ -272,34 +284,6 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   <span>{isSaving ? "Saving..." : "Save Path"}</span>
                 </button>
               )}
-              <button
-                type="button"
-                onClick={handleCopyPath}
-                title="Copy save directory path"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.3rem",
-                  padding: "0.5rem 0.75rem",
-                  fontSize: "11px",
-                  fontWeight: 600,
-                  color: copied ? "#15803d" : "var(--terra-700)",
-                  backgroundColor: copied ? "#eef8f1" : "#ffffff",
-                  border: `1px solid ${copied ? "#c8e6d0" : "var(--terra-300)"}`,
-                  borderRadius: "0.375rem",
-                  cursor: "pointer",
-                  transition: "all 0.15s ease",
-                  flexShrink: 0,
-                }}
-              >
-                <span
-                  className="material-symbols-outlined"
-                  style={{ fontSize: "15px" }}
-                >
-                  {copied ? "check" : "content_copy"}
-                </span>
-                <span>{copied ? "Copied" : "Copy"}</span>
-              </button>
             </div>
 
             {/* Status Feedback Notice */}
@@ -325,78 +309,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               </div>
             )}
 
-            {/* Action buttons row: Link Save Files & Upload Save Files */}
+            {/* Action button: Upload Save Files */}
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-              {onLinkFiles && isFilePickerSupported() && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    onLinkFiles();
-                    onClose();
-                  }}
-                  style={{
-                    flex: "1 1 200px",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "0.5rem",
-                    padding: "0.625rem 1rem",
-                    fontSize: "12px",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    backgroundColor: "var(--moss-600)",
-                    border: "1px solid var(--moss-700)",
-                    borderRadius: "0.5rem",
-                    cursor: "pointer",
-                    transition: "background-color 0.15s ease",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  <span
-                    className="material-symbols-outlined"
-                    style={{ fontSize: "17px" }}
-                  >
-                    link
-                  </span>
-                  <span>Link Save Files (Auto-Refresh)</span>
-                </button>
-              )}
-
-              {onPickFolder && isDirectoryPickerSupported() && !isFilePickerSupported() && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    onPickFolder();
-                    onClose();
-                  }}
-                  style={{
-                    flex: "1 1 180px",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "0.5rem",
-                    padding: "0.625rem 1rem",
-                    fontSize: "12px",
-                    fontWeight: 700,
-                    color: "#ffffff",
-                    backgroundColor: "var(--moss-600)",
-                    border: "1px solid var(--moss-700)",
-                    borderRadius: "0.5rem",
-                    cursor: "pointer",
-                    transition: "background-color 0.15s ease",
-                    boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  <span
-                    className="material-symbols-outlined"
-                    style={{ fontSize: "17px" }}
-                  >
-                    folder_open
-                  </span>
-                  <span>Link Save Folder</span>
-                </button>
-              )}
-
               {onPickFiles && (
                 <button
                   type="button"
@@ -405,25 +319,26 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                     onClose();
                   }}
                   style={{
-                    flex: "1 1 160px",
+                    flex: 1,
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
                     gap: "0.5rem",
                     padding: "0.625rem 1rem",
                     fontSize: "12px",
-                    fontWeight: 600,
-                    color: "var(--terra-800)",
-                    backgroundColor: "var(--terra-100)",
-                    border: "1px solid var(--terra-300)",
+                    fontWeight: 700,
+                    color: "#ffffff",
+                    backgroundColor: "var(--moss-600)",
+                    border: "1px solid var(--moss-700)",
                     borderRadius: "0.5rem",
                     cursor: "pointer",
                     transition: "background-color 0.15s ease",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
                   }}
                 >
                   <span
                     className="material-symbols-outlined"
-                    style={{ fontSize: "17px", color: "var(--rust-stone-700)" }}
+                    style={{ fontSize: "18px" }}
                   >
                     upload_file
                   </span>
@@ -432,7 +347,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               )}
             </div>
 
-            {/* Active Linked Files/Folder Indicator */}
+            {/* Active Loaded Files Indicator */}
             {linkedFolderName && (
               <div
                 style={{
@@ -455,7 +370,7 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   check_circle
                 </span>
                 <span>
-                  Active Link: <strong>{linkedFolderName}</strong> (Auto-refresh enabled)
+                  Active Saves: <strong>{linkedFolderName}</strong>
                 </span>
               </div>
             )}
@@ -479,27 +394,25 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   marginBottom: "0.25rem",
                 }}
               >
-                Connecting Your Saves on Web / GitHub Pages:
+                How to Load &amp; Refresh Your Save Files:
               </div>
               <div>
-                1. Click <strong>Copy</strong> next to the directory path above.
+                1. Click the <strong>copy icon</strong> (📋) next to the save path above to copy your save directory (<code>%LOCALAPPDATA%\Remnant\Saved\SaveGames</code>).
               </div>
               <div>
-                2. Click <strong>Link Save Files (Auto-Refresh)</strong>, paste the path into Windows Explorer, and select your <code>profile.sav</code> and <code>save_0.sav</code> files (or press <kbd>Ctrl+A</kbd>).
+                2. Click <strong>Upload Save Files</strong>, paste the path into Windows Explorer's address bar, and select your <code>profile.sav</code> and <code>save_0.sav</code> files (or press <kbd>Ctrl+A</kbd>).
               </div>
               <div>
-                3. Once linked, the global <strong>Refresh (🔄)</strong> button and Alt-Tab live sync read your updated files silently directly in your browser without any server!
+                3. Whenever you progress or reroll in-game, click the <strong>Refresh (🔄)</strong> button in the top bar to select your updated save files. The save path is automatically copied to your clipboard on refresh for quick navigation!
               </div>
               <div
                 style={{
-                  marginTop: "0.4rem",
-                  color: "var(--terra-600)",
-                  fontSize: "10.5px",
-                  borderTop: "1px solid var(--terra-200)",
-                  paddingTop: "0.35rem",
+                  marginTop: "0.35rem",
+                  color: "var(--terra-500)",
+                  fontStyle: "italic",
                 }}
               >
-                💡 <em>Why Link Files?</em> Google Chrome &amp; Edge security prevents websites from selecting the entire <code>%LOCALAPPDATA%</code> folder (&quot;contains system files&quot;). Linking the individual save files bypasses this restriction and grants persistent auto-refresh access.
+                Tip: You can also drag &amp; drop save files directly onto this page anytime.
               </div>
             </div>
           </div>

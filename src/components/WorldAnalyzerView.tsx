@@ -232,13 +232,13 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                 </div>
                 <ul style={{ margin: 0, paddingLeft: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                   <li>
-                    Click <strong>Open Settings</strong> (or the ⚙️ gear icon) and copy your save directory path: <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>%LOCALAPPDATA%\Remnant\Saved\SaveGames</code>.
+                    Click <strong>Open Settings</strong> (or the ⚙️ gear icon) to verify your save directory path: <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>%LOCALAPPDATA%\Remnant\Saved\SaveGames</code>. Click the <strong>copy icon</strong> to copy it to your clipboard.
                   </li>
                   <li>
-                    In Settings, click <strong>Link Save Files</strong> (or <strong>Save Path</strong> if running locally) — this connects your save files and enables the <strong>Refresh (🔄)</strong> button to work silently!
+                    Click <strong>Upload Save Files</strong> (or the top-bar <strong>Refresh (🔄)</strong> button), paste the path into Windows Explorer, and select your <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>.sav</code> files (<code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>, <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code>, etc.).
                   </li>
                   <li>
-                    Alternatively, click <strong>Upload Save Files</strong> (or drag &amp; drop files directly onto this page) and select all your <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>.sav</code> files (<code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>profile.sav</code>, <code style={{ padding: '0.1rem 0.35rem', borderRadius: '4px', backgroundColor: 'var(--terra-100)', color: 'var(--moss-800)', fontFamily: 'var(--font-label)', fontSize: '11px', fontWeight: 600 }}>save_0.sav</code>, etc.).
+                    Whenever you reroll or save in-game, click the <strong>Refresh (🔄)</strong> button to quickly re-select your updated save files. The save path is automatically copied to your clipboard on refresh! You can also drag &amp; drop save files directly onto this window anytime.
                   </li>
                 </ul>
               </div>
