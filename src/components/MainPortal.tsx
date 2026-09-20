@@ -8,7 +8,12 @@ interface MainPortalProps {
   overallPercent?: number;
 }
 
-export const MainPortal: FC<MainPortalProps> = ({ onOpenSettings }) => {
+export const MainPortal: FC<MainPortalProps> = ({
+  onOpenSettings,
+  onLaunchWorldAnalyzer,
+  onExploreChecklist,
+  overallPercent,
+}) => {
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(true);
 
   return (
@@ -26,25 +31,19 @@ export const MainPortal: FC<MainPortalProps> = ({ onOpenSettings }) => {
           padding: "1.5rem 2rem",
           display: "flex",
           flexDirection: "column",
-          gap: "1.25rem",
+          gap: "1.5rem",
           maxWidth: "1600px",
           margin: "0 auto",
           width: "100%",
         }}
       >
-        {/* Top Header Bar */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        {/* Top Header Bar & Welcoming Sub-header */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
           <h1
             style={{
               fontFamily: "var(--font-headline)",
-              fontSize: "24px",
-              fontWeight: 700,
+              fontSize: "26px",
+              fontWeight: 800,
               letterSpacing: "-0.02em",
               color: "var(--terra-900)",
               margin: 0,
@@ -52,9 +51,256 @@ export const MainPortal: FC<MainPortalProps> = ({ onOpenSettings }) => {
           >
             Remnant Manager
           </h1>
+          <p
+            style={{
+              fontSize: "13.5px",
+              color: "var(--terra-600)",
+              margin: 0,
+              lineHeight: 1.6,
+              maxWidth: "960px",
+            }}
+          >
+            Welcome to Remnant: From the Ashes Manager. Here you can analyze your current world rolls,
+            track your item and trait inventory, and discover missing gear across Campaign and Adventure modes.
+          </p>
         </div>
 
-        {/* Combined Expandable Instructions & Known Issues Card (Copied from World Analyzer) */}
+        {/* Feature Cards Grid: World Analyzer & Checklist links */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gap: "1.25rem",
+          }}
+        >
+          {/* Card 1: World Analyzer Link */}
+          <div
+            onClick={onLaunchWorldAnalyzer}
+            role="button"
+            tabIndex={0}
+            style={{
+              backgroundColor: "#ffffff",
+              borderRadius: "1rem",
+              border: "1px solid rgba(226, 218, 207, 0.9)",
+              boxShadow: "0 2px 8px -1px rgba(45, 38, 30, 0.04)",
+              padding: "1.5rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              gap: "1.25rem",
+              cursor: onLaunchWorldAnalyzer ? "pointer" : "default",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 8px 20px -3px rgba(45, 38, 30, 0.09)";
+              e.currentTarget.style.borderColor = "var(--secondary)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 2px 8px -1px rgba(45, 38, 30, 0.04)";
+              e.currentTarget.style.borderColor = "rgba(226, 218, 207, 0.9)";
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div
+                  style={{
+                    width: "2.75rem",
+                    height: "2.75rem",
+                    borderRadius: "0.75rem",
+                    backgroundColor: "rgba(158, 116, 50, 0.12)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--secondary)",
+                  }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: "24px" }}>
+                    explore
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "var(--font-label)",
+                    fontSize: "10.5px",
+                    fontWeight: 700,
+                    padding: "0.2rem 0.6rem",
+                    borderRadius: "9999px",
+                    backgroundColor: "rgba(158, 116, 50, 0.12)",
+                    color: "var(--secondary)",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  WORLD ANALYZER
+                </span>
+              </div>
+              <div>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-headline)",
+                    fontSize: "18px",
+                    fontWeight: 700,
+                    color: "var(--terra-900)",
+                    margin: "0 0 0.4rem",
+                  }}
+                >
+                  Launch World Analyzer
+                </h2>
+                <p
+                  style={{
+                    fontSize: "12.5px",
+                    color: "var(--terra-600)",
+                    margin: 0,
+                    lineHeight: 1.55,
+                  }}
+                >
+                  Parse active campaign and adventure seeds across Earth, Rhom, Corsus, Yaesha, and Reisum.
+                  Inspect bosses, dungeons, and item drop tables in real time.
+                </p>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                color: "var(--secondary)",
+                fontFamily: "var(--font-label)",
+                fontSize: "12px",
+                fontWeight: 700,
+                letterSpacing: "0.04em",
+              }}
+            >
+              <span>INSPECT ACTIVE ROLL</span>
+              <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>
+                arrow_forward
+              </span>
+            </div>
+          </div>
+
+          {/* Card 2: Checklist Link */}
+          <div
+            onClick={onExploreChecklist}
+            role="button"
+            tabIndex={0}
+            style={{
+              backgroundColor: "#ffffff",
+              borderRadius: "1rem",
+              border: "1px solid rgba(226, 218, 207, 0.9)",
+              boxShadow: "0 2px 8px -1px rgba(45, 38, 30, 0.04)",
+              padding: "1.5rem",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              gap: "1.25rem",
+              cursor: onExploreChecklist ? "pointer" : "default",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 8px 20px -3px rgba(45, 38, 30, 0.09)";
+              e.currentTarget.style.borderColor = "var(--primary)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 2px 8px -1px rgba(45, 38, 30, 0.04)";
+              e.currentTarget.style.borderColor = "rgba(226, 218, 207, 0.9)";
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div
+                  style={{
+                    width: "2.75rem",
+                    height: "2.75rem",
+                    borderRadius: "0.75rem",
+                    backgroundColor: "rgba(156, 51, 37, 0.12)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--primary)",
+                  }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: "24px" }}>
+                    inventory_2
+                  </span>
+                </div>
+                <span
+                  style={{
+                    fontFamily: "var(--font-label)",
+                    fontSize: "10.5px",
+                    fontWeight: 700,
+                    padding: "0.2rem 0.6rem",
+                    borderRadius: "9999px",
+                    backgroundColor: "rgba(156, 51, 37, 0.12)",
+                    color: "var(--primary)",
+                    letterSpacing: "0.05em",
+                  }}
+                >
+                  {overallPercent !== undefined ? `${overallPercent}% ACQUIRED` : "CHECKLIST MATRIX"}
+                </span>
+              </div>
+              <div>
+                <h2
+                  style={{
+                    fontFamily: "var(--font-headline)",
+                    fontSize: "18px",
+                    fontWeight: 700,
+                    color: "var(--terra-900)",
+                    margin: "0 0 0.4rem",
+                  }}
+                >
+                  Item &amp; Trait Checklist
+                </h2>
+                <p
+                  style={{
+                    fontSize: "12.5px",
+                    color: "var(--terra-600)",
+                    margin: 0,
+                    lineHeight: 1.55,
+                  }}
+                >
+                  Track collected and missing Weapons, Armor sets, Rings, Amulets, Weapon Mods, and Traits
+                  with detailed drop conditions and criteria.
+                </p>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.4rem",
+                color: "var(--primary)",
+                fontFamily: "var(--font-label)",
+                fontSize: "12px",
+                fontWeight: 700,
+                letterSpacing: "0.04em",
+              }}
+            >
+              <span>OPEN GEAR MATRIX</span>
+              <span className="material-symbols-outlined" style={{ fontSize: "16px" }}>
+                arrow_forward
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Box/Card 3: How to Guide (Copied from World Analyzer) */}
         <section
           style={{
             backgroundColor: "#ffffff",
@@ -461,6 +707,87 @@ export const MainPortal: FC<MainPortalProps> = ({ onOpenSettings }) => {
               </div>
             </div>
           )}
+        </section>
+
+        {/* Box/Card 4: Credits & Acknowledgments Card (Placeholder) */}
+        <section
+          style={{
+            backgroundColor: "#ffffff",
+            borderRadius: "1rem",
+            border: "1px solid rgba(226, 218, 207, 0.9)",
+            boxShadow: "0 2px 8px -1px rgba(45, 38, 30, 0.04)",
+            padding: "1.25rem 1.5rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "0.75rem",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+              gap: "0.5rem",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: "0.625rem" }}>
+              <span
+                className="material-symbols-outlined"
+                style={{ fontSize: "20px", color: "var(--moss-700)" }}
+              >
+                military_tech
+              </span>
+              <h2
+                style={{
+                  fontFamily: "var(--font-headline)",
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "var(--terra-900)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.05em",
+                  margin: 0,
+                }}
+              >
+                Credits &amp; Acknowledgments
+              </h2>
+            </div>
+            <span
+              style={{
+                fontFamily: "var(--font-label)",
+                fontSize: "10px",
+                fontWeight: 600,
+                padding: "0.125rem 0.5rem",
+                borderRadius: "9999px",
+                backgroundColor: "rgba(74, 114, 87, 0.12)",
+                color: "var(--moss-800)",
+              }}
+            >
+              Placeholder
+            </span>
+          </div>
+
+          <div
+            style={{
+              fontSize: "13px",
+              color: "var(--terra-700)",
+              lineHeight: 1.6,
+            }}
+          >
+            <p style={{ margin: 0 }}>
+              Special thanks to Gunfire Games for creating Remnant: From the Ashes, and to the community members and tool authors whose data mappings and research made this telemetry analyzer possible.
+            </p>
+            <p
+              style={{
+                margin: "0.5rem 0 0",
+                fontSize: "12px",
+                color: "var(--terra-500)",
+                fontStyle: "italic",
+              }}
+            >
+              Note: This credits section is ready for your personal attributions, links, and acknowledgments.
+            </p>
+          </div>
         </section>
       </div>
     </div>
