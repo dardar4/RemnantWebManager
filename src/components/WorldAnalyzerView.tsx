@@ -233,17 +233,18 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
             <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
               <thead>
                 <tr className="wa-table-header">
-                  <th style={{ width: '12%' }} scope="col">Area</th>
-                  <th style={{ width: '24%' }} scope="col">Location</th>
-                  <th style={{ width: '16%' }} scope="col">Event Type</th>
-                  <th style={{ width: '20%' }} scope="col">Event Name</th>
-                  <th style={{ width: '28%' }} scope="col">Missing Items</th>
+                  <th style={{ width: '11%' }} scope="col">Area</th>
+                  <th style={{ width: '21%' }} scope="col">Location</th>
+                  <th style={{ width: '14%' }} scope="col">Event Type</th>
+                  <th style={{ width: '18%' }} scope="col">Event Name</th>
+                  <th style={{ width: '21%' }} scope="col">Missing Items</th>
+                  <th style={{ width: '15%' }} scope="col">Where to Find</th>
                 </tr>
               </thead>
               <tbody style={{ fontSize: '14px', color: 'var(--terra-800)' }}>
                 {currentEvents.length === 0 ? (
                   <tr>
-                    <td colSpan={5} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
+                    <td colSpan={6} style={{ textAlign: 'center', padding: '2.5rem 1.25rem', color: 'var(--terra-500)', fontFamily: 'var(--font-label)' }}>
                       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
                         <span className="material-symbols-outlined" style={{ fontSize: '28px', color: 'var(--terra-400)' }}>
                           {mode === 'adventure' ? 'explore_off' : 'table_rows'}
@@ -400,6 +401,48 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                               </span>
                               All Acquired
                             </span>
+                          ) : (
+                            <span style={{ color: 'var(--terra-400)', fontSize: '14px', fontStyle: 'italic' }}>
+                              —
+                            </span>
+                          )}
+                        </td>
+
+                        {/* Where to Find */}
+                        <td style={{ padding: '0.9rem 1.25rem', verticalAlign: 'middle' }}>
+                          {evt.missingItems && evt.missingItems.length > 0 ? (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                              {evt.missingItems.map((item, itemIdx) => {
+                                const searchQuery = `in remnant from the ashes where can i find the ${item.name.toLowerCase()}`;
+                                const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
+                                return (
+                                  <a
+                                    key={itemIdx}
+                                    href={googleUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    style={{
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      gap: '0.35rem',
+                                      fontSize: '13px',
+                                      fontWeight: 600,
+                                      color: 'var(--accent-emerald)',
+                                      textDecoration: 'none',
+                                      lineHeight: 1.45,
+                                    }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.textDecoration = 'underline')}
+                                    onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
+                                    title={`Search Google: "${searchQuery}"`}
+                                  >
+                                    <span>{evt.missingItems.length > 1 ? `Find ${item.name}` : 'Find on Google'}</span>
+                                    <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
+                                      open_in_new
+                                    </span>
+                                  </a>
+                                );
+                              })}
+                            </div>
                           ) : (
                             <span style={{ color: 'var(--terra-400)', fontSize: '14px', fontStyle: 'italic' }}>
                               —
