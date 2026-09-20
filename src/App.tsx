@@ -20,8 +20,32 @@ const LOCAL_STORAGE_KEY = 'remnant_web_characters_v2';
 const LOCAL_STORAGE_ACTIVE_KEY = 'remnant_web_active_char_v2';
 const LOCAL_STORAGE_LIVE_KEY = 'remnant_web_is_live_v2';
 const LOCAL_STORAGE_PATH_KEY = 'remnant_save_directory_path';
+const LOCAL_STORAGE_THEME_KEY = 'remnant_web_theme';
 
 export function App() {
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    try {
+      const savedTheme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY);
+      if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
+    } catch {
+      // ignore
+    }
+    return 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
+    } catch (err) {
+      console.warn('LocalStorage theme error:', err);
+    }
+  }, [theme]);
+
+  const handleToggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
   const [characters, setCharacters] = useState<RemnantCharacter[]>([]);
   const [activeCharIndex, setActiveCharIndex] = useState<number>(() => {
     try {
@@ -387,6 +411,8 @@ export function App() {
         characters={characters}
         activeCharacter={activeCharacter}
         activeCharIndex={activeCharIndex}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
         onSelectChar={handleSelectChar}
         onRefresh={() => handleAnalyzeSaves(false)}
         onOpenSaveFile={() => setIsSettingsOpen(true)}

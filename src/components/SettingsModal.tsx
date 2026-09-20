@@ -86,11 +86,11 @@ export const SettingsModal: FC<SettingsModalProps> = ({
         style={{
           maxWidth: "520px",
           width: "90%",
-          backgroundColor: "#ffffff",
+          backgroundColor: "var(--bg-card)",
           borderRadius: "1rem",
           boxShadow:
-            "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-          border: "1px solid var(--terra-200)",
+            "0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.15)",
+          border: "1px solid var(--border-color)",
           overflow: "hidden",
         }}
       >
@@ -101,8 +101,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
             justifyContent: "space-between",
             alignItems: "center",
             padding: "1rem 1.25rem",
-            borderBottom: "1px solid var(--terra-200)",
-            backgroundColor: "var(--terra-50)",
+            borderBottom: "1px solid var(--border-color)",
+            backgroundColor: "var(--bg-card-subtle)",
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -211,8 +211,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   fontFamily: "var(--font-label)",
                   fontSize: "12px",
                   color: "var(--terra-900)",
-                  backgroundColor: "var(--terra-50)",
-                  border: "1px solid var(--terra-300)",
+                  backgroundColor: "var(--bg-card-subtle)",
+                  border: "1px solid var(--border-color)",
                   borderRadius: "0.5rem",
                   outline: "none",
                 }}
@@ -226,9 +226,9 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                   alignItems: "center",
                   justifyContent: "center",
                   padding: "0.5rem 0.65rem",
-                  color: copied ? "#15803d" : "var(--terra-700)",
-                  backgroundColor: copied ? "#eef8f1" : "#ffffff",
-                  border: `1px solid ${copied ? "#c8e6d0" : "var(--terra-300)"}`,
+                  color: copied ? "var(--accent-emerald)" : "var(--terra-700)",
+                  backgroundColor: copied ? "var(--accent-emerald-subtle)" : "var(--bg-card)",
+                  border: `1px solid ${copied ? "var(--accent-emerald)" : "var(--border-color)"}`,
                   borderRadius: "0.375rem",
                   cursor: "pointer",
                   transition: "all 0.15s ease",
@@ -351,10 +351,10 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               style={{
                 fontSize: "11px",
                 color: "var(--terra-600)",
-                backgroundColor: "rgba(250, 248, 245, 0.9)",
+                backgroundColor: "var(--bg-card-subtle)",
                 padding: "0.75rem",
                 borderRadius: "0.5rem",
-                border: "1px dashed var(--terra-300)",
+                border: "1px dashed var(--border-color)",
                 lineHeight: 1.6,
               }}
             >
@@ -522,8 +522,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
                       fontSize: "11px",
                       fontWeight: 600,
                       color: "var(--terra-700)",
-                      backgroundColor: "#ffffff",
-                      border: "1px solid var(--terra-300)",
+                      backgroundColor: "var(--bg-card)",
+                      border: "1px solid var(--border-color)",
                       borderRadius: "0.375rem",
                       cursor: "pointer",
                     }}
@@ -559,8 +559,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
             display: "flex",
             justifyContent: "flex-end",
             padding: "0.75rem 1.25rem",
-            borderTop: "1px solid var(--terra-200)",
-            backgroundColor: "var(--terra-50)",
+            borderTop: "1px solid var(--border-color)",
+            backgroundColor: "var(--bg-card-subtle)",
           }}
         >
           <button
@@ -571,8 +571,8 @@ export const SettingsModal: FC<SettingsModalProps> = ({
               fontSize: "12px",
               fontWeight: 600,
               color: "var(--terra-700)",
-              backgroundColor: "#ffffff",
-              border: "1px solid var(--terra-300)",
+              backgroundColor: "var(--bg-card)",
+              border: "1px solid var(--border-color)",
               borderRadius: "0.5rem",
               cursor: "pointer",
             }}

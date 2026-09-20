@@ -8,6 +8,8 @@ interface TopAppBarProps {
   characters?: RemnantCharacter[];
   activeCharacter?: RemnantCharacter;
   activeCharIndex?: number;
+  theme?: "light" | "dark";
+  onToggleTheme?: () => void;
   onSelectChar?: (index: number) => void;
   onRefresh?: () => void;
   onOpenSaveFile?: () => void;
@@ -18,6 +20,8 @@ export const TopAppBar: FC<TopAppBarProps> = ({
   isAnalyzing,
   characters,
   activeCharIndex = 0,
+  theme = "dark",
+  onToggleTheme,
   onSelectChar,
   onRefresh,
   onOpenSettings,
@@ -164,7 +168,7 @@ export const TopAppBar: FC<TopAppBarProps> = ({
         )}
       </div>
 
-      {/* Right Side Utilities: Refresh & Settings */}
+      {/* Right Side Utilities: Refresh, Theme Toggle & Settings */}
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "0.625rem" }}>
         {onRefresh && (
           <button
@@ -193,6 +197,30 @@ export const TopAppBar: FC<TopAppBarProps> = ({
               }}
             >
               refresh
+            </span>
+          </button>
+        )}
+
+        {onToggleTheme && (
+          <button
+            className="icon-btn"
+            id="theme-toggle-btn"
+            title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            onClick={onToggleTheme}
+            style={{
+              cursor: "pointer",
+              background: "transparent",
+              border: "1px solid transparent",
+              borderRadius: "0.5rem",
+              padding: "0.5rem",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--on-surface-variant)",
+            }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: "22px" }}>
+              {theme === "dark" ? "light_mode" : "dark_mode"}
             </span>
           </button>
         )}

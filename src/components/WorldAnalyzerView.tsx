@@ -99,7 +99,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
         <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingTop: '0.25rem' }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '1rem' }}>
             {/* Segmented Tab Navigation */}
-            <div style={{ display: 'inline-flex', padding: '0.25rem', borderRadius: '0.75rem', backgroundColor: '#EDE7DD', border: '1px solid rgba(207, 195, 179, 0.8)' }}>
+            <div style={{ display: 'inline-flex', padding: '0.25rem', borderRadius: '0.75rem', backgroundColor: 'var(--bg-card-subtle)', border: '1px solid var(--border-color)' }}>
               <button
                 type="button"
                 onClick={() => setMode('campaign')}
@@ -108,11 +108,11 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   fontSize: '14px',
                   fontWeight: mode === 'campaign' ? 700 : 600,
                   borderRadius: '0.5rem',
-                  color: mode === 'campaign' ? '#ffffff' : 'var(--terra-700)',
-                  backgroundColor: mode === 'campaign' ? 'var(--moss-600)' : 'transparent',
+                  color: mode === 'campaign' ? '#ffffff' : 'var(--text-secondary)',
+                  backgroundColor: mode === 'campaign' ? 'var(--accent-emerald)' : 'transparent',
                   border: 'none',
                   cursor: 'pointer',
-                  boxShadow: mode === 'campaign' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                  boxShadow: mode === 'campaign' ? '0 1px 3px rgba(0,0,0,0.15)' : 'none',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -126,11 +126,11 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   fontSize: '14px',
                   fontWeight: mode === 'adventure' ? 700 : 600,
                   borderRadius: '0.5rem',
-                  color: mode === 'adventure' ? '#ffffff' : 'var(--terra-700)',
-                  backgroundColor: mode === 'adventure' ? 'var(--moss-600)' : 'transparent',
+                  color: mode === 'adventure' ? '#ffffff' : 'var(--text-secondary)',
+                  backgroundColor: mode === 'adventure' ? 'var(--accent-emerald)' : 'transparent',
                   border: 'none',
                   cursor: 'pointer',
-                  boxShadow: mode === 'adventure' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                  boxShadow: mode === 'adventure' ? '0 1px 3px rgba(0,0,0,0.15)' : 'none',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -166,8 +166,8 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                   paddingTop: '0.625rem',
                   paddingBottom: '0.625rem',
                   borderRadius: '0.75rem',
-                  backgroundColor: '#ffffff',
-                  border: '1px solid var(--terra-300)',
+                  backgroundColor: 'var(--bg-card-subtle)',
+                  border: '1px solid var(--border-color)',
                   fontSize: '14px',
                   fontFamily: 'var(--font-label)',
                   color: 'var(--terra-900)',
@@ -318,8 +318,8 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                       <tr
                         key={`${evt.key}-${idx}`}
                         style={{
-                          borderBottom: '1px solid rgba(226, 218, 207, 0.6)',
-                          backgroundColor: idx % 2 === 0 ? '#ffffff' : 'rgba(250, 248, 245, 0.5)',
+                          borderBottom: '1px solid var(--border-color)',
+                          backgroundColor: idx % 2 === 0 ? 'var(--bg-card)' : 'var(--bg-card-subtle)',
                           transition: 'background-color 0.1s ease',
                         }}
                       >
@@ -421,11 +421,11 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
               bottom: 0,
               zIndex: 10,
               padding: '0.875rem 1.5rem',
-              backgroundColor: '#FAF8F5',
-              borderTop: '1px solid rgba(226, 218, 207, 0.9)',
+              backgroundColor: 'var(--bg-card-subtle)',
+              borderTop: '1px solid var(--border-color)',
               borderBottomLeftRadius: '1rem',
               borderBottomRightRadius: '1rem',
-              boxShadow: '0 -4px 12px rgba(45, 38, 30, 0.08)',
+              boxShadow: '0 -4px 12px rgba(0, 0, 0, 0.08)',
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',

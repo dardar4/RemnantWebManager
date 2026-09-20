@@ -188,8 +188,8 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
                     fontSize: '11px',
                     fontWeight: 600,
                     padding: '0.25rem 0.625rem',
-                    backgroundColor: '#ffffff',
-                    border: '1px solid var(--outline-variant)',
+                    backgroundColor: 'var(--bg-card-subtle)',
+                    border: '1px solid var(--border-color)',
                     borderRadius: '3px',
                     color: 'var(--on-surface)',
                     cursor: 'pointer',
@@ -316,8 +316,8 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
                           <tr
                             key={`${item.key}-${idx}`}
                             style={{
-                              borderBottom: '1px solid var(--outline-variant)',
-                              backgroundColor: isOwned ? '#ffffff' : 'rgba(255, 240, 240, 0.4)',
+                              borderBottom: '1px solid var(--border-color)',
+                              backgroundColor: isOwned ? 'var(--bg-card)' : 'rgba(239, 68, 68, 0.06)',
                             }}
                           >
                             <td style={{ padding: '8px 12px' }}>

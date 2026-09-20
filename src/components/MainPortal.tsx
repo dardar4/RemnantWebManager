@@ -79,10 +79,10 @@ export const MainPortal: FC<MainPortalProps> = ({
             role="button"
             tabIndex={0}
             style={{
-              backgroundColor: "#ffffff",
+              backgroundColor: "var(--bg-card)",
               borderRadius: "1rem",
-              border: "1px solid rgba(226, 218, 207, 0.9)",
-              boxShadow: "0 2px 8px -1px rgba(45, 38, 30, 0.04)",
+              border: "1px solid var(--border-color)",
+              boxShadow: "0 2px 8px -1px rgba(0, 0, 0, 0.06)",
               padding: "1.5rem",
               display: "flex",
               flexDirection: "column",
@@ -93,13 +93,13 @@ export const MainPortal: FC<MainPortalProps> = ({
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 8px 20px -3px rgba(45, 38, 30, 0.09)";
+              e.currentTarget.style.boxShadow = "0 8px 20px -3px rgba(0, 0, 0, 0.15)";
               e.currentTarget.style.borderColor = "var(--secondary)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 2px 8px -1px rgba(45, 38, 30, 0.04)";
-              e.currentTarget.style.borderColor = "rgba(226, 218, 207, 0.9)";
+              e.currentTarget.style.boxShadow = "0 2px 8px -1px rgba(0, 0, 0, 0.06)";
+              e.currentTarget.style.borderColor = "var(--border-color)";
             }}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
@@ -192,10 +192,10 @@ export const MainPortal: FC<MainPortalProps> = ({
             role="button"
             tabIndex={0}
             style={{
-              backgroundColor: "#ffffff",
+              backgroundColor: "var(--bg-card)",
               borderRadius: "1rem",
-              border: "1px solid rgba(226, 218, 207, 0.9)",
-              boxShadow: "0 2px 8px -1px rgba(45, 38, 30, 0.04)",
+              border: "1px solid var(--border-color)",
+              boxShadow: "0 2px 8px -1px rgba(0, 0, 0, 0.06)",
               padding: "1.5rem",
               display: "flex",
               flexDirection: "column",
@@ -206,13 +206,13 @@ export const MainPortal: FC<MainPortalProps> = ({
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 8px 20px -3px rgba(45, 38, 30, 0.09)";
+              e.currentTarget.style.boxShadow = "0 8px 20px -3px rgba(0, 0, 0, 0.15)";
               e.currentTarget.style.borderColor = "var(--primary)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "0 2px 8px -1px rgba(45, 38, 30, 0.04)";
-              e.currentTarget.style.borderColor = "rgba(226, 218, 207, 0.9)";
+              e.currentTarget.style.boxShadow = "0 2px 8px -1px rgba(0, 0, 0, 0.06)";
+              e.currentTarget.style.borderColor = "var(--border-color)";
             }}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
@@ -303,10 +303,10 @@ export const MainPortal: FC<MainPortalProps> = ({
         {/* Box/Card 3: How to Guide (Copied from World Analyzer) */}
         <section
           style={{
-            backgroundColor: "#ffffff",
+            backgroundColor: "var(--bg-card)",
             borderRadius: "1rem",
-            border: "1px solid rgba(226, 218, 207, 0.9)",
-            boxShadow: "0 2px 8px -1px rgba(45, 38, 30, 0.04)",
+            border: "1px solid var(--border-color)",
+            boxShadow: "0 2px 8px -1px rgba(0, 0, 0, 0.06)",
             overflow: "hidden",
           }}
         >
@@ -321,10 +321,10 @@ export const MainPortal: FC<MainPortalProps> = ({
               justifyContent: "space-between",
               padding: "0.875rem 1.25rem",
               backgroundColor: isGuideOpen
-                ? "rgba(250, 248, 245, 0.85)"
-                : "#ffffff",
+                ? "var(--bg-card-subtle)"
+                : "var(--bg-card)",
               border: "none",
-              borderBottom: isGuideOpen ? "1px solid var(--terra-100)" : "none",
+              borderBottom: isGuideOpen ? "1px solid var(--border-color)" : "none",
               cursor: "pointer",
               textAlign: "left",
               transition: "background-color 0.15s ease",
@@ -410,14 +410,14 @@ export const MainPortal: FC<MainPortalProps> = ({
             <div
               style={{
                 padding: "1.25rem 1.5rem",
-                borderTop: "1px solid var(--terra-100)",
+                borderTop: "1px solid var(--border-color)",
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
                 gap: "1.5rem",
                 fontSize: "13px",
                 color: "var(--terra-700)",
                 lineHeight: 1.6,
-                backgroundColor: "#ffffff",
+                backgroundColor: "var(--bg-card)",
               }}
             >
               {/* Step 1: Save File Directory Setup */}
@@ -712,10 +712,10 @@ export const MainPortal: FC<MainPortalProps> = ({
         {/* Box/Card 4: Credits & Acknowledgments Card (Placeholder) */}
         <section
           style={{
-            backgroundColor: "#ffffff",
+            backgroundColor: "var(--bg-card)",
             borderRadius: "1rem",
-            border: "1px solid rgba(226, 218, 207, 0.9)",
-            boxShadow: "0 2px 8px -1px rgba(45, 38, 30, 0.04)",
+            border: "1px solid var(--border-color)",
+            boxShadow: "0 2px 8px -1px rgba(0, 0, 0, 0.06)",
             padding: "1.25rem 1.5rem",
             display: "flex",
             flexDirection: "column",

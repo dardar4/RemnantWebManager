@@ -84,26 +84,11 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
               >
                 <span
                   className="material-symbols-outlined"
-                  style={{
-                    color:
-                      currentView === "world-analyzer"
-                        ? "var(--secondary)"
-                        : "inherit",
-                    fontSize: "18px",
-                  }}
+                  style={{ fontSize: "18px" }}
                 >
                   public
                 </span>
-                <span
-                  style={{
-                    color:
-                      currentView === "world-analyzer"
-                        ? "var(--secondary)"
-                        : "inherit",
-                  }}
-                >
-                  World Analyzer
-                </span>
+                <span>World Analyzer</span>
               </div>
               <span
                 className="material-symbols-outlined"
