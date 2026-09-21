@@ -435,7 +435,7 @@ export const WorldAnalyzerView: FC<WorldAnalyzerViewProps> = ({
                                     onMouseLeave={(e) => (e.currentTarget.style.textDecoration = 'none')}
                                     title={`Search Google: "${searchQuery}"`}
                                   >
-                                    <span>{evt.missingItems.length > 1 ? `Find ${item.name}` : 'Find on Google'}</span>
+                                    <span>Find {item.name}</span>
                                     <span className="material-symbols-outlined" style={{ fontSize: '15px' }}>
                                       open_in_new
                                     </span>
