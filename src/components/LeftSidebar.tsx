@@ -203,7 +203,7 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
           >
             VERSION
           </span>
-          <span className="brand-version-badge">v1.0.0</span>
+          <span className="brand-version-badge">v1.1.4</span>
         </div>
       </div>
     </aside>

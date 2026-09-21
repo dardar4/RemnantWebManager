@@ -763,7 +763,7 @@ export const MainPortal: FC<MainPortalProps> = ({
                 color: "var(--moss-800)",
               }}
             >
-              Placeholder
+              Attributions
             </span>
           </div>
 
@@ -772,20 +772,52 @@ export const MainPortal: FC<MainPortalProps> = ({
               fontSize: "13px",
               color: "var(--terra-700)",
               lineHeight: 1.6,
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.5rem",
             }}
           >
             <p style={{ margin: 0 }}>
-              Special thanks to Gunfire Games for creating Remnant: From the Ashes, and to the community members and tool authors whose data mappings and research made this telemetry analyzer possible.
+              Special credit to <strong>Razzmatazzz</strong> for{" "}
+              <a
+                href="https://github.com/Razzmatazzz/RemnantSaveGuardian"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--accent-emerald)", fontWeight: 600, textDecoration: "none" }}
+                onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+              >
+                RemnantSaveGuardian
+              </a>
+              , where the core save file parsing logic was developed.
             </p>
-            <p
-              style={{
-                margin: "0.5rem 0 0",
-                fontSize: "12px",
-                color: "var(--terra-500)",
-                fontStyle: "italic",
-              }}
-            >
-              Note: This credits section is ready for your personal attributions, links, and acknowledgments.
+            <p style={{ margin: 0 }}>
+              Credit to <strong>hzla</strong> for the{" "}
+              <a
+                href="https://github.com/hzla/Remnant-World-Analyzer"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--accent-emerald)", fontWeight: 600, textDecoration: "none" }}
+                onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+              >
+                Remnant-World-Analyzer
+              </a>{" "}
+              (
+              <a
+                href="https://hzla.github.io/Remnant-World-Analyzer/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--accent-emerald)", fontWeight: 600, textDecoration: "none" }}
+                onMouseEnter={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                onMouseLeave={(e) => (e.currentTarget.style.textDecoration = "none")}
+              >
+                online tool
+              </a>
+              ), used during gameplay for world event analysis.
+            </p>
+            <p style={{ margin: 0 }}>
+              Also credit to the folks on the official Remnant discord for chasing down items and community drop tables.
             </p>
           </div>
         </section>
