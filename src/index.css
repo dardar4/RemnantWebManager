@@ -402,7 +402,7 @@ body {
 
 /* LEFT SIDEBAR */
 .sidebar {
-  width: 250px;
+  width: 265px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -448,14 +448,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.625rem 0.875rem;
+  padding: 0.65rem 0.95rem;
   background: transparent;
   border: none;
   border-radius: 0.625rem;
   color: var(--text-secondary);
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   transition: all 0.15s ease;
 }
@@ -482,7 +482,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 0.875rem;
+  padding: 0.55rem 0.95rem;
   color: var(--text-secondary);
   cursor: pointer;
   background: transparent;
@@ -508,19 +508,19 @@ body {
 
 .checklist-title {
   font-family: var(--font-body);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   color: inherit;
 }
 
 .checklist-counter {
   font-family: var(--font-label);
-  font-size: 10px;
+  font-size: 11.5px;
   color: var(--text-muted);
 }
 
 .chevron-icon {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--outline);
   transition: transform 0.2s ease;
 }
@@ -543,10 +543,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.375rem 0.625rem;
+  padding: 0.4rem 0.7rem;
   color: var(--text-secondary);
   font-family: var(--font-label);
-  font-size: 12px;
+  font-size: 13.5px;
   text-decoration: none;
   cursor: pointer;
   border-radius: 4px;
@@ -571,7 +571,7 @@ body {
 }
 
 .subcat-left .material-symbols-outlined {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--text-muted);
 }
 
@@ -582,14 +582,14 @@ body {
 }
 
 .subcat-counts {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--accent-emerald);
   font-weight: 600;
 }
 
 .subcat-mini-bar {
-  width: 2.5rem;
-  height: 4px;
+  width: 2.75rem;
+  height: 5px;
   background-color: var(--bg-card-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: 9999px;

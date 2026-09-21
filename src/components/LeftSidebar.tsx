@@ -60,7 +60,7 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
               >
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: "18px" }}
+                  style={{ fontSize: "20px" }}
                 >
                   home
                 </span>
@@ -84,7 +84,7 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
               >
                 <span
                   className="material-symbols-outlined"
-                  style={{ fontSize: "18px" }}
+                  style={{ fontSize: "20px" }}
                 >
                   public
                 </span>
@@ -92,7 +92,7 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
               </div>
               <span
                 className="material-symbols-outlined"
-                style={{ fontSize: "14px", color: "var(--outline)" }}
+                style={{ fontSize: "16px", color: "var(--outline)" }}
               >
                 chevron_right
               </span>
@@ -119,7 +119,7 @@ export const LeftSidebar: FC<LeftSidebarProps> = ({
               >
                 <span
                   className="material-symbols-outlined"
-                  style={{ color: "var(--primary)", fontSize: "18px" }}
+                  style={{ color: "var(--primary)", fontSize: "20px" }}
                 >
                   fact_check
                 </span>
