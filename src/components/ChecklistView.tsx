@@ -1,4 +1,4 @@
-import { useState, useMemo, Fragment } from 'react';
+import { useState, useMemo } from 'react';
 import type { FC } from 'react';
 import type { RemnantCharacter, RemnantItem } from '../types/remnant';
 import { gameData } from '../utils/saveParser';
@@ -21,7 +21,10 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
   const [onlyMissing, setOnlyMissing] = useState<boolean>(false);
   const [dlcFilter, setDlcFilter] = useState<string>('all');
 
-  const inventorySet = useMemo(() => new Set(character.inventory), [character.inventory]);
+  const inventorySet = useMemo(
+    () => new Set(character?.inventory || []),
+    [character?.inventory]
+  );
 
   const handleCategoryClick = (catId: string) => {
     if (onSelectCategory) {
@@ -87,287 +90,169 @@ export const ChecklistView: FC<ChecklistViewProps> = ({
   const totalMatches = groupedSections.reduce((sum, g) => sum + g.items.length, 0);
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-      <div className="view-container">
-        {/* Filter Controls Container */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '1rem' }}>
-          {/* Top Row: Search Input & Category Filter Buttons */}
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', gap: '0.5rem', flex: 1, minWidth: '240px' }}>
-              <input
-                type="text"
-                placeholder="Search gear by name, drop location, event or requirements..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="tactical-input"
-              />
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap' }}>
-              {categories.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => handleCategoryClick(c.id)}
-                  style={{
-                    fontFamily: 'var(--font-label)',
-                    fontSize: '11px',
-                    padding: '5px 11px',
-                    background: currentCat === c.id ? 'var(--primary)' : 'var(--surface-container-low)',
-                    color: currentCat === c.id ? '#ffffff' : 'var(--on-surface)',
-                    border: '1px solid var(--outline-variant)',
-                    borderRadius: '3px',
-                    cursor: 'pointer',
-                    fontWeight: currentCat === c.id ? 700 : 500,
-                    transition: 'all 0.15s ease',
-                  }}
-                >
-                  {c.label}
-                </button>
-              ))}
-            </div>
+    <div className="checklist-container">
+      {/* Search & Category Filters Bar */}
+      <section className="checklist-toolbar">
+        {/* Top Row: Search Input & Category Filter Buttons */}
+        <div className="checklist-toolbar-top">
+          <div className="checklist-search-box">
+            <input
+              type="text"
+              placeholder="Search gear by name, drop location, event or requirements..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="checklist-search-input"
+            />
           </div>
 
-          {/* Sub Row (under buttons): Missing Gear Checkbox & DLC Filter Dropdown */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '0.75rem',
-              padding: '0.5rem 0.75rem',
-              backgroundColor: 'var(--surface-container-low)',
-              border: '1px solid var(--outline-variant)',
-              borderRadius: '3px',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
-              {/* Only Missing Gear Checkbox */}
-              <label
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  fontSize: '11px',
-                  fontFamily: 'var(--font-label)',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  userSelect: 'none',
-                  color: onlyMissing ? 'var(--primary)' : 'var(--on-surface)',
-                  letterSpacing: '0.04em',
-                }}
+          <div className="checklist-pills-bar">
+            {categories.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => handleCategoryClick(c.id)}
+                className={`checklist-pill-btn ${currentCat === c.id ? 'active' : ''}`}
               >
-                <input
-                  type="checkbox"
-                  checked={onlyMissing}
-                  onChange={(e) => setOnlyMissing(e.target.checked)}
-                  style={{ cursor: 'pointer', accentColor: 'var(--primary)' }}
-                />
-                <span>ONLY MISSING GEAR</span>
-              </label>
-
-              {/* DLC / Expansion Filter Dropdown */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span
-                  style={{
-                    fontFamily: 'var(--font-label)',
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    color: 'var(--outline)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.04em',
-                  }}
-                >
-                  DLC / Mode:
-                </span>
-                <select
-                  value={dlcFilter}
-                  onChange={(e) => setDlcFilter(e.target.value)}
-                  style={{
-                    fontFamily: 'var(--font-label)',
-                    fontSize: '11px',
-                    fontWeight: 600,
-                    padding: '0.25rem 0.625rem',
-                    backgroundColor: 'var(--bg-card-subtle)',
-                    border: '1px solid var(--border-color)',
-                    borderRadius: '3px',
-                    color: 'var(--on-surface)',
-                    cursor: 'pointer',
-                    outline: 'none',
-                  }}
-                >
-                  <option value="all">All Content</option>
-                  <option value="base">Base Game</option>
-                  <option value="Subject 2923">Subject 2923</option>
-                  <option value="Swamps of Corsus">Swamps of Corsus</option>
-                  <option value="survival">Survival</option>
-                  <option value="hardcore">Hardcore</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Total Matches Badge */}
-            <div
-              style={{
-                fontFamily: 'var(--font-label)',
-                fontSize: '11px',
-                fontWeight: 600,
-                color: 'var(--outline)',
-              }}
-            >
-              Showing {totalMatches} item{totalMatches === 1 ? '' : 's'}
-            </div>
+                {c.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Table */}
-        <div style={{ background: 'var(--surface-container-lowest)', border: '1px solid var(--outline-variant)', overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
-            <thead>
-              <tr style={{ background: 'var(--surface-container-low)', borderBottom: '1px solid var(--outline-variant)' }}>
-                <th style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '10px', color: 'var(--outline)', width: '90px' }}>
-                  STATUS
-                </th>
-                <th style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '10px', color: 'var(--outline)', width: '100px' }}>
-                  TYPE
-                </th>
-                <th style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '10px', color: 'var(--outline)' }}>
-                  ITEM NAME
-                </th>
-                <th style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '10px', color: 'var(--outline)' }}>
-                  SOURCE EVENT
-                </th>
-                <th style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '10px', color: 'var(--outline)', width: '110px' }}>
-                  DLC / MODE
-                </th>
-                <th style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '10px', color: 'var(--outline)' }}>
-                  ACQUISITION CRITERIA
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {totalMatches === 0 ? (
-                <tr>
-                  <td colSpan={6} style={{ textAlign: 'center', padding: '2.5rem', color: 'var(--outline)', fontFamily: 'var(--font-label)' }}>
-                    NO ITEMS MATCHING QUERY
-                  </td>
-                </tr>
-              ) : (
-                groupedSections.map(({ group, groupTotal, groupOwned, groupPercent, items }) => {
-                  if (items.length === 0) return null;
+        {/* Sub Row: Missing Gear Checkbox, DLC Filter Dropdown & Counter */}
+        <div className="checklist-toolbar-sub">
+          <div className="checklist-toolbar-sub-left">
+            {/* Only Missing Gear Checkbox */}
+            <label className="checklist-missing-toggle">
+              <input
+                type="checkbox"
+                checked={onlyMissing}
+                onChange={(e) => setOnlyMissing(e.target.checked)}
+                className="checklist-missing-checkbox"
+              />
+              <span className="checklist-missing-label">ONLY MISSING GEAR</span>
+            </label>
 
-                  return (
-                    <Fragment key={`group-section-${group.id}`}>
-                      {/* Group Header Banner */}
-                      <tr
-                        key={`group-banner-${group.id}`}
-                        style={{
-                          backgroundColor: 'var(--terra-100)',
-                          borderTop: '2px solid var(--terra-300)',
-                          borderBottom: '1px solid var(--terra-300)',
-                        }}
-                      >
-                        <td colSpan={6} style={{ padding: '0.625rem 0.875rem' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-                              <span
-                                className="material-symbols-outlined"
-                                style={{ fontSize: '18px', color: 'var(--moss-700)' }}
-                              >
-                                {group.icon}
-                              </span>
-                              <span
-                                style={{
-                                  fontFamily: 'var(--font-headline)',
-                                  fontSize: '13px',
-                                  fontWeight: 700,
-                                  color: 'var(--terra-900)',
-                                  letterSpacing: '0.03em',
-                                  textTransform: 'uppercase',
-                                }}
-                              >
-                                {group.name}
-                              </span>
-                            </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                              <span
-                                style={{
-                                  fontFamily: 'var(--font-label)',
-                                  fontSize: '11px',
-                                  fontWeight: 600,
-                                  color: 'var(--terra-700)',
-                                  backgroundColor: 'rgba(255, 255, 255, 0.7)',
-                                  padding: '0.15rem 0.5rem',
-                                  borderRadius: '0.375rem',
-                                  border: '1px solid var(--terra-200)',
-                                }}
-                              >
-                                {groupOwned} / {groupTotal} Acquired ({groupPercent}%)
-                              </span>
-                            </div>
-                          </div>
-                        </td>
+            {/* DLC / Mode Dropdown */}
+            <div className="checklist-dlc-group">
+              <span className="checklist-dlc-label">DLC / MODE:</span>
+              <select
+                value={dlcFilter}
+                onChange={(e) => setDlcFilter(e.target.value)}
+                className="checklist-dlc-select"
+              >
+                <option value="all">All Content</option>
+                <option value="base">Base Game</option>
+                <option value="Swamps of Corsus">Swamps of Corsus</option>
+                <option value="Subject 2923">Subject 2923</option>
+                <option value="survival">Survival</option>
+                <option value="hardcore">Hardcore</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Total Matches Count */}
+          <div className="checklist-counter-badge">
+            Showing <span className="checklist-counter-count">{totalMatches}</span> item{totalMatches === 1 ? '' : 's'}
+          </div>
+        </div>
+      </section>
+
+      {/* Checklist Table Scroll Area */}
+      <div className="checklist-scroll-area">
+        {totalMatches === 0 ? (
+          <div className="checklist-empty-state">
+            NO ITEMS MATCHING QUERY
+          </div>
+        ) : (
+          groupedSections.map(({ group, groupTotal, groupOwned, groupPercent, items }) => {
+            if (items.length === 0) return null;
+
+            return (
+              <div key={`group-card-${group.id}`} className="checklist-category-card">
+                {/* Category Header Bar */}
+                <div className="checklist-category-header">
+                  <div className="checklist-category-header-left">
+                    <span className="material-symbols-outlined checklist-category-icon">
+                      {group.icon}
+                    </span>
+                    <h2 className="checklist-category-title">{group.name}</h2>
+                  </div>
+                  <div className="checklist-category-stat">
+                    <span className="checklist-category-stat-count">
+                      {groupOwned} / {groupTotal}
+                    </span>{' '}
+                    Acquired (<span className="checklist-category-stat-pct">{groupPercent}%</span>)
+                  </div>
+                </div>
+
+                {/* Items Table */}
+                <div className="checklist-table-wrapper">
+                  <table className="checklist-table">
+                    <thead>
+                      <tr>
+                        <th style={{ width: '112px' }}>STATUS</th>
+                        <th style={{ width: '112px' }}>TYPE</th>
+                        <th style={{ width: '224px' }}>ITEM NAME</th>
+                        <th style={{ width: '192px' }}>SOURCE EVENT</th>
+                        <th style={{ width: '176px' }}>DLC / MODE</th>
+                        <th>ACQUISITION CRITERIA</th>
                       </tr>
-
-                      {/* Items in this Group */}
+                    </thead>
+                    <tbody>
                       {items.map((item, idx) => {
                         const isOwned = inventorySet.has(item.key);
+                        const rawEvent = item.eventName
+                          ? gameData.events[item.eventName] || item.eventName
+                          : 'Uncategorized';
+
                         return (
                           <tr
                             key={`${item.key}-${idx}`}
-                            style={{
-                              borderBottom: '1px solid var(--border-color)',
-                              backgroundColor: isOwned ? 'var(--bg-card)' : 'rgba(239, 68, 68, 0.06)',
-                            }}
+                            className={isOwned ? 'checklist-row-owned' : 'checklist-row-missing'}
                           >
-                            <td style={{ padding: '8px 12px' }}>
-                              <span
-                                style={{
-                                  fontFamily: 'var(--font-label)',
-                                  fontSize: '10px',
-                                  fontWeight: 700,
-                                  padding: '2px 6px',
-                                  background: isOwned ? 'rgba(0, 103, 99, 0.1)' : 'rgba(183, 20, 34, 0.1)',
-                                  color: isOwned ? 'var(--tertiary)' : 'var(--primary)',
-                                  border: `1px solid ${isOwned ? 'var(--tertiary)' : 'var(--primary)'}`,
-                                }}
-                              >
+                            <td>
+                              <span className={isOwned ? 'checklist-badge-owned' : 'checklist-badge-missing'}>
                                 {isOwned ? 'OWNED' : 'MISSING'}
                               </span>
                             </td>
-                            <td style={{ padding: '8px 12px', fontFamily: 'var(--font-label)', fontSize: '11px', color: 'var(--outline)' }}>
+                            <td className={isOwned ? 'checklist-cell-owned-type' : 'checklist-cell-missing-type'}>
                               {item.type}
                             </td>
-                            <td style={{ padding: '8px 12px', fontWeight: 600, color: isOwned ? 'inherit' : 'var(--primary)' }}>
+                            <td className={isOwned ? 'checklist-cell-owned-name' : 'checklist-cell-missing-name'}>
                               {item.name}
                             </td>
-                            <td style={{ padding: '8px 12px', color: 'var(--secondary)', fontFamily: 'var(--font-label)', fontSize: '11px' }}>
-                              {item.eventName ? gameData.events[item.eventName] || item.eventName : 'Uncategorized'}
+                            <td className={isOwned ? 'checklist-cell-owned-event' : 'checklist-cell-missing-event'}>
+                              {rawEvent}
                             </td>
-                            <td style={{ padding: '8px 12px', fontSize: '11px' }}>
+                            <td>
                               {item.dlc ? (
-                                <span style={{ color: 'var(--tertiary)', fontWeight: 600 }}>{item.dlc}</span>
-                              ) : item.mode !== 'normal' ? (
-                                <span style={{ color: 'var(--secondary)', fontWeight: 700 }}>{item.mode.toUpperCase()}</span>
+                                <span className={isOwned ? 'checklist-cell-owned-dlc' : 'checklist-cell-missing-dlc'}>
+                                  {item.dlc}
+                                </span>
+                              ) : item.mode && item.mode !== 'normal' ? (
+                                <span className={isOwned ? 'checklist-cell-owned-dlc' : 'checklist-cell-missing-dlc'}>
+                                  {item.mode.toUpperCase()}
+                                </span>
                               ) : (
-                                <span style={{ color: 'var(--outline)' }}>Base Game</span>
+                                <span className={isOwned ? 'checklist-cell-owned-base' : 'checklist-cell-missing-base'}>
+                                  Base Game
+                                </span>
                               )}
                             </td>
-                            <td style={{ padding: '8px 12px', fontSize: '11px', color: 'var(--outline)' }}>
+                            <td className={isOwned ? 'checklist-cell-owned-notes' : 'checklist-cell-missing-notes'}>
                               {item.notes || '—'}
                             </td>
                           </tr>
                         );
                       })}
-                    </Fragment>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );
 };
-
